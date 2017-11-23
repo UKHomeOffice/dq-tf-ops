@@ -1,13 +1,6 @@
 pipeline:
 
-  fmt:
-    image: hashicorp/terraform
-    commands: terraform fmt --diff --check
-
-  lint:
-    image: wata727/tflint
-    commands: tflint ${pwd}
-
-  test:
-    image: quay.io/ukhomeofficedigital/tf-testrunner
-    commands: python -m unittest tests/*_test.py
+  testsuite:
+    image: quay.io/ukhomeofficedigital/dq-tf-testsuite:latest
+    privileged: true
+    commands: run
