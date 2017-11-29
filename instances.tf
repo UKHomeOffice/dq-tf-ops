@@ -28,7 +28,7 @@ resource "aws_instance" "BastionHostLinux" {
     Name = "${local.name_prefix}ec2-linux"
   }
 
-  # user_data = "${file("${path.module}/connectivitycheck.txt")}"
+  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
 }
 
 resource "aws_instance" "BastionHostWindows" {
@@ -41,7 +41,7 @@ resource "aws_instance" "BastionHostWindows" {
     Name = "${local.name_prefix}ec2-windows"
   }
 
-  # user_data = "${file("${path.module}/connectivitycheck.txt")}"
+  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_http=0.0.0.0:80"
 }
 
 resource "aws_security_group" "Bastions" {
