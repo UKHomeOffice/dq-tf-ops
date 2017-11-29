@@ -28,7 +28,7 @@ resource "aws_instance" "BastionHostLinux" {
     Name = "${local.name_prefix}ec2-linux"
   }
 
-  user_data = "${file("${path.module}/connectivitycheck.txt")}"
+  # user_data = "${file("${path.module}/connectivitycheck.txt")}"
 }
 
 resource "aws_instance" "BastionHostWindows" {
@@ -41,14 +41,14 @@ resource "aws_instance" "BastionHostWindows" {
     Name = "${local.name_prefix}ec2-windows"
   }
 
-  user_data = "${file("${path.module}/connectivitycheck.txt")}"
+  # user_data = "${file("${path.module}/connectivitycheck.txt")}"
 }
 
 resource "aws_security_group" "Bastions" {
   vpc_id = "${aws_vpc.opsvpc.id}"
 
   tags {
-    Name = "${local.name_prefix}-sg"
+    Name = "${local.name_prefix}sg"
   }
 
   ingress {

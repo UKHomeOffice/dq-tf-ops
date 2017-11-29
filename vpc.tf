@@ -11,7 +11,7 @@ resource "aws_vpc" "opsvpc" {
   cidr_block = "${var.cidr_block}"
 
   tags {
-    Name = "${local.name_prefix}VPC"
+    Name = "${local.name_prefix}vpc"
   }
 }
 
@@ -19,7 +19,7 @@ resource "aws_internet_gateway" "OpsRouteToInternet" {
   vpc_id = "${aws_vpc.opsvpc.id}"
 
   tags {
-    Name = "${local.name_prefix}IGW"
+    Name = "${local.name_prefix}igw"
   }
 }
 
