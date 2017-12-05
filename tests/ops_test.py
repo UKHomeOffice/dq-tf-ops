@@ -41,9 +41,6 @@ class TestE2E(unittest.TestCase):
     def test_az(self):
         self.assertEqual(self.result['ops']["aws_subnet.OPSSubnet"]["availability_zone"], "eu-west-2a")
 
-    def test_name_prefix_BastionHostLinux(self):
-        self.assertEqual(self.result['ops']["aws_instance.BastionHostLinux"]["tags.Name"], "dq-ops-ec2-linux")
-
     def test_name_prefix_OpsRouteToInternet(self):
         self.assertEqual(self.result['ops']["aws_internet_gateway.OpsRouteToInternet"]["tags.Name"], "dq-ops-igw")
 
