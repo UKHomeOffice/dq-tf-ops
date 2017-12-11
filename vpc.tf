@@ -1,8 +1,3 @@
-variable "cidr_block" {}
-variable "vpc_subnet_cidr_block" {}
-variable "az" {}
-variable "name_prefix" {}
-
 locals {
   name_prefix = "${var.name_prefix}ops-"
 }
