@@ -1,4 +1,4 @@
-# pylint: disable=missing-docstring, line-too-long, protected-access
+# pylint: disable=missing-docstring, line-too-long, protected-access, E1101, C0202, E0602, W0109
 import unittest
 from runner import Runner
 
@@ -41,10 +41,10 @@ class TestE2E(unittest.TestCase):
     def test_az(self):
         self.assertEqual(self.result['ops']["aws_subnet.OPSSubnet"]["availability_zone"], "eu-west-2a")
 
-    def test_name_prefix_OpsRouteToInternet(self):
+    def test_name_rti(self):
         self.assertEqual(self.result['ops']["aws_internet_gateway.OpsRouteToInternet"]["tags.Name"], "dq-ops-igw")
 
-    def test_name_prefix_Bastions(self):
+    def test_name_bastions_sg(self):
         self.assertEqual(self.result['ops']["aws_security_group.Bastions"]["tags.Name"], "dq-ops-sg")
 
     def test_name_prefix_opsvpc(self):
