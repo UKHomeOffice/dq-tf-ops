@@ -2,7 +2,7 @@ module "BastionHostLinux" {
   source          = "github.com/UKHomeOffice/connectivity-tester-tf"
   user_data       = "CHECK_tcp=${var.greenplum_ip}:22"
   subnet_id       = "${aws_subnet.OPSSubnet.id}"
-  security_groups = "${aws_security_group.Bastions.id}"
+  security_groups = ["${aws_security_group.Bastions.id}"]
   private_ip      = "${var.bastion_linux_ip}"
 
   tags = {
@@ -17,7 +17,7 @@ module "BastionHostWindows" {
   source          = "github.com/UKHomeOffice/connectivity-tester-tf"
   user_data       = "LISTEN_http=0.0.0.0:3389"
   subnet_id       = "${aws_subnet.OPSSubnet.id}"
-  security_groups = "${aws_security_group.Bastions.id}"
+  security_groups = ["${aws_security_group.Bastions.id}"]
   private_ip      = "${var.bastion_windows_ip}"
 
   tags = {
