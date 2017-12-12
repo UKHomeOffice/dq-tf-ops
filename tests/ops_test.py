@@ -25,6 +25,11 @@ class TestE2E(unittest.TestCase):
               vpc_subnet_cidr_block = "10.2.1.0/24"
               az                    = "eu-west-2a"
               name_prefix           = "dq-"
+              
+              route_table_cidr_blocks = ["10.2.0.0/16", "10.2.0.0/16"]
+              vpc_peering_to_peering_id = "1234"
+              peering_to_acpvpn_id = "1234"
+              
             }
         """
         self.result = Runner(self.snippet).result
