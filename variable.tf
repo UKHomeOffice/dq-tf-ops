@@ -3,6 +3,21 @@ variable "vpc_subnet_cidr_block" {}
 variable "az" {}
 variable "name_prefix" {}
 
+variable "route_table_cidr_blocks" {
+  description = "List of CIDR blocks for the Apps private route table."
+  type        = "list"
+}
+
+variable "vpc_peering_to_peering_id" {
+  default     = false
+  description = "VPC peering to peering id"
+}
+
+variable "peering_to_acpvpn_id" {
+  default     = false
+  description = "Peering to ACP vpn idg"
+}
+
 variable "greenplum_ip" {
   default     = false
   description = "IP address for Greenplum"
