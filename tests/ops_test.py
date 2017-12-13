@@ -27,6 +27,9 @@ class TestE2E(unittest.TestCase):
               name_prefix               = "dq-"
               vpc_peering_to_peering_id = "1234"
               peering_to_acpvpn_id      = "1234"
+              BDM_HTTPS_TCP             = 443
+              BDM_SSH_TCP               = 22
+              BDM_CUSTOM_TCP            = 5432
               route_table_cidr_blocks   = {
                   name = "1234"
                   name2 = "1234"

@@ -51,3 +51,18 @@ variable "environment_group" {
   default     = "dq-ops"
   description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }
+
+variable "BDM_HTTPS_TCP" {
+  default     = false
+  description = "HTTPS TCP connectivty port for business data manager app"
+}
+
+variable "BDM_SSH_TCP" {
+  default     = false
+  description = "SSH TCP connectivty port for business data manager app"
+}
+
+variable "BDM_CUSTOM_TCP" {
+  default     = false
+  description = "BDM Custom TCP connectivty port for business data manager app"
+}
