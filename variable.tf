@@ -4,8 +4,12 @@ variable "az" {}
 variable "name_prefix" {}
 
 variable "route_table_cidr_blocks" {
-  description = "List of CIDR blocks for the Apps private route table."
-  type        = "list"
+  description = "Map of CIDR blocks for the OPs private route table."
+  type        = "map"
+
+  default = {
+    name = false
+  }
 }
 
 variable "vpc_peering_to_peering_id" {
