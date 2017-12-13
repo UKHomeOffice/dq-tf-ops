@@ -26,7 +26,11 @@ class TestE2E(unittest.TestCase):
               az                    = "eu-west-2a"
               name_prefix           = "dq-"
               
-              route_table_cidr_blocks = ["10.2.0.0/16", "10.2.0.0/16"]
+
+              route_table_cidr_blocks = {
+              name = "1234"
+              name2 = "1234"
+              }
               vpc_peering_to_peering_id = "1234"
               peering_to_acpvpn_id = "1234"
               
