@@ -21,19 +21,16 @@ class TestE2E(unittest.TestCase):
                 aws = "aws"
               }
 
-              cidr_block            = "10.2.0.0/16"
-              vpc_subnet_cidr_block = "10.2.1.0/24"
-              az                    = "eu-west-2a"
-              name_prefix           = "dq-"
-              
-
-              route_table_cidr_blocks = {
-              name = "1234"
-              name2 = "1234"
-              }
+              cidr_block                = "10.2.0.0/16"
+              vpc_subnet_cidr_block     = "10.2.1.0/24"
+              az                        = "eu-west-2a"
+              name_prefix               = "dq-"
               vpc_peering_to_peering_id = "1234"
-              peering_to_acpvpn_id = "1234"
-              
+              peering_to_acpvpn_id      = "1234"
+              route_table_cidr_blocks   = {
+                  name = "1234"
+                  name2 = "1234"
+              }  
             }
         """
         self.result = Runner(self.snippet).result
