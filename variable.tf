@@ -112,6 +112,16 @@ variable "data_ingest_custom_TCP" {
   description = "Custom TCP connectivty port for data ingest app"
 }
 
+variable "data_ingest_web_ip" {
+  default     = "10.1.6.21"
+  description = "Mock EC2 web instance for data ingest app"
+}
+
+variable "data_ingest_db_ip" {
+  default     = "10.1.6.11"
+  description = "Mock EC2 database instance for data ingest app"
+}
+
 variable "external_feed_RDP_TCP" {
   default     = false
   description = "RDP TCP connectivty port for external feed app"
