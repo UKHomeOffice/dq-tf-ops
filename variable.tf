@@ -57,6 +57,11 @@ variable "BDM_CUSTOM_TCP" {
   description = "BDM Custom TCP connectivty port for business data manager app"
 }
 
+variable "BDM_instance_ip" {
+  default     = "10.1.10.11"
+  description = "Mock IP address of EC2 instance for BDM app"
+}
+
 variable "INT_EXT_TABLEAU_RDP_TCP" {
   default     = false
   description = "RDP TCP connectivty port for external and internal tableau apps"
