@@ -63,3 +63,9 @@ resource "aws_route_table_association" "ops_private_subnet" {
   subnet_id      = "${aws_subnet.OPSSubnet.id}"
   route_table_id = "${aws_route_table.ops_route_table.id}"
 }
+
+resource "aws_vpc_endpoint" "cloudwatch_endpoint" {
+  vpc_id          = "${aws_vpc.opsvpc.id}"
+  route_table_ids = ["${aws_route_table.ops_route_table.id}"]
+  service_name    = "com.amazonaws.eu-west-2.monitoring"
+}
