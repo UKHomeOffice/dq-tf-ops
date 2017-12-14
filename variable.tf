@@ -75,3 +75,13 @@ variable "data_pipeline_custom_TCP" {
   default     = false
   description = "Custom TCP connectivty port for data pipeline app"
 }
+
+variable "data_ingest_RDP_TCP" {
+  default     = false
+  description = "RDP TCP connectivty port for data ingest app"
+}
+
+variable "data_ingest_custom_TCP" {
+  default     = false
+  description = "Custom TCP connectivty port for data ingest app"
+}
