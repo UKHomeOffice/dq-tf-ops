@@ -65,3 +65,13 @@ variable "INT_EXT_TABLEAU_HTTPS_TCP" {
   default     = false
   description = "HTTPS TCP connectivty port for external and internal tableau apps"
 }
+
+variable "data_pipeline_RDP_TCP" {
+  default     = false
+  description = "RDP TCP connectivty port for data pipeline app"
+}
+
+variable "data_pipeline_custom_TCP" {
+  default     = false
+  description = "Custom TCP connectivty port for data pipeline app"
+}
