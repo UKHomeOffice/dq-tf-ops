@@ -132,6 +132,16 @@ variable "external_feed_custom_TCP" {
   description = "Custom TCP connectivty port for external feed app"
 }
 
+variable "df_postgres_ip" {
+  default     = "10.1.4.11"
+  description = "Mock IP address of database EC2 instance for external data feeds app"
+}
+
+variable "df_web_ip" {
+  default     = "10.1.4.21"
+  description = "Mock IP address of web EC2 instance for external data feeds app"
+}
+
 variable "gp_SSH_TCP" {
   default     = 22
   description = "SSH TCP connectivty port for greenplum database"
