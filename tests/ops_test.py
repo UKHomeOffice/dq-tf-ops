@@ -32,6 +32,8 @@ class TestE2E(unittest.TestCase):
               BDM_CUSTOM_TCP            = 5432
               INT_EXT_TABLEAU_RDP_TCP   = 3389
               INT_EXT_TABLEAU_HTTPS_TCP = 443
+              data_pipeline_RDP_TCP     = 3389
+              data_pipeline_custom_TCP  = 1433
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
                 apps_cidr = "1234"
