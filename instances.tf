@@ -1,6 +1,6 @@
 module "BastionHostLinux" {
   source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data       = "CHECK_BDM_SSH_TCP=${var.greenplum_ip}:${var.BDM_SSH_TCP} CHECK_BDM_HTTPS_TCP=${var.BDM_HTTPS_TCP} CHECK_BDM_CUSTOM_TCP=${var.BDM_CUSTOM_TCP}"
+  user_data       = "CHECK_gp_SSH_TCP=${var.greenplum_ip}:${var.gp_SSH_TCP} CHECK_BDM_SSH_TCP=${var.greenplum_ip}:${var.BDM_SSH_TCP} CHECK_BDM_HTTPS_TCP=${var.BDM_HTTPS_TCP} CHECK_BDM_CUSTOM_TCP=${var.BDM_CUSTOM_TCP}"
   subnet_id       = "${aws_subnet.OPSSubnet.id}"
   security_groups = ["${aws_security_group.Bastions.id}"]
   private_ip      = "${var.bastion_linux_ip}"
