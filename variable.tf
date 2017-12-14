@@ -55,3 +55,13 @@ variable "BDM_CUSTOM_TCP" {
   default     = false
   description = "BDM Custom TCP connectivty port for business data manager app"
 }
+
+variable "INT_EXT_TABLEAU_RDP_TCP" {
+  default     = false
+  description = "RDP TCP connectivty port for external and internal tableau apps"
+}
+
+variable "INT_EXT_TABLEAU_HTTPS_TCP" {
+  default     = false
+  description = "HTTPS TCP connectivty port for external and internal tableau apps"
+}
