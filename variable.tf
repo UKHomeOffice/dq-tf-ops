@@ -92,6 +92,16 @@ variable "data_pipeline_custom_TCP" {
   description = "Custom TCP connectivty port for data pipeline app"
 }
 
+variable "dp_postgres_ip" {
+  default     = "10.1.8.11"
+  description = "Mock EC2 database instance for data pipeline app"
+}
+
+variable "dp_web_ip" {
+  default     = "10.1.8.21"
+  description = "Mock EC2 web instance for data pipeline app"
+}
+
 variable "data_ingest_RDP_TCP" {
   default     = false
   description = "RDP TCP connectivty port for data ingest app"
