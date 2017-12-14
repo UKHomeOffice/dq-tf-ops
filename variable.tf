@@ -62,6 +62,16 @@ variable "INT_EXT_TABLEAU_RDP_TCP" {
   description = "RDP TCP connectivty port for external and internal tableau apps"
 }
 
+variable "internal_dashboard_instance_ip" {
+  default     = "10.1.12.11"
+  description = "Mock IP address of EC2 instance for internal tableau apps"
+}
+
+variable "external_dashboard_instance_ip" {
+  default     = "10.1.14.11"
+  description = "Mock IP address of EC2 instance for external tableau apps"
+}
+
 variable "INT_EXT_TABLEAU_HTTPS_TCP" {
   default     = false
   description = "HTTPS TCP connectivty port for external and internal tableau apps"
