@@ -37,6 +37,8 @@ class TestE2E(unittest.TestCase):
               data_pipeline_custom_TCP  = 1433
               data_ingest_RDP_TCP       = 3389
               data_ingest_custom_TCP    = 5432
+              external_feed_RDP_TCP     = 3389
+              external_feed_custom_TCP  = 5432
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
                 apps_cidr = "1234"
