@@ -25,15 +25,24 @@ class TestE2E(unittest.TestCase):
               vpc_subnet_cidr_block     = "10.2.1.0/24"
               az                        = "eu-west-2a"
               name_prefix               = "dq-"
-              vpc_peering_to_peering_id = "1234"
-              peering_to_acpvpn_id      = "1234"
+              bastion_linux_ip          = "1.2.3.4"
+              bastion_windows_ip        = "1.2.3.4"
               BDM_HTTPS_TCP             = 443
               BDM_SSH_TCP               = 22
               BDM_CUSTOM_TCP            = 5432
               route_table_cidr_blocks   = {
-                  name = "1234"
-                  name2 = "1234"
-              }  
+                peering_cidr = "1234"
+                apps_cidr = "1234"
+                acp_vpn = "1234"
+                acp_prod = "1234"
+                acp_ops = "1234"
+                acp_cicd = "1234"
+              }
+              vpc_peering_connection_ids = {
+                ops_and_apps = "1234"
+                ops_and_peering = "1234"
+                ops_and_acpvpn = "1234"
+              }
             }
         """
         self.result = Runner(self.snippet).result
@@ -49,9 +58,6 @@ class TestE2E(unittest.TestCase):
 
     def test_az(self):
         self.assertEqual(self.result['ops']["aws_subnet.OPSSubnet"]["availability_zone"], "eu-west-2a")
-
-    def test_name_rti(self):
-        self.assertEqual(self.result['ops']["aws_internet_gateway.OpsRouteToInternet"]["tags.Name"], "dq-ops-igw")
 
     def test_name_bastions_sg(self):
         self.assertEqual(self.result['ops']["aws_security_group.Bastions"]["tags.Name"], "dq-ops-sg")
