@@ -96,3 +96,8 @@ variable "external_feed_custom_TCP" {
   default     = false
   description = "Custom TCP connectivty port for external feed app"
 }
+
+variable "gp_SSH_TCP" {
+  default     = 22
+  description = "SSH TCP connectivty port for greenplum database"
+}
