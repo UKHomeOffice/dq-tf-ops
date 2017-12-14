@@ -109,3 +109,8 @@ resource "aws_route_table_association" "ops_private_subnet" {
   subnet_id      = "${aws_subnet.OPSSubnet.id}"
   route_table_id = "${aws_route_table.ops_route_table.id}"
 }
+
+resource "aws_route_table_association" "ops_public_subnet" {
+  subnet_id      = "${aws_subnet.ops_public_subnet.id}"
+  route_table_id = "${aws_route_table.ops_public_table.id}"
+}
