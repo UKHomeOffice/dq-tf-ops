@@ -40,6 +40,7 @@ class TestE2E(unittest.TestCase):
               external_feed_RDP_TCP     = 3389
               external_feed_custom_TCP  = 5432
               greenplum_ip              = "10.1.2.11"
+              BDM_RDS_db_instance_ip    = "10.1.2.11"
               
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
