@@ -62,6 +62,11 @@ variable "BDM_instance_ip" {
   description = "Mock IP address of EC2 instance for BDM app"
 }
 
+variable "BDM_RDS_db_instance_ip" {
+  default     = false
+  description = "IP address of EC2 db instance for BDM app"
+}
+
 variable "INT_EXT_TABLEAU_RDP_TCP" {
   default     = false
   description = "RDP TCP connectivty port for external and internal tableau apps"
