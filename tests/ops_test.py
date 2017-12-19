@@ -41,7 +41,7 @@ class TestE2E(unittest.TestCase):
               external_feed_custom_TCP  = 5432
               greenplum_ip              = "10.1.2.11"
               BDM_RDS_db_instance_ip    = "10.1.2.11"
-              
+
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
                 apps_cidr = "1234"
@@ -49,11 +49,13 @@ class TestE2E(unittest.TestCase):
                 acp_prod = "1234"
                 acp_ops = "1234"
                 acp_cicd = "1234"
+                ad_cidr = "1234"
               }
               vpc_peering_connection_ids = {
                 ops_and_apps = "1234"
                 ops_and_peering = "1234"
                 ops_and_acpvpn = "1234"
+                peering_to_ad = "1234"
               }
             }
         """
