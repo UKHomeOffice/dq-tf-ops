@@ -24,6 +24,7 @@ class TestE2E(unittest.TestCase):
               cidr_block                = "10.2.0.0/16"
               vpc_subnet_cidr_block     = "10.2.1.0/24"
               public_subnet_cidr_block  = "1.1.1.0/24"
+              ad_subnet_cidr_block      = "1.1.1.0/24"
               az                        = "eu-west-2a"
               name_prefix               = "dq-"
               bastion_linux_ip          = "1.2.3.4"
@@ -41,6 +42,8 @@ class TestE2E(unittest.TestCase):
               external_feed_custom_TCP  = 5432
               greenplum_ip              = "10.1.2.11"
               BDM_RDS_db_instance_ip    = "10.1.2.11"
+              ad_aws_ssm_document_name  = "1234"
+              ad_writer_instance_profile_name = "1234"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
@@ -78,6 +81,9 @@ class TestE2E(unittest.TestCase):
 
     def test_name_prefix_opsvpc(self):
         self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "dq-ops-vpc")
+
+    def test_name_prefix_ad_subnet(self):
+        self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "dq-ops-ad-subnet")
 
 if __name__ == '__main__':
     unittest.main()
