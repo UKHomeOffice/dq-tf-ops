@@ -15,9 +15,10 @@ resource "aws_route_table_association" "apps_route_table_association" {
 }
 
 resource "aws_instance" "win" {
-  instance_type = "t2.nano"
-  ami           = "${data.aws_ami.win.id}"
-  key_name      = "test_instance"
+  instance_type               = "t2.nano"
+  ami                         = "${data.aws_ami.win.id}"
+  key_name                    = "test_instance"
+  associate_public_ip_address = true
 
   iam_instance_profile = "${var.ad_writer_instance_profile_name}"
   subnet_id            = "${aws_subnet.ad_subnet.id}"
