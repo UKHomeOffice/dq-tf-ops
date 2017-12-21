@@ -62,8 +62,8 @@ yum -y install sssd realmd krb5-workstation adcli samba-common-tools expect
 sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
 systemctl reload sshd
 systemctl start sssd.service
-echo "%Domain\\ Admins@myapp.com ALL=(ALL:ALL) ALL" >>  /etc/sudoers
-expect -c "spawn realm join -U admin@MYAPP.COM MYAPP.COM; expect \"*?assword for admin@MYAPP.COM:*\"; send -- \"$foooooo\r\" ; expect eof"
+echo "%Domain\\ Admins@dq.homeoffice.gov.uk ALL=(ALL:ALL) ALL" >>  /etc/sudoers
+expect -c "spawn realm join -U admin@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GOV.UK; expect \"*?assword for admin@DQ.HOMEOFFICE.GOV.UK:*\"; send -- \"${module.ad.AdminPassword}\r\" ; expect eof"
 reboot
 EOF
 
