@@ -50,7 +50,7 @@ resource "aws_instance" "another_rhel" {
   instance_type = "t2.micro"
   ami           = "${data.aws_ami.rhel.id}"
   subnet_id     = "${aws_subnet.ad_subnet.id}"
-  key_name      = "cns"
+  key_name      = "test_instance"
 
   vpc_security_group_ids = [
     "${aws_security_group.sg.id}",
