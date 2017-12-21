@@ -64,7 +64,7 @@ sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_
 systemctl reload sshd
 systemctl start sssd.service
 echo "%Domain\\ Admins@dq.homeoffice.gov.uk ALL=(ALL:ALL) ALL" >>  /etc/sudoers
-expect -c "spawn realm join -U admin@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GOV.UK; expect \"*?assword for admin@DQ.HOMEOFFICE.GOV.UK:*\"; send -- \"${module.ad.AdminPassword}\r\" ; expect eof"
+expect -c "spawn realm join -U admin@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GOV.UK; expect \"*?assword for admin@DQ.HOMEOFFICE.GOV.UK:*\"; send -- \"${var.adminpassword}\r\" ; expect eof"
 reboot
 EOF
 
