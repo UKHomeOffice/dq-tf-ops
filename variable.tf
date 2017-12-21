@@ -154,3 +154,13 @@ variable "gp_SSH_TCP" {
   default     = 22
   description = "SSH TCP connectivty port for greenplum database"
 }
+
+variable "ACP_VPN_IP" {
+  default     = "10.4.1.10"
+  description = "IP address for the ACP VPN"
+}
+
+variable "ACP_port" {
+  default     = 80
+  description = "Connectivity port for ACP traffic"
+}

@@ -44,6 +44,8 @@ class TestE2E(unittest.TestCase):
               BDM_RDS_db_instance_ip    = "10.1.2.11"
               ad_aws_ssm_document_name  = "1234"
               ad_writer_instance_profile_name = "1234"
+              ACP_VPN_IP                = "10.4.1.10"
+              ACP_port                  = 80
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
