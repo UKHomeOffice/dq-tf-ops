@@ -6,6 +6,7 @@ variable "az" {}
 variable "name_prefix" {}
 variable "ad_aws_ssm_document_name" {}
 variable "ad_writer_instance_profile_name" {}
+variable "adminpassword" {}
 
 variable "vpc_peering_connection_ids" {
   description = "Map of VPC peering IDs for the Ops route table."

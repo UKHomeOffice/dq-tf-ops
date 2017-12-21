@@ -46,6 +46,7 @@ class TestE2E(unittest.TestCase):
               ad_writer_instance_profile_name = "1234"
               ACP_VPN_IP                = "10.4.1.10"
               ACP_port                  = 80
+              adminpassword             = "1234"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
