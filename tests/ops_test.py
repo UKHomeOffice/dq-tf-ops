@@ -47,6 +47,7 @@ class TestE2E(unittest.TestCase):
               ACP_VPN_IP                = "10.4.1.10"
               ACP_port                  = 80
               adminpassword             = "1234"
+              log_archive_s3_bucket     = "abcd"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
