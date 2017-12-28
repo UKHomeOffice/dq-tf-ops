@@ -41,11 +41,11 @@ locals {
   rhel    = 1
 }
 
-# resource "aws_ssm_association" "win" {
-#   name        = "${var.ad_aws_ssm_document_name}"
-#   instance_id = "${element(aws_instance.win.*.id, count.index)}"
-#   count       = "${local.windows}"
-# }
+resource "aws_ssm_association" "win" {
+  name        = "${var.ad_aws_ssm_document_name}"
+  instance_id = "${element(aws_instance.win.*.id, count.index)}"
+  count       = "${local.windows}"
+}
 
 resource "aws_instance" "another_rhel" {
   instance_type = "t2.micro"
