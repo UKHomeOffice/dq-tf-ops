@@ -5,7 +5,7 @@ resource "aws_subnet" "ad_subnet" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "${local.name_prefix}ad-subnet"
+    Name = "ad-subnet-${local.naming_suffix}"
   }
 }
 
@@ -30,6 +30,7 @@ resource "aws_instance" "win" {
   count = "${local.windows}"
 
   tags {
+    Name        = "ad-win${count.index}-${local.naming_suffix}"
     Name        = "ec2-ad-${var.service}-ops-win-${var.environment}"
     Service     = "${var.service}"
     Environment = "${var.environment}"
@@ -71,9 +72,7 @@ EOF
   count = "${local.rhel}"
 
   tags {
-    Name        = "ec2-ad-${var.service}-ops-rhel-${var.environment}"
-    Service     = "${var.service}"
-    Environment = "${var.environment}"
+    Name = "ad-rhel${count.index}-${local.naming_suffix}"
   }
 }
 
@@ -111,8 +110,6 @@ resource "aws_security_group" "sg" {
   }
 
   tags {
-    Name        = "sg-ad-${var.service}-ops-${var.environment}"
-    Service     = "${var.service}"
-    Environment = "${var.environment}"
+    Name = "sg-ad-${local.naming_suffix}"
   }
 }

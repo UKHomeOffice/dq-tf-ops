@@ -86,7 +86,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "dq-ops-vpc")
 
     def test_name_prefix_ad_subnet(self):
-        self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "dq-ops-ad-subnet")
+        self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "ad-subnet-ops-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()
