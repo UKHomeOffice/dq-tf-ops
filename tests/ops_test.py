@@ -79,7 +79,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['ops']["aws_subnet.OPSSubnet"]["availability_zone"], "eu-west-2a")
 
     def test_name_bastions_sg(self):
-        self.assertEqual(self.result['ops']["aws_security_group.Bastions"]["tags.Name"], "dq-ops-sg")
+        self.assertEqual(self.result['ops']["aws_security_group.Bastions"]["tags.Name"], "sgrp-svcfe-dq-ops-bastion-preprod-eu-west-2a")
 
     def test_name_prefix_opsvpc(self):
         self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "dq-ops-vpc")

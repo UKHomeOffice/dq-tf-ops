@@ -19,6 +19,16 @@ variable "route_table_cidr_blocks" {
   type        = "map"
 }
 
+variable "bastion_win_id" {
+  default     = "01-"
+  description = "Identification number for Bastion Host Windows Instance"
+}
+
+variable "bastion_linux_id" {
+  default     = "01-"
+  description = "Identification number for Bastion Host Linux Instance"
+}
+
 variable "greenplum_ip" {
   default     = false
   description = "IP address for Greenplum"
@@ -33,12 +43,12 @@ variable "bastion_windows_ip" {
 }
 
 variable "service" {
-  default     = "dq-bastion-host"
+  default     = "dq-bastion-host-"
   description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }
 
 variable "environment" {
-  default     = "preprod"
+  default     = "preprod-"
   description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }
 
