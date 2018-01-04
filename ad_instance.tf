@@ -30,10 +30,7 @@ resource "aws_instance" "win" {
   count = "${local.windows}"
 
   tags {
-    Name        = "ad-win${count.index}-${local.naming_suffix}"
-    Name        = "ec2-ad-${var.service}-ops-win-${var.environment}"
-    Service     = "${var.service}"
-    Environment = "${var.environment}"
+    Name = "ad-win${count.index}-${local.naming_suffix}"
   }
 }
 
