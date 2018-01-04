@@ -6,7 +6,7 @@ module "BastionHostLinux" {
   private_ip      = "${var.bastion_linux_ip}"
 
   tags = {
-    Name = "ec2-${local.name_prefix}${var.service}linux${var.bastion_linux_id}${var.environment}${var.az}"
+    Name = "bastion-linux-${local.naming_suffix}"
   }
 }
 
@@ -18,7 +18,7 @@ module "BastionHostWindows" {
   private_ip      = "${var.bastion_windows_ip}"
 
   tags = {
-    Name = "ec2-${local.name_prefix}${var.service}win${var.bastion_win_id}${var.environment}${var.az}"
+    Name = "bastion-win-${local.naming_suffix}"
   }
 }
 
@@ -26,7 +26,7 @@ resource "aws_security_group" "Bastions" {
   vpc_id = "${aws_vpc.opsvpc.id}"
 
   tags {
-    Name = "sgrp-svcfe-${local.name_prefix}bastion-${var.environment}${var.az}"
+    Name = "sg-bastions-${local.naming_suffix}"
   }
 
   ingress {
