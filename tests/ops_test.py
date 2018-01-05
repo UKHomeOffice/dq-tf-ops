@@ -26,7 +26,6 @@ class TestE2E(unittest.TestCase):
               public_subnet_cidr_block  = "1.1.1.0/24"
               ad_subnet_cidr_block      = "1.1.1.0/24"
               az                        = "eu-west-2a"
-              name_prefix               = "dq-"
               naming_suffix             = "preprod-dq"
               bastion_linux_ip          = "1.2.3.4"
               bastion_windows_ip        = "1.2.3.4"

@@ -1,7 +1,3 @@
-locals {
-  name_prefix = "${var.name_prefix}ops-"
-}
-
 resource "aws_vpc" "opsvpc" {
   cidr_block           = "${var.cidr_block}"
   enable_dns_hostnames = true
