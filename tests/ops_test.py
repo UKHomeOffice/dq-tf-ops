@@ -82,10 +82,10 @@ class TestE2E(unittest.TestCase):
     def test_name_bastions_sg(self):
         self.assertEqual(self.result['ops']["aws_security_group.Bastions"]["tags.Name"], "sg-bastions-ops-preprod-dq")
 
-    def test_name_prefix_opsvpc(self):
-        self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "dq-ops-vpc")
+    def test_name_suffix_opsvpc(self):
+        self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "vpc-ops-preprod-dq")
 
-    def test_name_prefix_ad_subnet(self):
+    def test_name_suffix_ad_subnet(self):
         self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "ad-subnet-ops-preprod-dq")
 
 if __name__ == '__main__':
