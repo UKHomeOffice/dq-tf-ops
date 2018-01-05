@@ -62,6 +62,11 @@ class TestE2E(unittest.TestCase):
                 ops_and_peering = "1234"
                 ops_and_acpvpn = "1234"
               }
+              ad_sg_cidr_ingress = [
+                "1.2.0.0/16",
+                "1.2.0.0/16",
+                "1.2.0.0/16"
+              ]
             }
         """
         self.result = Runner(self.snippet).result
