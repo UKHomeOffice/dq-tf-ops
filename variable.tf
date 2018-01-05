@@ -3,7 +3,6 @@ variable "vpc_subnet_cidr_block" {}
 variable "public_subnet_cidr_block" {}
 variable "ad_subnet_cidr_block" {}
 variable "az" {}
-variable "name_prefix" {}
 variable "naming_suffix" {}
 variable "ad_aws_ssm_document_name" {}
 variable "ad_writer_instance_profile_name" {}
@@ -41,21 +40,6 @@ variable "bastion_linux_ip" {
 
 variable "bastion_windows_ip" {
   description = "Mock EC2 instance IP"
-}
-
-variable "service" {
-  default     = "dq-bastion-host-"
-  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
-}
-
-variable "environment" {
-  default     = "preprod-"
-  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
-}
-
-variable "environment_group" {
-  default     = "dq-ops"
-  description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }
 
 variable "BDM_HTTPS_TCP" {
