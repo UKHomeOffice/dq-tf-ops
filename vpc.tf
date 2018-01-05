@@ -7,7 +7,7 @@ resource "aws_vpc" "opsvpc" {
   enable_dns_hostnames = true
 
   tags {
-    Name = "${local.name_prefix}vpc"
+    Name = "vpc-${local.naming_suffix}"
   }
 }
 
@@ -18,7 +18,7 @@ resource "aws_subnet" "OPSSubnet" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "${local.name_prefix}subnet"
+    Name = "subnet-${local.naming_suffix}"
   }
 }
 
@@ -29,7 +29,7 @@ resource "aws_subnet" "ops_public_subnet" {
   availability_zone       = "${var.az}"
 
   tags {
-    Name = "${local.name_prefix}public-subnet"
+    Name = "public-subnet-${local.naming_suffix}"
   }
 }
 
@@ -37,7 +37,7 @@ resource "aws_internet_gateway" "ops_igw" {
   vpc_id = "${aws_vpc.opsvpc.id}"
 
   tags {
-    Name = "${local.name_prefix}public-igw"
+    Name = "public-igw-${local.naming_suffix}"
   }
 }
 
@@ -54,7 +54,7 @@ resource "aws_route_table" "ops_route_table" {
   vpc_id = "${aws_vpc.opsvpc.id}"
 
   tags {
-    Name = "${local.name_prefix}route-table"
+    Name = "route-table-${local.naming_suffix}"
   }
 }
 
@@ -104,7 +104,7 @@ resource "aws_route_table" "ops_public_table" {
   vpc_id = "${aws_vpc.opsvpc.id}"
 
   tags {
-    Name = "${local.name_prefix}public-route-table"
+    Name = "public-route-table-${local.naming_suffix}"
   }
 }
 
