@@ -42,31 +42,6 @@ variable "bastion_windows_ip" {
   description = "Mock EC2 instance IP"
 }
 
-variable "BDM_HTTPS_TCP" {
-  default     = false
-  description = "HTTPS TCP connectivty port for business data manager app"
-}
-
-variable "BDM_SSH_TCP" {
-  default     = false
-  description = "SSH TCP connectivty port for business data manager app"
-}
-
-variable "BDM_CUSTOM_TCP" {
-  default     = false
-  description = "BDM Custom TCP connectivty port for business data manager app"
-}
-
-variable "BDM_instance_ip" {
-  default     = "10.1.10.11"
-  description = "Mock IP address of EC2 instance for BDM app"
-}
-
-variable "BDM_RDS_db_instance_ip" {
-  default     = false
-  description = "IP address of EC2 db instance for BDM app"
-}
-
 variable "INT_EXT_TABLEAU_RDP_TCP" {
   default     = false
   description = "RDP TCP connectivty port for external and internal tableau apps"

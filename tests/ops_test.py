@@ -29,9 +29,6 @@ class TestE2E(unittest.TestCase):
               naming_suffix             = "preprod-dq"
               bastion_linux_ip          = "1.2.3.4"
               bastion_windows_ip        = "1.2.3.4"
-              BDM_HTTPS_TCP             = 443
-              BDM_SSH_TCP               = 22
-              BDM_CUSTOM_TCP            = 5432
               INT_EXT_TABLEAU_RDP_TCP   = 3389
               INT_EXT_TABLEAU_HTTPS_TCP = 443
               data_pipeline_RDP_TCP     = 3389
@@ -41,7 +38,6 @@ class TestE2E(unittest.TestCase):
               external_feed_RDP_TCP     = 3389
               external_feed_custom_TCP  = 5432
               greenplum_ip              = "10.1.2.11"
-              BDM_RDS_db_instance_ip    = "10.1.2.11"
               ad_aws_ssm_document_name  = "1234"
               ad_writer_instance_profile_name = "1234"
               ACP_VPN_IP                = "10.4.1.10"
@@ -91,6 +87,7 @@ class TestE2E(unittest.TestCase):
 
     def test_name_suffix_ad_subnet(self):
         self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "ad-subnet-ops-preprod-dq")
+
 
 if __name__ == '__main__':
     unittest.main()
