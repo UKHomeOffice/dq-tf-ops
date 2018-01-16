@@ -119,3 +119,14 @@ resource "aws_route_table_association" "ops_public_subnet" {
   subnet_id      = "${aws_subnet.ops_public_subnet.id}"
   route_table_id = "${aws_route_table.ops_public_table.id}"
 }
+
+resource "aws_default_security_group" "default" {
+  vpc_id = "${aws_vpc.opsvpc.id}"
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
