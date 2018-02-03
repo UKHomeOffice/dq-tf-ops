@@ -5,12 +5,12 @@ data "aws_ami" "win" {
     name = "name"
 
     values = [
-      "Windows_Server-2012-R2_RTM-English-64Bit-Base-*",
+      "dq-ops-win-*",
     ]
   }
 
   owners = [
-    "amazon",
+    "093401982388",
   ]
 }
 
