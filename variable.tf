@@ -141,3 +141,8 @@ variable "ad_sg_cidr_ingress" {
   description = "List of CIDR block ingress to AD machines SG"
   type        = "list"
 }
+
+variable "key_name" {
+  description = "Default SSH key name for EC2 instances"
+  default     = "test_instance"
+}
