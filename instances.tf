@@ -19,6 +19,14 @@ resource "aws_instance" "bastion_win" {
   private_ip                  = "${var.bastion_windows_ip}"
   associate_public_ip_address = false
 
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "ami_name",
+    ]
+  }
+
   tags = {
     Name = "bastion-win-${local.naming_suffix}"
   }
