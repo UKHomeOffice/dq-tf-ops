@@ -24,6 +24,7 @@ class TestE2E(unittest.TestCase):
               cidr_block                = "10.2.0.0/16"
               vpc_subnet_cidr_block     = "10.2.1.0/24"
               public_subnet_cidr_block  = "1.1.1.0/24"
+              ad_subnet_cidr_block      = "1.1.1.0/24"
               az                        = "eu-west-2a"
               naming_suffix             = "preprod-dq"
               bastion_linux_ip          = "1.2.3.4"
@@ -83,6 +84,9 @@ class TestE2E(unittest.TestCase):
 
     def test_name_suffix_opsvpc(self):
         self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "vpc-ops-preprod-dq")
+
+    def test_name_suffix_ad_subnet(self):
+        self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "ad-subnet-ops-preprod-dq")
 
 
 if __name__ == '__main__':
