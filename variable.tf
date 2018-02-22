@@ -1,7 +1,6 @@
 variable "cidr_block" {}
 variable "vpc_subnet_cidr_block" {}
 variable "public_subnet_cidr_block" {}
-variable "ad_subnet_cidr_block" {}
 variable "az" {}
 variable "naming_suffix" {}
 variable "ad_aws_ssm_document_name" {}
