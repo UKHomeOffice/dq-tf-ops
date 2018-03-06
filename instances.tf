@@ -1,9 +1,11 @@
-module "BastionHostLinux" {
-  source          = "github.com/UKHomeOffice/connectivity-tester-tf"
-  user_data       = "LISTEN_http=0.0.0.0:3389 CHECK_gp_SSH_TCP=${var.greenplum_ip}:${var.gp_SSH_TCP} CHECK_ACP_VPN=${var.ACP_VPN_IP}:${var.ACP_port}"
-  subnet_id       = "${aws_subnet.OPSSubnet.id}"
-  security_groups = ["${aws_security_group.Bastions.id}"]
-  private_ip      = "${var.bastion_linux_ip}"
+resource "aws_instance" "bastion_linux" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.bastion_linux.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion_linux_ip}"
+  associate_public_ip_address = false
 
   tags = {
     Name = "bastion-linux-${local.naming_suffix}"

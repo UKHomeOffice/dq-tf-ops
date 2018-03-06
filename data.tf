@@ -31,3 +31,19 @@ data "aws_ami" "rhel" {
     "309956199498",
   ]
 }
+
+data "aws_ami" "bastion_linux" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = [
+      "dq-linux-bastion*",
+    ]
+  }
+
+  owners = [
+    "self",
+  ]
+}
