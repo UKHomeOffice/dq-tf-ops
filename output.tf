@@ -13,3 +13,7 @@ output "opssubnet_cidr_block" {
 output "ad_subnet_id" {
   value = "${aws_subnet.ad_subnet.id}"
 }
+
+output "iam_roles" {
+  value = ["${aws_iam_role.ops_win.id}"]
+}
