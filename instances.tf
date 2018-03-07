@@ -22,12 +22,13 @@ resource "aws_instance" "bastion_win" {
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
   private_ip                  = "${var.bastion_windows_ip}"
   associate_public_ip_address = false
+  monitoring                  = true
 
   lifecycle {
     prevent_destroy = true
 
     ignore_changes = [
-      "ami_name",
+      "ami",
     ]
   }
 
