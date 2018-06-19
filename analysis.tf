@@ -38,6 +38,14 @@ resource "aws_security_group" "analysis" {
     ]
   }
 
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp"
+
+    cidr_blocks = ["${var.le_ingress_cidr}"]
+  }
+
   egress {
     from_port = 0
     protocol  = "-1"
@@ -95,6 +103,12 @@ data "aws_ami" "rhel_67" {
   ]
 }
 
+resource "aws_route" "apps-tab" {
+  route_table_id            = "${aws_route_table.ops_public_table.id}"
+  destination_cidr_block    = "${var.route_table_cidr_blocks["apps_cidr"]}"
+  vpc_peering_connection_id = "${var.vpc_peering_connection_ids["ops_and_apps"]}"
+}
+
 variable "analysis_instance_ip" {
   description = "Mock IP address of EC2 instance"
   default     = "10.8.2.8"
@@ -129,10 +143,13 @@ variable "analysis_cidr_ingress" {
   ]
 }
 
-resource "aws_route" "apps-tab" {
-  route_table_id            = "${aws_route_table.ops_public_table.id}"
-  destination_cidr_block    = "${var.route_table_cidr_blocks["apps_cidr"]}"
-  vpc_peering_connection_id = "${var.vpc_peering_connection_ids["ops_and_apps"]}"
+variable "le_ingress_cidr" {
+  type = "list"
+
+  default = [
+    "104.86.94.242",
+    "184.87.187.237",
+  ]
 }
 
 output "analysis_eip" {
