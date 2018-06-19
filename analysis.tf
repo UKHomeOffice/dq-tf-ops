@@ -97,7 +97,7 @@ data "aws_ami" "rhel_67" {
 
 variable "analysis_instance_ip" {
   description = "Mock IP address of EC2 instance"
-  default     = "10.2.2.123"
+  default     = "10.8.2.123"
 }
 
 variable "analysis_cidr_ingress" {
