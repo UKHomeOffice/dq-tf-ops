@@ -4,10 +4,8 @@ resource "aws_instance" "analysis" {
   instance_type               = "c5.xlarge"
   iam_instance_profile        = "${aws_iam_instance_profile.analysis.id}"
   vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
-  associate_public_ip_address = false
+  associate_public_ip_address = true
   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
-  private_ip                  = "${var.analysis_instance_ip}"
-  public_ip                   = "${aws_eip.analysis_eip.public_ip}"
 
   tags = {
     Name = "ec2-analysis-${local.naming_suffix}"
@@ -55,8 +53,9 @@ resource "aws_security_group" "analysis" {
 }
 
 resource "aws_eip" "analysis_eip" {
-  instance = "${aws_instance.analysis.id}"
-  vpc      = true
+  instance                  = "${aws_instance.analysis.id}"
+  associate_with_private_ip = "${var.analysis_instance_ip}"
+  vpc                       = true
 }
 
 resource "aws_iam_role" "analysis" {
