@@ -104,9 +104,7 @@ variable "analysis_cidr_ingress" {
   type = "list"
 
   default = [
-    # Whitelist from dq-kube-internal-tableau
     "62.25.109.196/32",
-
     "80.169.158.34/32",
     "80.193.85.91/32",
     "86.188.197.170/29",
