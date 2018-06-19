@@ -5,6 +5,7 @@ resource "aws_instance" "analysis" {
   iam_instance_profile        = "${aws_iam_instance_profile.analysis.id}"
   vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
   associate_public_ip_address = true
+  private_ip                  = "${var.analysis_instance_ip}"
   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
 
   tags = {
@@ -33,7 +34,7 @@ resource "aws_security_group" "analysis" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.ad_sg_cidr_ingress}",
+      "${var.analysis_cidr_ingress}",
     ]
   }
 
@@ -53,9 +54,8 @@ resource "aws_security_group" "analysis" {
 }
 
 resource "aws_eip" "analysis_eip" {
-  instance                  = "${aws_instance.analysis.id}"
-  associate_with_private_ip = "${var.analysis_instance_ip}"
-  vpc                       = true
+  instance = "${aws_instance.analysis.id}"
+  vpc      = true
 }
 
 resource "aws_iam_role" "analysis" {
@@ -97,7 +97,7 @@ data "aws_ami" "rhel_67" {
 
 variable "analysis_instance_ip" {
   description = "Mock IP address of EC2 instance"
-  default     = "10.8.2.123"
+  default     = "10.8.2.8"
 }
 
 variable "analysis_cidr_ingress" {
@@ -124,6 +124,8 @@ variable "analysis_cidr_ingress" {
     "5.148.32.229/32",
     "119.73.144.40/32",
     "85.211.101.55/32",
+    "213.251.23.185/32",
+    "213.251.23.186/32",
   ]
 }
 
