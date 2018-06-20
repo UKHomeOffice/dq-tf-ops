@@ -37,14 +37,7 @@ resource "aws_security_group" "analysis" {
       "${var.analysis_cidr_ingress}",
     ]
   }
-
-  ingress {
-    from_port = 80
-    to_port   = 80
-    protocol  = "tcp"
-
-    cidr_blocks = ["${var.le_ingress_cidr}"]
-  }
+}
 
   egress {
     from_port = 0
@@ -140,15 +133,6 @@ variable "analysis_cidr_ingress" {
     "85.211.101.55/32",
     "213.251.23.185/32",
     "213.251.23.186/32",
-  ]
-}
-
-variable "le_ingress_cidr" {
-  type = "list"
-
-  default = [
-    "104.86.94.242/32",
-    "184.87.187.237/32",
   ]
 }
 
