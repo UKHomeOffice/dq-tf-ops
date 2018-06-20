@@ -25,7 +25,9 @@ resource "aws_security_group" "analysis" {
     to_port   = 443
     protocol  = "tcp"
 
-    cidr_blocks = ["${var.analysis_cidr_ingress}"]
+    cidr_blocks = [
+      "${var.analysis_cidr_ingress}",
+    ]
   }
 
   ingress {
@@ -37,16 +39,16 @@ resource "aws_security_group" "analysis" {
       "${var.analysis_cidr_ingress}",
     ]
   }
-}
 
-egress {
-  from_port = 0
-  protocol  = "-1"
-  to_port   = 0
+  egress {
+    from_port = 0
+    protocol  = "-1"
+    to_port   = 0
 
-  cidr_blocks = [
-    "0.0.0.0/0",
-  ]
+    cidr_blocks = [
+      "0.0.0.0/0",
+    ]
+  }
 }
 
 tags {
