@@ -34,7 +34,7 @@ resource "aws_security_group" "analysis" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.analysis_cidr_ingress}",
+      "${var.management_access}",
     ]
   }
 
@@ -136,6 +136,15 @@ variable "analysis_cidr_ingress" {
     "5.148.32.229/32",
     "119.73.144.40/32",
     "85.211.101.55/32",
+  ]
+}
+
+variable "management_access" {
+  type = "list"
+
+  default = [
+    "213.251.23.185/32",
+    "213.251.23.186/32",
   ]
 }
 
