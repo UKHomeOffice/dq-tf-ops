@@ -39,19 +39,18 @@ resource "aws_security_group" "analysis" {
   }
 }
 
-  egress {
-    from_port = 0
-    protocol  = "-1"
-    to_port   = 0
+egress {
+  from_port = 0
+  protocol  = "-1"
+  to_port   = 0
 
-    cidr_blocks = [
-      "0.0.0.0/0",
-    ]
-  }
+  cidr_blocks = [
+    "0.0.0.0/0",
+  ]
+}
 
-  tags {
-    Name = "sg-analysis-${local.naming_suffix}"
-  }
+tags {
+  Name = "sg-analysis-${local.naming_suffix}"
 }
 
 resource "aws_eip" "analysis_eip" {
