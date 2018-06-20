@@ -25,9 +25,7 @@ resource "aws_security_group" "analysis" {
     to_port   = 443
     protocol  = "tcp"
 
-    cidr_blocks = [
-      "${var.analysis_cidr_ingress}",
-    ]
+    cidr_blocks = ["${var.analysis_cidr_ingress}"]
   }
 
   ingress {
@@ -49,10 +47,10 @@ resource "aws_security_group" "analysis" {
       "0.0.0.0/0",
     ]
   }
-}
 
-tags {
-  Name = "sg-analysis-${local.naming_suffix}"
+  tags {
+    Name = "sg-analysis-${local.naming_suffix}"
+  }
 }
 
 resource "aws_eip" "analysis_eip" {
@@ -132,8 +130,6 @@ variable "analysis_cidr_ingress" {
     "5.148.32.229/32",
     "119.73.144.40/32",
     "85.211.101.55/32",
-    "213.251.23.185/32",
-    "213.251.23.186/32",
   ]
 }
 
