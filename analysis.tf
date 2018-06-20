@@ -143,8 +143,7 @@ variable "management_access" {
   type = "list"
 
   default = [
-    "213.251.23.185/32",
-    "213.251.23.186/32",
+    "10.8.0.11/32",
   ]
 }
 
