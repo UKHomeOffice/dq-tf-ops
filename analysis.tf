@@ -1,6 +1,6 @@
 resource "aws_instance" "analysis" {
   key_name                    = "${var.key_name}"
-  ami                         = "${var.analysis_ami}"
+  ami                         = "${data.aws_ami.analysis_ami.id}"
   instance_type               = "m4.xlarge"
   iam_instance_profile        = "${aws_iam_instance_profile.analysis.id}"
   vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
@@ -91,8 +91,7 @@ data "aws_ami" "analysis_ami" {
   }
 
   owners = [
-    "483846886818",
-    "337779336338",
+    "093401982388",
   ]
 }
 
@@ -147,11 +146,6 @@ variable "management_access" {
     "10.8.0.11/32",
   ]
 }
-
-variable "analysis_ami" {
-  default = "ami-07a94060"
-}
-
 
 output "analysis_eip" {
   value = "${aws_eip.analysis_eip.public_ip}"
