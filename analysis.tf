@@ -1,6 +1,6 @@
 resource "aws_instance" "analysis" {
   key_name                    = "${var.key_name}"
-  ami                         = "${data.aws_ami.rhel_67.id}"
+  ami                         = "${data.aws_ami.analysis_ami.id}"
   instance_type               = "m4.xlarge"
   iam_instance_profile        = "${aws_iam_instance_profile.analysis.id}"
   vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
@@ -79,19 +79,20 @@ resource "aws_iam_instance_profile" "analysis" {
   role = "${aws_iam_role.analysis.name}"
 }
 
-data "aws_ami" "rhel_67" {
+data "aws_ami" "analysis_ami" {
   most_recent = true
 
   filter {
     name = "name"
 
     values = [
-      "RHEL-6.7*",
+      "dq-ops-httpd*",
     ]
   }
 
   owners = [
-    "309956199498",
+    "483846886818",
+    "337779336338",
   ]
 }
 
