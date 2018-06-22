@@ -102,12 +102,6 @@ resource "aws_route" "apps-tab" {
   vpc_peering_connection_id = "${var.vpc_peering_connection_ids["ops_and_apps"]}"
 }
 
-resource "aws_route" "peering-tab" {
-  route_table_id            = "${aws_route_table.ops_public_table.id}"
-  destination_cidr_block    = "${var.route_table_cidr_blocks["peering_cidr"]}"
-  vpc_peering_connection_id = "${var.vpc_peering_connection_ids["ops_and_peering"]}"
-}
-
 variable "analysis_instance_ip" {
   description = "Mock IP address of EC2 instance"
   default     = "10.8.2.8"
