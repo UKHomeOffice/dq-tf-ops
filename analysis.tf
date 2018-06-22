@@ -152,9 +152,9 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
               "Action": "kms:Decrypt",
               "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
             }
-          ]
-      }  
-  }
+         }    
+    ]
+}
 EOF
 }
 
