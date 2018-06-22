@@ -25,6 +25,7 @@ resource "aws_instance" "analysis" {
   private_ip                  = "${var.analysis_instance_ip}"
   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
   user_data                   = "${var.s3_bucket_name}"
+
   tags = {
     Name = "ec2-analysis-${local.naming_suffix}"
   }
@@ -183,9 +184,11 @@ resource "aws_iam_instance_profile" "httpd_server_instance_profile" {
 
 variable "s3_bucket_name" {}
 variable "log_archive_s3_bucket" {}
+
 variable "s3_bucket_acl" {
   default = "private"
 }
+
 variable "region" {
   default = "eu-west-2"
 }
