@@ -35,6 +35,8 @@ class TestE2E(unittest.TestCase):
               adminpassword             = "1234"
               log_archive_s3_bucket     = "abcd"
               s3_bucket_name            = "dq-test"
+              management_access         = "10.1.1.1"
+              analysis_instance_ip      = "10.1.1.1"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
