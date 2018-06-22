@@ -182,10 +182,7 @@ variable "service" {
   description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }
 
-variable "analysis_instance_ip" {
-  description = "Mock IP address of EC2 instance"
-  default     = "10.8.2.8"
-}
+variable "analysis_instance_ip" {}
 
 variable "analysis_cidr_ingress" {
   type = "list"
@@ -221,13 +218,7 @@ variable "analysis_cidr_ingress" {
   ]
 }
 
-variable "management_access" {
-  type = "list"
-
-  default = [
-    "10.8.0.11/32",
-  ]
-}
+variable "management_access" {}
 
 variable "s3_bucket_name" {}
 
