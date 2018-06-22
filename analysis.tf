@@ -123,17 +123,6 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
       "Version": "2012-10-17",
       "Statement": [
           {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "ssm:PutParameter",
-                "ssm:GetParameter"
-            ],
-            "Resource": [
-              "arn:aws:ssm:eu-west-2:*:parameter/addomainjoin"
-            ]
-          },
-          {
             "Effect": "Allow",
             "Action": ["s3:ListBucket"],
             "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}"
