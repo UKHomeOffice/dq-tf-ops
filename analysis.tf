@@ -7,6 +7,7 @@ resource "aws_instance" "analysis" {
   associate_public_ip_address = true
   private_ip                  = "${var.analysis_instance_ip}"
   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
+  user_data                   = "{var.s3_bucket_name}"
 
   tags = {
     Name = "ec2-analysis-${local.naming_suffix}"
@@ -140,6 +141,8 @@ variable "management_access" {
     "10.8.0.11/32",
   ]
 }
+
+variable "s3_bucket_name" {}
 
 output "analysis_eip" {
   value = "${aws_eip.analysis_eip.public_ip}"
