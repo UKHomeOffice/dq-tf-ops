@@ -182,8 +182,6 @@ resource "aws_iam_instance_profile" "httpd_server_instance_profile" {
   role = "${aws_iam_role.httpd_ec2_server_role.name}"
 }
 
-variable "s3_bucket_name" {}
-
 variable "s3_bucket_acl" {
   default = "private"
 }
