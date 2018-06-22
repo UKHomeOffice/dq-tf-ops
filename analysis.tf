@@ -119,28 +119,28 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
   role = "${aws_iam_role.httpd_ec2_server_role.id}"
 
   policy = <<EOF
-  {
-      "Version": "2012-10-17",
-      "Statement": [
-          {
-            "Effect": "Allow",
-            "Action": ["s3:ListBucket"],
-            "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}"
-          },
-          {
-            "Effect": "Allow",
-            "Action": [
-              "s3:GetObject"
-            ],
-            "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}/*"
-          },
-          {
-            "Effect": "Allow",
-            "Action": "kms:Decrypt",
-            "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
-          }
-      ]
-  }
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": ["s3:ListBucket"],
+          "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:GetObject"
+          ],
+          "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}/*"
+        },
+        {
+          "Effect": "Allow",
+          "Action": "kms:Decrypt",
+          "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
+        }
+    ]
+}
 EOF
 }
 
