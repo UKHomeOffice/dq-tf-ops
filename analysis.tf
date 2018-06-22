@@ -183,7 +183,6 @@ resource "aws_iam_instance_profile" "httpd_server_instance_profile" {
 }
 
 variable "s3_bucket_name" {}
-variable "log_archive_s3_bucket" {}
 
 variable "s3_bucket_acl" {
   default = "private"
@@ -240,8 +239,4 @@ variable "management_access" {
 
 output "analysis_eip" {
   value = "${aws_eip.analysis_eip.public_ip}"
-}
-
-output "iam_roles" {
-  value = ["${aws_iam_role.httpd_ec2_server_role.id}"]
 }
