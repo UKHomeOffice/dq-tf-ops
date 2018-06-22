@@ -119,10 +119,10 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
   role = "${aws_iam_role.httpd_ec2_server_role.id}"
 
   policy = <<EOF
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
+  {
+      "Version": "2012-10-17",
+      "Statement": [
+          {
             "Sid": "VisualEditor0",
             "Effect": "Allow",
             "Action": [
@@ -132,29 +132,27 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
             "Resource": [
               "arn:aws:ssm:eu-west-2:*:parameter/addomainjoin"
             ]
-        },
-        {
-            {
-              "Effect": "Allow",
-              "Action": ["s3:ListBucket"],
-              "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}"
-            },
-            {
-              "Effect": "Allow",
-              "Action": [
-                "s3:GetObject",
-                "s3:ListObject"
-              ],
-              "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}/*"
-            },
-            {
-              "Effect": "Allow",
-              "Action": "kms:Decrypt",
-              "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
-            }
-         }    
-    ]
-}
+          },
+          {
+            "Effect": "Allow",
+            "Action": ["s3:ListBucket"],
+            "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}"
+          },
+          {
+            "Effect": "Allow",
+            "Action": [
+              "s3:GetObject",
+              "s3:ListObject"
+            ],
+            "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}/*"
+          },
+          {
+            "Effect": "Allow",
+            "Action": "kms:Decrypt",
+            "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
+          }
+      ]
+  }
 EOF
 }
 
