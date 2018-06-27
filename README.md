@@ -37,6 +37,10 @@ Data lookup for EC2 instance AMIs.
 
 This set of resources creates a couple of EC2 machines in their subnet, associate them to the main route table then adds them to a Security Group and joins them to Microsoft AD.
 
+### analysis.tf
+
+This set of resources describe looking up and deploying an AMI, attached Security Group with locked down ingress. It also creates an S3 bucket with policies and attach the role to the EC2 instance created earlier. The file also has variables and outputs defined.
+
 ### output.tf
 
 Various data outputs for other modules/consumers.
