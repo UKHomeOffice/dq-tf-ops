@@ -31,7 +31,11 @@ resource "aws_instance" "analysis" {
   }
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
+
+    ignore_changes = [
+      "ami",
+    ]
   }
 }
 
