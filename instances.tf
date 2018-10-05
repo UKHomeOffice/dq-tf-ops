@@ -49,12 +49,12 @@ resource "aws_instance" "bastion_win2" {
   monitoring                  = true
 
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = false
 
     ignore_changes = [
       "ami",
     ]
-  }  
+  }
 
   tags = {
     Name = "bastion2-win-${local.naming_suffix}"
