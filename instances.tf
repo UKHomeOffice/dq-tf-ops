@@ -39,7 +39,7 @@ resource "aws_instance" "bastion_win" {
 
 resource "aws_instance" "bastion_win2" {
   key_name                    = "${var.key_name}"
-  ami                         = "${data.aws_ami.win.id}"
+  ami                         = "ami-82fa1de5"
   instance_type               = "t2.medium"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
