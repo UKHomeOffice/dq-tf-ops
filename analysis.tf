@@ -119,6 +119,11 @@ resource "aws_s3_bucket" "httpd_config_bucket" {
   }
 }
 
+resource "aws_s3_bucket_metric" "httpd_config_bucket-logging" {
+  bucket = "${var.s3_bucket_name}"
+  name   = "EntireBucket"
+}
+
 resource "aws_iam_role_policy" "httpd_linux_iam" {
   role = "${aws_iam_role.httpd_ec2_server_role.id}"
 
