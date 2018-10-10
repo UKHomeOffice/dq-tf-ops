@@ -121,7 +121,7 @@ resource "aws_s3_bucket" "httpd_config_bucket" {
 
 resource "aws_s3_bucket_metric" "httpd_config_bucket_logging" {
   bucket = "${var.s3_bucket_name}"
-  name   = "EntireBucket"
+  name   = "httpd_config_bucket_metric"
 }
 
 resource "aws_iam_role_policy" "httpd_linux_iam" {
