@@ -32,6 +32,16 @@ resource "aws_instance" "bastion_win" {
   associate_public_ip_address = false
   monitoring                  = true
 
+  user_data = <<EOF
+  <powershell>
+  $password = aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption
+  $username = "DQ\domain.join"
+  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+  $instanceID = BASTION-WIN1
+  Add-Computer -DomainName DQ.HOMEOFFICE.GOV.UK -OUPath "OU=Computers,OU=dq,DC=dq,DC=homeoffice,DC=gov,DC=uk" -NewName $instanceID -Credential $credential -Force -Restart
+  </powershell>
+EOF
+
   lifecycle {
     prevent_destroy = true
 
@@ -56,6 +66,16 @@ resource "aws_instance" "bastion_win2" {
   associate_public_ip_address = false
   monitoring                  = true
 
+  user_data = <<EOF
+  <powershell>
+  $password = aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption
+  $username = "DQ\domain.join"
+  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+  $instanceID = BASTION-WIN2
+  Add-Computer -DomainName DQ.HOMEOFFICE.GOV.UK -OUPath "OU=Computers,OU=dq,DC=dq,DC=homeoffice,DC=gov,DC=uk" -NewName $instanceID -Credential $credential -Force -Restart
+  </powershell>
+EOF
+
   lifecycle {
     prevent_destroy = false
 
@@ -79,6 +99,16 @@ resource "aws_instance" "bastion_win3" {
   private_ip                  = "${var.bastion3_windows_ip}"
   associate_public_ip_address = false
   monitoring                  = true
+
+  user_data = <<EOF
+  <powershell>
+  $password = aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption
+  $username = "DQ\domain.join"
+  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+  $instanceID = BASTION-WIN3
+  Add-Computer -DomainName DQ.HOMEOFFICE.GOV.UK -OUPath "OU=Computers,OU=dq,DC=dq,DC=homeoffice,DC=gov,DC=uk" -NewName $instanceID -Credential $credential -Force -Restart
+  </powershell>
+EOF
 
   lifecycle {
     prevent_destroy = false
