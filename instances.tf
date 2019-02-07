@@ -34,11 +34,7 @@ resource "aws_instance" "bastion_win" {
 
   user_data = <<EOF
   <powershell>
-  $password = aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption
-  $username = "DQ\domain.join"
-  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-  $instanceID = BASTION-WIN1
-  Add-Computer -DomainName DQ.HOMEOFFICE.GOV.UK -OUPath "OU=Computers,OU=dq,DC=dq,DC=homeoffice,DC=gov,DC=uk" -NewName $instanceID -Credential $credential -Force -Restart
+  Rename-Computer -NewName "BASTION-WIN1" -Restart
   </powershell>
 EOF
 
@@ -70,16 +66,12 @@ resource "aws_instance" "bastion_win2" {
 
   user_data = <<EOF
   <powershell>
-  $password = aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption
-  $username = "DQ\domain.join"
-  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-  $instanceID = BASTION-WIN2
-  Add-Computer -DomainName DQ.HOMEOFFICE.GOV.UK -OUPath "OU=Computers,OU=dq,DC=dq,DC=homeoffice,DC=gov,DC=uk" -NewName $instanceID -Credential $credential -Force -Restart
+  Rename-Computer -NewName "BASTION-WIN2" -Restart
   </powershell>
 EOF
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
 
     ignore_changes = [
       "user_data",
@@ -106,16 +98,12 @@ resource "aws_instance" "bastion_win3" {
 
   user_data = <<EOF
   <powershell>
-  $password = aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption
-  $username = "DQ\domain.join"
-  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-  $instanceID = BASTION-WIN3
-  Add-Computer -DomainName DQ.HOMEOFFICE.GOV.UK -OUPath "OU=Computers,OU=dq,DC=dq,DC=homeoffice,DC=gov,DC=uk" -NewName $instanceID -Credential $credential -Force -Restart
+  Rename-Computer -NewName "BASTION-WIN3" -Restart
   </powershell>
 EOF
 
   lifecycle {
-    prevent_destroy = false
+    prevent_destroy = true
 
     ignore_changes = [
       "user_data",
