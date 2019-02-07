@@ -12,7 +12,9 @@ resource "aws_instance" "bastion_linux" {
     prevent_destroy = true
 
     ignore_changes = [
+      "user_data",
       "ami",
+      "instance_type",
     ]
   }
 
