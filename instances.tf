@@ -46,7 +46,9 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
+      "user_data",
       "ami",
+      "instance_type",
     ]
   }
 
@@ -80,7 +82,9 @@ EOF
     prevent_destroy = false
 
     ignore_changes = [
+      "user_data",
       "ami",
+      "instance_type",
     ]
   }
 
@@ -114,7 +118,9 @@ EOF
     prevent_destroy = false
 
     ignore_changes = [
+      "user_data",
       "ami",
+      "instance_type",
     ]
   }
 
