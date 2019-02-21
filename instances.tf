@@ -33,6 +33,11 @@ resource "aws_instance" "bastion_win" {
   private_ip                  = "${var.bastion_windows_ip}"
   associate_public_ip_address = false
   monitoring                  = true
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN1" -Restart
+    </powershell>
+  EOF
 
   lifecycle {
     prevent_destroy = true
@@ -59,6 +64,11 @@ resource "aws_instance" "bastion_win2" {
   private_ip                  = "${var.bastion2_windows_ip}"
   associate_public_ip_address = false
   monitoring                  = true
+  user_data = <<EOF
+	<powershell>
+	Rename-Computer -NewName "BASTION-WIN2" -Restart
+	</powershell>
+  EOF
 
   lifecycle {
     prevent_destroy = true
@@ -85,6 +95,11 @@ resource "aws_instance" "bastion_win3" {
   private_ip                  = "${var.bastion3_windows_ip}"
   associate_public_ip_address = false
   monitoring                  = true
+  user_data = <<EOF
+	<powershell>
+	Rename-Computer -NewName "BASTION-WIN3" -Restart
+	</powershell>
+  EOF
 
   lifecycle {
     prevent_destroy = true
