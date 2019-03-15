@@ -26,7 +26,7 @@ resource "aws_instance" "bastion_linux" {
 resource "aws_instance" "bastion_win" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.win.id}"
-  instance_type               = "t2.medium"
+  instance_type               = "t2.large"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
@@ -57,7 +57,7 @@ resource "aws_instance" "bastion_win" {
 resource "aws_instance" "bastion_win2" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.win.id}"
-  instance_type               = "t2.medium"
+  instance_type               = "t2.large"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
@@ -88,7 +88,7 @@ resource "aws_instance" "bastion_win2" {
 resource "aws_instance" "bastion_win3" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.win.id}"
-  instance_type               = "t2.medium"
+  instance_type               = "t2.large"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
