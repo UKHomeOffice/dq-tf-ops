@@ -89,6 +89,7 @@ resource "aws_route" "apps-tab" {
 resource "aws_kms_key" "httpd_config_bucket_key" {
   description             = "This key is used to encrypt HTTPD config bucket objects"
   deletion_window_in_days = 7
+  enable_key_rotation     = true
 }
 
 resource "aws_s3_bucket" "httpd_config_bucket" {
