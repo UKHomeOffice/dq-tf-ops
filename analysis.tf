@@ -124,6 +124,30 @@ resource "aws_s3_bucket_metric" "httpd_config_bucket_logging" {
   name   = "httpd_config_bucket_metric"
 }
 
+resource "aws_s3_bucket_policy" "httpd_config_bucket" {
+  bucket = "${var.s3_bucket_name}"
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "HTTP",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "*",
+      "Resource": "arn:aws:s3:::${var.s3_bucket_name}/*",
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
+POLICY
+}
+
 resource "aws_iam_role_policy" "httpd_linux_iam" {
   role = "${aws_iam_role.httpd_ec2_server_role.id}"
 
