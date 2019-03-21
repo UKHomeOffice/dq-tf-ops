@@ -10,7 +10,7 @@ data "aws_ami" "analysis_ami" {
   }
 
   owners = [
-    "093401982388",
+    "self",
   ]
 }
 
