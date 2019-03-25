@@ -60,6 +60,8 @@ export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name 
 
 aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate --query 'Parameter.Value' --output text --with-decryption > /etc/letsencrypt/archive/$analysis_proxy_hostname-0001/cert1.pem
 aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_key --query 'Parameter.Value' --output text --with-decryption > /etc/letsencrypt/archive/analysis_proxy_hostname-0001/privkey1.pem
+chmod 0644 /etc/letsencrypt/archive/$analysis_proxy_hostname-0001/cert1.pem
+chmod 0644 /etc/letsencrypt/archive/analysis_proxy_hostname-0001/privkey1.pem
 systemctl reload httpd
 EOF
 
@@ -210,6 +212,16 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
           "Effect": "Allow",
           "Action": "kms:Decrypt",
           "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
+        },
+        {
+          "Effect": "Allow",
+          "Action": [
+              "ssm:GetParameter"
+          ],
+          "Resource": [
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_hostname",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_key"
         }
     ]
 }
