@@ -55,7 +55,7 @@ resource "aws_instance" "analysis_test" {
 
 set -e
 
-export s3_bucket_name=${var.s3_bucket_name}
+echo "export s3_bucket_name=${var.s3_bucket_name}" >> /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
