@@ -59,8 +59,8 @@ export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
 aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate --query 'Parameter.Value' --output text --with-decryption > "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem"
 aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_key --query 'Parameter.Value' --output text --with-decryption > "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
-ln -s /etc/letsencrypt/archive/analysis.notprod.dq.homeoffice.gov.uk-0001/cert1.pem cert1.pem
-ln -s /etc/letsencrypt/archive/analysis.notprod.dq.homeoffice.gov.uk-0001/privkey1.pem privkey1.pem
+ln -s /etc/letsencrypt/archive/analysis.notprod.dq.homeoffice.gov.uk-0001/cert1.pem /etc/letsencrypt/live/cert1.pem
+ln -s /etc/letsencrypt/archive/analysis.notprod.dq.homeoffice.gov.uk-0001/privkey1.pem /etc/letsencrypt/live/privkey1.pem
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem"
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
 systemctl reload httpd
