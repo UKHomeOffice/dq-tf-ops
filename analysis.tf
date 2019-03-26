@@ -40,44 +40,44 @@ resource "aws_instance" "analysis" {
   }
 }
 
-# resource "aws_instance" "analysis_test" {
-#   key_name                    = "${var.key_name}"
-#   ami                         = "${data.aws_ami.analysis_ami.id}"
-#   instance_type               = "m4.xlarge"
-#   iam_instance_profile        = "${aws_iam_instance_profile.httpd_server_instance_profile.id}"
-#   vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
-#   associate_public_ip_address = true
-#   monitoring                  = true
-#   private_ip                  = "10.8.2.9"
-#   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
-#   user_data = <<EOF
-# #!/bin/bash
-#
-# set -e
-#
-# export s3_bucket_name=${var.s3_bucket_name}
-# export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name gp_db_user_wsr --query 'Parameter.Value' --output text --with-decryption`
-#
-# aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate --query 'Parameter.Value' --output text --with-decryption > /etc/letsencrypt/archive/$analysis_proxy_hostname-0001/cert1.pem
-# aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_key --query 'Parameter.Value' --output text --with-decryption > /etc/letsencrypt/archive/analysis_proxy_hostname-0001/privkey1.pem
-# chmod 0644 /etc/letsencrypt/archive/$analysis_proxy_hostname-0001/cert1.pem
-# chmod 0644 /etc/letsencrypt/archive/analysis_proxy_hostname-0001/privkey1.pem
-# systemctl reload httpd
-# EOF
-#
-#   tags = {
-#     Name = "ec2-analysis-${local.naming_suffix}"
-#   }
-#
-#   lifecycle {
-#     prevent_destroy = true
-#
-#     ignore_changes = [
-#       "ami",
-#       "user_data",
-#     ]
-#   }
-# }
+resource "aws_instance" "analysis_test" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.analysis_ami.id}"
+  instance_type               = "m4.xlarge"
+  iam_instance_profile        = "${aws_iam_instance_profile.httpd_server_instance_profile.id}"
+  vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
+  associate_public_ip_address = true
+  monitoring                  = true
+  private_ip                  = "${var.analysis_test_instance_ip}"
+  subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
+  user_data = <<EOF
+#!/bin/bash
+
+set -e
+
+export s3_bucket_name=${var.s3_bucket_name}
+export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name gp_db_user_wsr --query 'Parameter.Value' --output text --with-decryption`
+
+aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate --query 'Parameter.Value' --output text --with-decryption > /etc/letsencrypt/archive/$analysis_proxy_hostname-0001/cert1.pem
+aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_key --query 'Parameter.Value' --output text --with-decryption > /etc/letsencrypt/archive/analysis_proxy_hostname-0001/privkey1.pem
+chmod 0644 /etc/letsencrypt/archive/$analysis_proxy_hostname-0001/cert1.pem
+chmod 0644 /etc/letsencrypt/archive/analysis_proxy_hostname-0001/privkey1.pem
+systemctl reload httpd
+EOF
+
+  tags = {
+    Name = "ec2-analysis-${local.naming_suffix}"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "ami",
+      "user_data",
+    ]
+  }
+}
 
 resource "aws_security_group" "analysis" {
   vpc_id = "${aws_vpc.opsvpc.id}"
@@ -268,6 +268,7 @@ variable "service" {
 }
 
 variable "analysis_instance_ip" {}
+variable "analysis_test_instance_ip" {}
 
 variable "analysis_cidr_ingress" {
   type = "list"
