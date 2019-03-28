@@ -24,32 +24,6 @@ resource "aws_instance" "analysis" {
   monitoring                  = true
   private_ip                  = "${var.analysis_instance_ip}"
   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
-  user_data                   = "${var.s3_bucket_name}"
-
-  tags = {
-    Name = "ec2-analysis-${local.naming_suffix}"
-  }
-
-  lifecycle {
-    prevent_destroy = true
-
-    ignore_changes = [
-      "ami",
-      "user_data",
-    ]
-  }
-}
-
-resource "aws_instance" "analysis_test" {
-  key_name                    = "${var.key_name}"
-  ami                         = "${data.aws_ami.analysis_ami.id}"
-  instance_type               = "m4.xlarge"
-  iam_instance_profile        = "${aws_iam_instance_profile.httpd_server_instance_profile.id}"
-  vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
-  associate_public_ip_address = true
-  monitoring                  = true
-  private_ip                  = "${var.analysis_test_instance_ip}"
-  subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
   user_data = <<EOF
 #!/bin/bash
 
@@ -276,7 +250,6 @@ variable "service" {
 }
 
 variable "analysis_instance_ip" {}
-variable "analysis_test_instance_ip" {}
 
 variable "analysis_cidr_ingress" {
   type = "list"
