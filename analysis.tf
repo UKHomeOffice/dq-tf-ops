@@ -44,8 +44,8 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
 
+systemctl start httpd
 source /root/.bashrc && /home/centos/gets3content.sh
-
 systemctl restart httpd
 EOF
 
