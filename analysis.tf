@@ -44,8 +44,9 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
 
-systemctl start httpd
-source /root/.bashrc && /home/centos/gets3content.sh
+aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
+aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
+
 systemctl restart httpd
 EOF
 
