@@ -41,7 +41,7 @@ resource "aws_iam_role" "ops_win_athena" {
         "kms:GenerateDataKey*",
         "kms:DescribeKey"
         ],
-      "Resource": "${var.athena_log_bucket}"
+      "Resource": "arn:aws:s3:::${var.athena_log_bucket}"
     }
   ]
 }
