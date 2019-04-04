@@ -17,8 +17,10 @@ resource "aws_iam_role" "ops_win" {
 EOF
 }
 
-resource "aws_iam_role" "ops_win_athena" {
-  assume_role_policy = <<EOF
+resource "aws_iam_role_policy" "ops_win_athena" {
+  name   = "ops-win-athena-${local.naming_suffix}"
+  role   = "${aws_iam_role.ops_win.name}"
+  policy = <<EOF
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -50,5 +52,4 @@ EOF
 
 resource "aws_iam_instance_profile" "ops_win" {
   role = "${aws_iam_role.ops_win.name}"
-  role = "${aws_iam_role.ops_win_athena.name}"
 }
