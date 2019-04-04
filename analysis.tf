@@ -24,6 +24,7 @@ resource "aws_instance" "analysis" {
   monitoring                  = true
   private_ip                  = "${var.analysis_instance_ip}"
   subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
+
   user_data = <<EOF
 #!/bin/bash
 
