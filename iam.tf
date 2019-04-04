@@ -25,12 +25,12 @@ resource "aws_iam_role" "ops_win_athena" {
     {
       "Action": "s3:ListBucket",
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${module.apps.athena_log_bucket}"
+      "Resource": "arn:aws:s3:::${var.athena_log_bucket}"
     },
     {
       "Action": "s3:PutObject",
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${module.apps.athena_log_bucket}/*"
+      "Resource": "arn:aws:s3:::${var.athena_log_bucket}/*"
     },
     {
       "Effect": "Allow",
@@ -41,7 +41,7 @@ resource "aws_iam_role" "ops_win_athena" {
         "kms:GenerateDataKey*",
         "kms:DescribeKey"
         ],
-      "Resource": "${module.apps.athena_log_bucket}"
+      "Resource": "${var.athena_log_bucket}"
     }
   ]
 }

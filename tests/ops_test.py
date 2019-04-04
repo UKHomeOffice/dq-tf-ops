@@ -38,6 +38,7 @@ class TestE2E(unittest.TestCase):
               s3_bucket_name            = "dq-test"
               management_access         = "10.1.1.1/32"
               analysis_instance_ip      = "10.1.1.1/32"
+              athena_log_bucket         = "athena_log_bucket"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"

@@ -59,3 +59,7 @@ variable "key_name" {
   description = "Default SSH key name for EC2 instances"
   default     = "test_instance"
 }
+
+variable "athena_log_bucket" {
+  description = "Athena log bucket ARN"
+}
