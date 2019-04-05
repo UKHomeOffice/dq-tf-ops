@@ -35,7 +35,10 @@ resource "aws_iam_role_policy" "ops_win_athena" {
                 "s3:PutObject"
             ],
             "Effect": "Allow",
-            "Resource": ["arn:aws:s3:::${var.athena_log_bucket}", "arn:aws:s3:::${var.athena_log_bucket}/*"]
+            "Resource": [
+              "arn:aws:s3:::${var.athena_log_bucket}",
+              "arn:aws:s3:::${var.athena_log_bucket}/*"
+            ]
         },
         {
             "Effect": "Allow",
