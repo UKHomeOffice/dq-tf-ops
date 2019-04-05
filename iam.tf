@@ -52,6 +52,15 @@ resource "aws_iam_role_policy" "ops_win_athena" {
             "Resource": "${var.aws_bucket_key}"
         },
         {
+          "Action": [
+            "kms:Encrypt",
+            "kms:Decrypt",
+            "kms:GenerateDataKey"
+          ],
+          "Effect": "Allow",
+          "Resource": "${data.aws_kms_key.glue.arn}"
+        },
+        {
             "Action": [
                 "athena:StartQueryExecution",
                 "athena:GetQueryExecution",
@@ -62,7 +71,22 @@ resource "aws_iam_role_policy" "ops_win_athena" {
             ],
             "Effect": "Allow",
             "Resource": "*"
-        }
+        },
+        {
+          "Action": [
+            "glue:GetDatabase",
+            "glue:GetTable",
+            "glue:GetTables",
+            "glue:GetPartition",
+            "glue:GetPartitions"
+          ],
+          "Effect": "Allow",
+          "Resource": [
+            "arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:database/default",
+            "${join("\",\"",formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:database/%s_%s", var.dq_pipeline_ops_readonly_database_name_list, var.naming_suffix))}",
+            "${join("\",\"",formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:table/%s_%s/*", var.dq_pipeline_ops_readonly_database_name_list, var.naming_suffix))}"
+          ]
+        },
     ]
 }
 EOF

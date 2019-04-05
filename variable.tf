@@ -67,3 +67,7 @@ variable "athena_log_bucket" {
 variable "aws_bucket_key" {
   description = "S3 bucket KMS key"
 }
+
+variable "dq_pipeline_ops_readonly_database_name_list" {
+  default = ["api_input"]
+}
