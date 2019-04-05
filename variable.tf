@@ -63,3 +63,7 @@ variable "key_name" {
 variable "athena_log_bucket" {
   description = "Athena log bucket ARN"
 }
+
+variable "aws_bucket_key" {
+  description = "S3 bucket KMS key"
+}

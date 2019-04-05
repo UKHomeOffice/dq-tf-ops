@@ -39,6 +39,7 @@ class TestE2E(unittest.TestCase):
               management_access         = "10.1.1.1/32"
               analysis_instance_ip      = "10.1.1.1/32"
               athena_log_bucket         = "athena_log_bucket"
+              aws_bucket_key            = "111122223333"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
