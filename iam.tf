@@ -86,7 +86,7 @@ resource "aws_iam_role_policy" "ops_win_athena" {
             "${join("\",\"",formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:database/%s_%s", var.dq_pipeline_ops_readonly_database_name_list, var.naming_suffix))}",
             "${join("\",\"",formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:table/%s_%s/*", var.dq_pipeline_ops_readonly_database_name_list, var.naming_suffix))}"
           ]
-        },
+        }
     ]
 }
 EOF
