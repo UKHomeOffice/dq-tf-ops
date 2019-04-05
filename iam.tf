@@ -46,7 +46,7 @@ resource "aws_iam_role_policy" "ops_win_athena" {
                 "kms:GenerateDataKey*",
                 "kms:DescribeKey"
             ],
-            "Resource": "${aws_kms_key.bucket_key.arn}"
+            "Resource": "${var.ams_bucket_Key}"
         },
         {
             "Action": [
