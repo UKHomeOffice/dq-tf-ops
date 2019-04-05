@@ -22,30 +22,45 @@ resource "aws_iam_role_policy" "ops_win_athena" {
   role   = "${aws_iam_role.ops_win.name}"
   policy = <<EOF
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "s3:ListBucket",
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.athena_log_bucket}"
-    },
-    {
-      "Action": "s3:PutObject",
-      "Effect": "Allow",
-      "Resource": "arn:aws:s3:::${var.athena_log_bucket}/*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:ReEncrypt*",
-        "kms:GenerateDataKey*",
-        "kms:DescribeKey"
-        ],
-      "Resource": "arn:aws:s3:::${var.athena_log_bucket}"
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "s3:GetBucketLocation",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:ListBucketMultipartUploads",
+                "s3:ListMultipartUploadParts",
+                "s3:AbortMultipartUpload",
+                "s3:PutObject"
+            ],
+            "Effect": "Allow",
+            "Resource": ["arn:aws:s3:::${var.athena_log_bucket}", "arn:aws:s3:::${var.athena_log_bucket}/*"]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey"
+            ],
+            "Resource": "${aws_kms_key.bucket_key.arn}"
+        },
+        {
+            "Action": [
+                "athena:StartQueryExecution",
+                "athena:GetQueryExecution",
+                "athena:GetQueryResults",
+                "athena:GetQueryResultsStream",
+                "athena:UpdateWorkGroup",
+                "athena:GetWorkGroup"
+            ],
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
 }
 EOF
 }
