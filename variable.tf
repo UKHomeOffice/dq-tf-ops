@@ -50,6 +50,14 @@ variable "bastion3_windows_ip" {
   description = "3rd Win bastion IP address"
 }
 
+variable "bastion4_windows_ip" {
+  description = "4th Win bastion IP address"
+}
+
+variable "bastion5_windows_ip" {
+  description = "5th Win bastion IP address"
+}
+
 variable "ad_sg_cidr_ingress" {
   description = "List of CIDR block ingress to AD machines SG"
   type        = "list"
