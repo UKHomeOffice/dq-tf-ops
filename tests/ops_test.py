@@ -31,6 +31,8 @@ class TestE2E(unittest.TestCase):
               bastion_windows_ip        = "1.2.3.4"
               bastion2_windows_ip       = "1.2.3.4"
               bastion3_windows_ip       = "1.2.3.4"
+              bastion4_windows_ip       = "1.2.3.4"
+              bastion5_windows_ip       = "1.2.3.4"
               ad_aws_ssm_document_name  = "1234"
               ad_writer_instance_profile_name = "1234"
               adminpassword             = "1234"
