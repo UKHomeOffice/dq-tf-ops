@@ -38,7 +38,7 @@ resource "aws_instance" "bastion_win" {
     <powershell>
     Rename-Computer -NewName "BASTION-WIN1" -Restart
     </powershell>
-  EOF
+EOF
 
   lifecycle {
     prevent_destroy = true
@@ -70,7 +70,7 @@ resource "aws_instance" "bastion_win2" {
 	<powershell>
 	Rename-Computer -NewName "BASTION-WIN2" -Restart
 	</powershell>
-  EOF
+EOF
 
   lifecycle {
     prevent_destroy = true
@@ -102,7 +102,7 @@ resource "aws_instance" "bastion_win3" {
 	<powershell>
 	Rename-Computer -NewName "BASTION-WIN3" -Restart
 	</powershell>
-  EOF
+EOF
 
   lifecycle {
     prevent_destroy = true
@@ -166,7 +166,7 @@ resource "aws_instance" "bastion_win5" {
 	<powershell>
 	Rename-Computer -NewName "BASTION-WIN5" -Restart
 	</powershell>
-  EOF
+EOF
 
   lifecycle {
     prevent_destroy = true
