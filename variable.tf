@@ -79,3 +79,20 @@ variable "aws_bucket_key" {
 variable "dq_pipeline_ops_readonly_database_name_list" {
   default = ["api_input"]
 }
+
+variable "tableau_dev_ip" {
+  description = "Tableau Development IP address"
+  default = "10.0.0.1"
+}
+
+variable "tableau_subnet_cidr_block" {
+  description = "Tableau Dev CIDR block"
+}
+
+variable "tableau_vpc_subnet_cidr_block" {
+  description = "Tableau VPC CIDR block"
+}
+
+variable "tableau_route_table_id" {
+  description = "Route table ID"
+}
