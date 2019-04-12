@@ -18,8 +18,9 @@ EOF
 }
 
 resource "aws_iam_role_policy" "ops_win_athena" {
-  name   = "ops-win-athena-${local.naming_suffix}"
-  role   = "${aws_iam_role.ops_win.name}"
+  name = "ops-win-athena-${local.naming_suffix}"
+  role = "${aws_iam_role.ops_win.name}"
+
   policy = <<EOF
 {
     "Version": "2012-10-17",
