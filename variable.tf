@@ -88,11 +88,3 @@ variable "tableau_dev_ip" {
 variable "tableau_subnet_cidr_block" {
   description = "Tableau Dev CIDR block"
 }
-
-variable "tableau_vpc_subnet_cidr_block" {
-  description = "Tableau VPC CIDR block"
-}
-
-variable "tableau_route_table_id" {
-  description = "Route table ID"
-}

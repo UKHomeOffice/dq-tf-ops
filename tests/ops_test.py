@@ -44,8 +44,6 @@ class TestE2E(unittest.TestCase):
               aws_bucket_key                = "111122223333"
               tableau_dev_ip                = "1.2.3.4"
               tableau_subnet_cidr_block     = "10.1.1.1/32"
-              tableau_vpc_subnet_cidr_block = "10.1.1.1/32"
-              tableau_route_table_id        = "10.1.1.1/32"
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
