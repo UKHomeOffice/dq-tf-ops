@@ -82,7 +82,7 @@ variable "dq_pipeline_ops_readonly_database_name_list" {
 
 variable "tableau_dev_ip" {
   description = "Tableau Development IP address"
-  default = "10.0.0.1"
+  default     = "10.0.0.1"
 }
 
 variable "tableau_subnet_cidr_block" {
