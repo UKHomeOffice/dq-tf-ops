@@ -20,3 +20,11 @@ output "iam_roles" {
     "${aws_iam_role.httpd_ec2_server_role.id}",
   ]
 }
+
+output "httpd_config_bucket_key" {
+  value = "${aws_kms_key.httpd_config_bucket_key.arn}"
+}
+
+output "httpd_config_bucket" {
+  value = "${aws_s3_bucket.httpd_config_bucket.id}"
+}
