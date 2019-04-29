@@ -120,7 +120,7 @@ resource "aws_iam_role_policy" "ops_win_athena" {
           "kms:DescribeKey"
         ],
         "Effect": "Allow",
-        "Resource": "${aws_kms_key.bucket_key.arn}"
+        "Resource": "${var.apps_aws_bucket_key}"
       },
       {
         "Action": [
