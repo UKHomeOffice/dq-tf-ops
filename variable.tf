@@ -88,22 +88,22 @@ variable "tableau_subnet_cidr_block" {
 
 variable "dq_pipeline_ops_readwrite_database_name_list" {
   description = "RW Database list from dq-tf-apps"
-  type        = "string"
+  type        = "list"
 }
 
 variable "dq_pipeline_ops_readonly_database_name_list" {
   description = "RO Database list from dq-tf-apps"
-  type        = "string"
+  type        = "list"
 }
 
 variable "dq_pipeline_ops_readwrite_bucket_list" {
   description = "RW Bucket list from dq-tf-apps"
-  type        = "string"
+  type        = "list"
 }
 
 variable "dq_pipeline_ops_readonly_bucket_list" {
   description = "RO Bucket list from dq-tf-apps"
-  type        = "string"
+  type        = "list"
 }
 
 variable "apps_aws_bucket_key" {
