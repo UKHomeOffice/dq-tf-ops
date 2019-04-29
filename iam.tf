@@ -141,8 +141,6 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       }
     ]
   }
-  EOF
-  }
 EOF
 }
 
