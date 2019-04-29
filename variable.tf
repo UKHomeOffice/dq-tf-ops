@@ -101,3 +101,7 @@ variable "dq_pipeline_ops_readwrite_bucket_list" {
 variable "dq_pipeline_ops_readonly_bucket_list" {
   description = "RO Bucket list from dq-tf-apps"
 }
+
+variable "apps_aws_bucket_key" {
+  description = "Apps KMS key"
+}
