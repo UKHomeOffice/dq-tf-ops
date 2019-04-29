@@ -8,6 +8,7 @@ variable "ad_aws_ssm_document_name" {}
 variable "ad_writer_instance_profile_name" {}
 variable "adminpassword" {}
 variable "log_archive_s3_bucket" {}
+variable "namespace" {}
 
 variable "vpc_peering_connection_ids" {
   description = "Map of VPC peering IDs for the Ops route table."
@@ -76,10 +77,6 @@ variable "aws_bucket_key" {
   description = "S3 bucket KMS key"
 }
 
-variable "dq_pipeline_ops_readonly_database_name_list" {
-  default = ["api_input"]
-}
-
 variable "tableau_dev_ip" {
   description = "Tableau Development IP address"
   default     = "10.0.0.1"
@@ -87,4 +84,20 @@ variable "tableau_dev_ip" {
 
 variable "tableau_subnet_cidr_block" {
   description = "Tableau Dev CIDR block"
+}
+
+variable "dq_pipeline_ops_readwrite_database_name_list" {
+  description = "RW Database list from dq-tf-apps"
+}
+
+variable "dq_pipeline_ops_readonly_database_name_list" {
+  description = "RO Database list from dq-tf-apps"
+}
+
+variable "dq_pipeline_ops_readwrite_bucket_list" {
+  description = "RW Bucket list from dq-tf-apps"
+}
+
+variable "dq_pipeline_ops_readonly_bucket_list" {
+  description = "RO Bucket list from dq-tf-apps"
 }

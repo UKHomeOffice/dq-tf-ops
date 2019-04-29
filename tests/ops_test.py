@@ -27,6 +27,7 @@ class TestE2E(unittest.TestCase):
               ad_subnet_cidr_block            = "1.1.1.0/24"
               az                              = "eu-west-2a"
               naming_suffix                   = "preprod-dq"
+              namespace                       = "notprod"
               bastion_linux_ip                = "1.2.3.4"
               bastion_windows_ip              = "1.2.3.4"
               bastion2_windows_ip             = "1.2.3.4"
@@ -44,6 +45,10 @@ class TestE2E(unittest.TestCase):
               aws_bucket_key                  = "111122223333"
               tableau_dev_ip                  = "1.2.3.4"
               tableau_subnet_cidr_block       = "10.1.1.1/32"
+              dq_pipeline_ops_readwrite_database_name_list = ["api_input"]
+              dq_pipeline_ops_readonly_database_name_list  = ["api_input"]
+              dq_pipeline_ops_readwrite_bucket_list        = ["s3-bucket-name"]
+              dq_pipeline_ops_readonly_bucket_list         = ["s3-bucket-name"]
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
