@@ -6,7 +6,7 @@ variable "az" {}
 variable "naming_suffix" {}
 variable "ad_aws_ssm_document_name" {}
 variable "ad_writer_instance_profile_name" {}
-variable "adminpassword" {}
+variable "admi npassword" {}
 variable "log_archive_s3_bucket" {}
 variable "namespace" {}
 
@@ -49,6 +49,10 @@ variable "bastion2_windows_ip" {
 
 variable "bastion3_windows_ip" {
   description = "3rd Win bastion IP address"
+}
+
+variable "bastion4_windows_ip" {
+  description = "4th Win bastion IP address"
 }
 
 variable "ad_sg_cidr_ingress" {
