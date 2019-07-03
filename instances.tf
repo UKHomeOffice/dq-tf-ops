@@ -147,7 +147,7 @@ EOF
   }
 
   tags = {
-    Name = "bastion-win-${local.naming_suffix}"
+    Name = "bastion4-win-${local.naming_suffix}"
   }
 }
 
