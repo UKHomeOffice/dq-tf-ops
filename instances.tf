@@ -126,7 +126,7 @@ resource "aws_instance" "bastion_win4" {
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
-  private_ip                  = "${var.bastion_windows_ip}"
+  private_ip                  = "${var.bastion4_windows_ip}"
   associate_public_ip_address = false
   monitoring                  = true
 
