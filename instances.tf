@@ -124,7 +124,7 @@ resource "aws_instance" "bastion_win4" {
   ami                         = "${data.aws_ami.win.id}"
   instance_type               = "t2.large"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
-  iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
   private_ip                  = "${var.bastion4_windows_ip}"
   associate_public_ip_address = false
