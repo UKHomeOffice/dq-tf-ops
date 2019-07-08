@@ -49,6 +49,8 @@ class TestE2E(unittest.TestCase):
               dq_pipeline_ops_readonly_database_name_list  = ["api_input"]
               dq_pipeline_ops_readwrite_bucket_list        = ["s3-bucket-name"]
               dq_pipeline_ops_readonly_bucket_list         = ["s3-bucket-name"]
+              dq_pipeline_ops_freight_readwrite_bucket_list        = ["s3-bucket-name"]
+              dq_pipeline_ops_freight_readwrite_database_name_list = ["a-database-name"]
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
