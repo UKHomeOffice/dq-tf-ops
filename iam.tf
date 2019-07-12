@@ -58,7 +58,9 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       "Effect": "Allow",
       "Resource": [
         "${join("\",\"",formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}"
+        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
+        "${var.ops_config_bucket}",
+        "${var.ops_config_bucket}/*"
       ]
     },
     {
@@ -185,7 +187,9 @@ resource "aws_iam_role_policy" "ops_win_athena_freight" {
       "Effect": "Allow",
       "Resource": [
         "${join("\",\"",formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}",
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}"
+        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}",
+        "${var.ops_config_bucket}",
+        "${var.ops_config_bucket}/*"
       ]
     },
     {
