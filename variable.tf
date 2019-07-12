@@ -115,3 +115,7 @@ variable "dq_pipeline_ops_freight_readwrite_database_name_list"{
 variable "apps_aws_bucket_key" {
   description = "Apps KMS key"
 }
+
+variable "ops_config_acl" {
+  default = "private"
+}
