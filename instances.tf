@@ -37,6 +37,7 @@ resource "aws_instance" "bastion_win" {
   user_data = <<EOF
     <powershell>
     Rename-Computer -NewName "BASTION-WIN1" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}", "Machine")
     </powershell>
 EOF
 
@@ -69,6 +70,7 @@ resource "aws_instance" "bastion_win2" {
   user_data = <<EOF
 	<powershell>
 	Rename-Computer -NewName "BASTION-WIN2" -Restart
+  [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}", "Machine")
 	</powershell>
 EOF
 
@@ -101,6 +103,7 @@ resource "aws_instance" "bastion_win3" {
   user_data = <<EOF
 	<powershell>
 	Rename-Computer -NewName "BASTION-WIN3" -Restart
+  [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}", "Machine")
 	</powershell>
 EOF
 
@@ -133,6 +136,7 @@ resource "aws_instance" "bastion_win4" {
   user_data = <<EOF
     <powershell>
     Rename-Computer -NewName "BASTION-WIN4" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}", "Machine")
     </powershell>
 EOF
 
