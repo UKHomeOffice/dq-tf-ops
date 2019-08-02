@@ -125,7 +125,7 @@ EOF
 resource "aws_instance" "bastion_win4" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.win.id}"
-  instance_type               = "t2.large"
+  instance_type               = "t2.medium"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
   subnet_id                   = "${aws_subnet.OPSSubnet.id}"
@@ -152,6 +152,138 @@ EOF
 
   tags = {
     Name = "bastion4-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win5" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion5_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN5" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion5-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win6" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion6_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN6" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion6-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win7" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion7_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN7" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion7-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win8" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion8_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN8" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion8-win-${local.naming_suffix}"
   }
 }
 
