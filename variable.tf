@@ -72,6 +72,10 @@ variable "bastion8_windows_ip" {
   description = "8th Win bastion IP address"
 }
 
+variable "nfs_windows_ip" {
+  description = "IP address of nfs server"
+}
+
 variable "ad_sg_cidr_ingress" {
   description = "List of CIDR block ingress to AD machines SG"
   type        = "list"

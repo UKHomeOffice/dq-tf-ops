@@ -287,6 +287,49 @@ EOF
   }
 }
 
+resource "aws_volume_attachment" "nfs_attachment" {
+  device_name = "xvdf"
+  volume_id   = "${aws_ebs_volume.nfs_volume.id}"
+  instance_id = "${aws_instance.nfs_server.id}"
+}
+
+resource "aws_instance" "nfs_server" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.nfs_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "NFS-SERVER" -Restart
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "nfs-server-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_ebs_volume" "nfs_volume" {
+  availability_zone = "eu-west-2a"
+  size              = 10
+}
+
 resource "aws_ssm_association" "bastion_win" {
   name        = "${var.ad_aws_ssm_document_name}"
   instance_id = "${aws_instance.bastion_win.id}"
