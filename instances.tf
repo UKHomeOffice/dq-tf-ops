@@ -295,7 +295,7 @@ resource "aws_volume_attachment" "nfs_attachment" {
 
 resource "aws_instance" "nfs_server" {
   key_name                    = "${var.key_name}"
-  ami                         = "${data.aws_ami.win.id}"
+  ami                         = "${data.aws_ami.win_nfs.id}"
   instance_type               = "t2.medium"
   vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
   iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
@@ -328,6 +328,7 @@ EOF
 resource "aws_ebs_volume" "nfs_volume" {
   availability_zone = "eu-west-2a"
   size              = 10
+  encrypted         = true
 }
 
 resource "aws_ssm_association" "bastion_win" {

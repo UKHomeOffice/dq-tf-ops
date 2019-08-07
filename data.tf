@@ -14,6 +14,22 @@ data "aws_ami" "win" {
   ]
 }
 
+data "aws_ami" "win_nfs" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = [
+      "dq-ops-win-nfs-*",
+    ]
+  }
+
+  owners = [
+    "self",
+  ]
+}
+
 data "aws_availability_zones" "available" {}
 
 data "aws_ami" "rhel" {
