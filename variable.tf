@@ -10,6 +10,7 @@ variable "adminpassword" {}
 variable "log_archive_s3_bucket" {}
 variable "namespace" {}
 variable "ops_config_bucket" {}
+variable "ops_nfs_backup_bucket" {}
 
 variable "vpc_peering_connection_ids" {
   description = "Map of VPC peering IDs for the Ops route table."
@@ -138,5 +139,9 @@ variable "apps_aws_bucket_key" {
 }
 
 variable "ops_config_acl" {
+  default = "private"
+}
+
+variable "ops_nfs_backup_acl" {
   default = "private"
 }
