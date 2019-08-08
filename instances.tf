@@ -360,42 +360,21 @@ resource "aws_security_group" "Bastions" {
   ingress {
     from_port   = 111
     to_port     = 111
-    protocol    = "tcp"
-    cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
-  }
-
-  ingress {
-    from_port   = 111
-    to_port     = 111
-    protocol    = "udp"
+    protocol    = "tcp, udp"
     cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
   }
 
   ingress {
     from_port   = 2049
     to_port     = 2049
-    protocol    = "tcp"
-    cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
-  }
-
-  ingress {
-    from_port   = 2049
-    to_port     = 2049
-    protocol    = "udp"
+    protocol    = "tcp, udp"
     cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
   }
 
   ingress {
     from_port   = 445
     to_port     = 445
-    protocol    = "tcp"
-    cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
-  }
-
-  ingress {
-    from_port   = 445
-    to_port     = 445
-    protocol    = "udp"
+    protocol    = "tcp, udp"
     cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
   }
 
