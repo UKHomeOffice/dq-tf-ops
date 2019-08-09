@@ -307,6 +307,7 @@ resource "aws_instance" "nfs_server" {
   user_data = <<EOF
     <powershell>
     Rename-Computer -NewName "NFS-SERVER" -Restart
+    [Environment]::SetEnvironmentVariable("S3_NFS_BACKUP_BUCKET", "${var.ops_nfs_backup_bucket}", "Machine")
     </powershell>
 EOF
 
