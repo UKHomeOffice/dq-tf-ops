@@ -149,5 +149,5 @@ variable "ops_nfs_backup_acl" {
 }
 
 variable "athena_maintenance_acl" {
-  defailt = "private"
+  default = "private"
 }
