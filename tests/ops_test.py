@@ -45,6 +45,7 @@ class TestE2E(unittest.TestCase):
               s3_bucket_name                  = "dq-test"
               ops_config_bucket               = "s3-dq-ops-config"
               ops_nfs_backup_bucket           = "ops_nfs_backup_bucket-test"
+              athena_maintenance_bucket       = "ops_athena_maintenance_bucket"    
               management_access               = "10.1.1.1/32"
               analysis_instance_ip            = "10.1.1.1/32"
               athena_log_bucket               = "athena_log_bucket"

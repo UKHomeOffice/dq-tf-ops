@@ -11,6 +11,8 @@ variable "log_archive_s3_bucket" {}
 variable "namespace" {}
 variable "ops_config_bucket" {}
 variable "ops_nfs_backup_bucket" {}
+variable "athena_maintenance_bucket" {}
+
 
 variable "vpc_peering_connection_ids" {
   description = "Map of VPC peering IDs for the Ops route table."
@@ -144,4 +146,8 @@ variable "ops_config_acl" {
 
 variable "ops_nfs_backup_acl" {
   default = "private"
+}
+
+variable "athena_maintenance_acl" {
+  defailt = "private"
 }
