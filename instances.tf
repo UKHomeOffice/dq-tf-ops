@@ -287,6 +287,138 @@ EOF
   }
 }
 
+resource "aws_instance" "bastion_win9" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion9_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN9" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion9-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win10" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion10_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN10" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion10-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win11" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion11_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN11" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion11-win-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win12" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.medium"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win_freight.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion12_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+    <powershell>
+    Rename-Computer -NewName "BASTION-WIN12" -Restart
+    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    </powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion12-win-${local.naming_suffix}"
+  }
+}
+
 resource "aws_volume_attachment" "nfs_attachment" {
   device_name = "xvdf"
   volume_id   = "${aws_ebs_volume.nfs_volume.id}"
