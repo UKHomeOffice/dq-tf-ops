@@ -75,6 +75,22 @@ variable "bastion8_windows_ip" {
   description = "8th Win bastion IP address"
 }
 
+variable "bastion9_windows_ip" {
+  description = "9th Win bastion IP address"
+}
+
+variable "bastion10_windows_ip" {
+  description = "10th Win bastion IP address"
+}
+
+variable "bastion11_windows_ip" {
+  description = "11th Win bastion IP address"
+}
+
+variable "bastion12_windows_ip" {
+  description = "12th Win bastion IP address"
+}
+
 variable "nfs_windows_ip" {
   description = "IP address of nfs server"
 }
