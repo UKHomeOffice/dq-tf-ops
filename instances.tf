@@ -565,4 +565,5 @@ module "ops_tableau" {
   naming_suffix             = "${local.naming_suffix}"
   az                        = "${var.az}"
   route_table_id            = "${aws_route_table.ops_route_table.id}"
+  ops-win-iam-role          = "${aws_iam_role.ops_win.id}"
 }
