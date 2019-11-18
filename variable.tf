@@ -142,12 +142,12 @@ variable "dq_pipeline_ops_readonly_bucket_list" {
   type        = "list"
 }
 
-variable "dq_pipeline_ops_freight_readwrite_bucket_list"{
+variable "dq_pipeline_ops_freight_readwrite_bucket_list" {
   description = "RW Bucket list from dq-tf-apps"
   type        = "list"
 }
 
-variable "dq_pipeline_ops_freight_readwrite_database_name_list"{
+variable "dq_pipeline_ops_freight_readwrite_database_name_list" {
   description = "RW Database list from dq-tf-apps"
   type        = "list"
 }
@@ -166,4 +166,8 @@ variable "ops_nfs_backup_acl" {
 
 variable "athena_maintenance_acl" {
   default = "private"
+}
+
+variable "aws_iam_role.tableau.name" {
+  description = "aws_iam_role from dq-tf-ops-tableau"
 }
