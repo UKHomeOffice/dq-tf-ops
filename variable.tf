@@ -12,6 +12,7 @@ variable "namespace" {}
 variable "ops_config_bucket" {}
 variable "ops_nfs_backup_bucket" {}
 variable "athena_maintenance_bucket" {}
+variable "ops_win_iam_role" {}
 
 
 variable "vpc_peering_connection_ids" {
@@ -166,8 +167,4 @@ variable "ops_nfs_backup_acl" {
 
 variable "athena_maintenance_acl" {
   default = "private"
-}
-
-variable "aws_iam_role.tableau.name" {
-  description = "aws_iam_role from dq-tf-ops-tableau"
 }
