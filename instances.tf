@@ -565,6 +565,7 @@ module "ops_tableau" {
   naming_suffix                                = "${local.naming_suffix}"
   az                                           = "${var.az}"
   route_table_id                               = "${aws_route_table.ops_route_table.id}"
+  ops_config_bucket                            = "${var.ops_config_bucket}"
   apps_aws_bucket_key                          = "${var.apps_aws_bucket_key}"
   namespace                                    = "${var.namespace}"
   dq_pipeline_ops_readwrite_bucket_list        = "${var.dq_pipeline_ops_readwrite_bucket_list}"
