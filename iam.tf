@@ -57,8 +57,8 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
+        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
+        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
         "arn:aws:s3:::${var.ops_config_bucket}",
         "arn:aws:s3:::${var.ops_config_bucket}/*"
       ]
@@ -81,8 +81,8 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readonly_bucket_list, var.namespace))}",
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readonly_bucket_list, var.namespace))}"
+        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readonly_bucket_list, var.namespace))}",
+        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readonly_bucket_list, var.namespace))}"
       ]
     },
     {
@@ -169,8 +169,8 @@ resource "aws_iam_role_policy" "ops_win_athena_freight" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}",
-        "${join("\",\"",formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}",
+        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}",
+        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_freight_readwrite_bucket_list, var.namespace))}",
         "arn:aws:s3:::${var.ops_config_bucket}",
         "arn:aws:s3:::${var.ops_config_bucket}/*",
         "arn:aws:s3:::${var.ops_nfs_backup_bucket}",
@@ -205,8 +205,8 @@ resource "aws_iam_role_policy" "ops_win_athena_freight" {
       "Effect": "Allow",
       "Resource": [
         "arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:catalog",
-        "${join("\",\"",formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:database/%s_%s", var.dq_pipeline_ops_freight_readwrite_database_name_list, var.namespace))}",
-        "${join("\",\"",formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:table/%s_%s/*", var.dq_pipeline_ops_freight_readwrite_database_name_list, var.namespace))}"
+        "${join("\",\"", formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:database/%s_%s", var.dq_pipeline_ops_freight_readwrite_database_name_list, var.namespace))}",
+        "${join("\",\"", formatlist("arn:aws:glue:eu-west-2:${data.aws_caller_identity.current.account_id}:table/%s_%s/*", var.dq_pipeline_ops_freight_readwrite_database_name_list, var.namespace))}"
       ]
     },
     {
