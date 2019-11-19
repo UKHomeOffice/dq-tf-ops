@@ -12,7 +12,6 @@ variable "namespace" {}
 variable "ops_config_bucket" {}
 variable "ops_nfs_backup_bucket" {}
 variable "athena_maintenance_bucket" {}
-variable "ops_win_iam_role" {}
 
 
 variable "vpc_peering_connection_ids" {
