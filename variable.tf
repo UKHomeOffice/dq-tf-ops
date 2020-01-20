@@ -118,6 +118,11 @@ variable "tableau_dev_ip" {
   default     = "10.0.0.1"
 }
 
+variable "tableau_deployment_ip" {
+  description = "Tableau Deployment IP address"
+  default     = "10.0.0.2"
+}
+
 variable "tableau_subnet_cidr_block" {
   description = "Tableau Dev CIDR block"
 }
