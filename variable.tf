@@ -10,9 +10,7 @@ variable "adminpassword" {}
 variable "log_archive_s3_bucket" {}
 variable "namespace" {}
 variable "ops_config_bucket" {}
-variable "ops_nfs_backup_bucket" {}
 variable "athena_maintenance_bucket" {}
-
 
 variable "vpc_peering_connection_ids" {
   description = "Map of VPC peering IDs for the Ops route table."
@@ -34,11 +32,6 @@ variable "bastion_linux_id" {
   description = "Identification number for Bastion Host Linux Instance"
 }
 
-variable "greenplum_ip" {
-  default     = false
-  description = "IP address for Greenplum"
-}
-
 variable "bastion_linux_ip" {
   description = "Mock EC2 instance IP"
 }
@@ -53,46 +46,6 @@ variable "bastion2_windows_ip" {
 
 variable "bastion3_windows_ip" {
   description = "3rd Win bastion IP address"
-}
-
-variable "bastion4_windows_ip" {
-  description = "4th Win bastion IP address"
-}
-
-variable "bastion5_windows_ip" {
-  description = "5th Win bastion IP address"
-}
-
-variable "bastion6_windows_ip" {
-  description = "6th Win bastion IP address"
-}
-
-variable "bastion7_windows_ip" {
-  description = "7th Win bastion IP address"
-}
-
-variable "bastion8_windows_ip" {
-  description = "8th Win bastion IP address"
-}
-
-variable "bastion9_windows_ip" {
-  description = "9th Win bastion IP address"
-}
-
-variable "bastion10_windows_ip" {
-  description = "10th Win bastion IP address"
-}
-
-variable "bastion11_windows_ip" {
-  description = "11th Win bastion IP address"
-}
-
-variable "bastion12_windows_ip" {
-  description = "12th Win bastion IP address"
-}
-
-variable "nfs_windows_ip" {
-  description = "IP address of nfs server"
 }
 
 variable "ad_sg_cidr_ingress" {
@@ -147,25 +100,11 @@ variable "dq_pipeline_ops_readonly_bucket_list" {
   type        = "list"
 }
 
-variable "dq_pipeline_ops_freight_readwrite_bucket_list" {
-  description = "RW Bucket list from dq-tf-apps"
-  type        = "list"
-}
-
-variable "dq_pipeline_ops_freight_readwrite_database_name_list" {
-  description = "RW Database list from dq-tf-apps"
-  type        = "list"
-}
-
 variable "apps_aws_bucket_key" {
   description = "Apps KMS key"
 }
 
 variable "ops_config_acl" {
-  default = "private"
-}
-
-variable "ops_nfs_backup_acl" {
   default = "private"
 }
 
