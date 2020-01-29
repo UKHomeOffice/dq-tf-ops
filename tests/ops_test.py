@@ -32,23 +32,12 @@ class TestE2E(unittest.TestCase):
               bastion_windows_ip              = "1.2.3.4"
               bastion2_windows_ip             = "1.2.3.4"
               bastion3_windows_ip             = "1.2.3.4"
-              bastion4_windows_ip             = "1.2.3.4"
-              bastion5_windows_ip             = "1.2.3.4"
-              bastion6_windows_ip             = "1.2.3.4"
-              bastion7_windows_ip             = "1.2.3.4"
-              bastion8_windows_ip             = "1.2.3.4"
-              bastion9_windows_ip             = "1.2.3.4"
-              bastion10_windows_ip            = "1.2.3.4"
-              bastion11_windows_ip            = "1.2.3.4"
-              bastion12_windows_ip            = "1.2.3.4"
-              nfs_windows_ip                  = "1.2.3.4"
               ad_aws_ssm_document_name        = "1234"
               ad_writer_instance_profile_name = "1234"
               adminpassword                   = "1234"
               log_archive_s3_bucket           = "abcd"
               s3_bucket_name                  = "dq-test"
               ops_config_bucket               = "s3-dq-ops-config"
-              ops_nfs_backup_bucket           = "ops_nfs_backup_bucket-test"
               athena_maintenance_bucket       = "ops_athena_maintenance_bucket"
               management_access               = "10.1.1.1/32"
               analysis_instance_ip            = "10.1.1.1/32"
@@ -62,8 +51,6 @@ class TestE2E(unittest.TestCase):
               dq_pipeline_ops_readonly_database_name_list  = ["api_input"]
               dq_pipeline_ops_readwrite_bucket_list        = ["s3-bucket-name"]
               dq_pipeline_ops_readonly_bucket_list         = ["s3-bucket-name"]
-              dq_pipeline_ops_freight_readwrite_bucket_list        = ["s3-bucket-name"]
-              dq_pipeline_ops_freight_readwrite_database_name_list = ["a-database-name"]
 
               route_table_cidr_blocks   = {
                 peering_cidr = "1234"
