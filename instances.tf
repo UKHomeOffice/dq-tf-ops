@@ -122,6 +122,40 @@ EOF
   }
 }
 
+resource "aws_instance" "bastion_win4" {
+  key_name                    = "${var.key_name}"
+  ami                         = "${data.aws_ami.win.id}"
+  instance_type               = "t2.large"
+  vpc_security_group_ids      = ["${aws_security_group.Bastions.id}"]
+  iam_instance_profile        = "${aws_iam_instance_profile.ops_win.id}"
+  subnet_id                   = "${aws_subnet.OPSSubnet.id}"
+  private_ip                  = "${var.bastion4_windows_ip}"
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  user_data = <<EOF
+	<powershell>
+	Rename-Computer -NewName "THIS-IS-JUST-A-TEST-BASTION4" -Restart
+  [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+	</powershell>
+EOF
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      "user_data",
+      "ami",
+      "instance_type",
+    ]
+  }
+
+  tags = {
+    Name = "bastion4-win-TESTTEST${local.naming_suffix}"
+  }
+}
+
+
 resource "aws_ssm_association" "bastion_win" {
   name        = "${var.ad_aws_ssm_document_name}"
   instance_id = "${aws_instance.bastion_win.id}"
