@@ -136,7 +136,8 @@ resource "aws_instance" "bastion_win4" {
   user_data = <<EOF
 	<powershell>
 	Rename-Computer -NewName "THIS-IS-JUST-A-TEST-BASTION4" -Restart
-  [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+  [Environment]::SetEnvironmentVariable("JOEL_IS_COOL", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+  [Environment]::SetEnvironmentVariable("BATMAN_AND_ROBIN", "nolocation", "Machine")
 	</powershell>
 EOF
 
