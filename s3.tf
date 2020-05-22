@@ -1,13 +1,13 @@
 resource "aws_vpc_endpoint" "log_archive" {
-  vpc_id          = "${aws_vpc.opsvpc.id}"
-  route_table_ids = ["${aws_route_table.ops_route_table.id}"]
+  vpc_id          = aws_vpc.opsvpc.id
+  route_table_ids = [aws_route_table.ops_route_table.id]
   service_name    = "com.amazonaws.eu-west-2.s3"
 }
 
 resource "aws_s3_bucket" "ops_config_bucket" {
-  bucket = "${var.ops_config_bucket}"
-  acl    = "${var.ops_config_acl}"
-  region = "${var.region}"
+  bucket = var.ops_config_bucket
+  acl    = var.ops_config_acl
+  region = var.region
 
   server_side_encryption_configuration {
     rule {
@@ -22,7 +22,7 @@ resource "aws_s3_bucket" "ops_config_bucket" {
   }
 
   logging {
-    target_bucket = "${var.log_archive_s3_bucket}"
+    target_bucket = var.log_archive_s3_bucket
     target_prefix = "ops_config_bucket/"
   }
 
@@ -32,7 +32,7 @@ resource "aws_s3_bucket" "ops_config_bucket" {
 }
 
 resource "aws_s3_bucket_policy" "ops_config_bucket" {
-  bucket = "${var.ops_config_bucket}"
+  bucket = var.ops_config_bucket
 
   policy = <<POLICY
 {
@@ -53,12 +53,13 @@ resource "aws_s3_bucket_policy" "ops_config_bucket" {
   ]
 }
 POLICY
+
 }
 
 resource "aws_s3_bucket" "athena_maintenance_bucket" {
-  bucket = "${var.athena_maintenance_bucket}"
-  acl    = "${var.athena_maintenance_acl}"
-  region = "${var.region}"
+  bucket = var.athena_maintenance_bucket
+  acl    = var.athena_maintenance_acl
+  region = var.region
 
   server_side_encryption_configuration {
     rule {
@@ -73,7 +74,7 @@ resource "aws_s3_bucket" "athena_maintenance_bucket" {
   }
 
   logging {
-    target_bucket = "${var.log_archive_s3_bucket}"
+    target_bucket = var.log_archive_s3_bucket
     target_prefix = "athena_maintenance_bucket/"
   }
 
@@ -83,7 +84,7 @@ resource "aws_s3_bucket" "athena_maintenance_bucket" {
 }
 
 resource "aws_s3_bucket_policy" "athena_maintenance_bucket" {
-  bucket = "${var.athena_maintenance_bucket}"
+  bucket = var.athena_maintenance_bucket
 
   policy = <<POLICY
 {
@@ -104,4 +105,6 @@ resource "aws_s3_bucket_policy" "athena_maintenance_bucket" {
   ]
 }
 POLICY
+
 }
+

@@ -15,15 +15,15 @@ data "aws_ami" "analysis_ami" {
 }
 
 resource "aws_instance" "analysis" {
-  key_name                    = "${var.key_name}"
-  ami                         = "${data.aws_ami.analysis_ami.id}"
+  key_name                    = var.key_name
+  ami                         = data.aws_ami.analysis_ami.id
   instance_type               = "m4.xlarge"
-  iam_instance_profile        = "${aws_iam_instance_profile.httpd_server_instance_profile.id}"
-  vpc_security_group_ids      = ["${aws_security_group.analysis.id}"]
+  iam_instance_profile        = aws_iam_instance_profile.httpd_server_instance_profile.id
+  vpc_security_group_ids      = [aws_security_group.analysis.id]
   associate_public_ip_address = true
   monitoring                  = true
-  private_ip                  = "${var.analysis_instance_ip}"
-  subnet_id                   = "${aws_subnet.ops_public_subnet.id}"
+  private_ip                  = var.analysis_instance_ip
+  subnet_id                   = aws_subnet.ops_public_subnet.id
 
   user_data = <<EOF
 #!/bin/bash
@@ -51,6 +51,7 @@ aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-w
 systemctl restart httpd
 EOF
 
+
   tags = {
     Name = "ec2-analysis-${local.naming_suffix}"
   }
@@ -59,21 +60,21 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
-      "ami",
-      "user_data",
+      ami,
+      user_data,
     ]
   }
 }
 
 resource "aws_security_group" "analysis" {
-  vpc_id = "${aws_vpc.opsvpc.id}"
+  vpc_id = aws_vpc.opsvpc.id
 
   ingress {
     from_port = 443
     to_port   = 443
     protocol  = "tcp"
 
-    cidr_blocks = ["${var.analysis_cidr_ingress}"]
+    cidr_blocks = var.analysis_cidr_ingress
   }
 
   ingress {
@@ -82,7 +83,7 @@ resource "aws_security_group" "analysis" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.management_access}",
+      var.management_access,
     ]
   }
 
@@ -96,20 +97,20 @@ resource "aws_security_group" "analysis" {
     ]
   }
 
-  tags {
+  tags = {
     Name = "sg-analysis-${local.naming_suffix}"
   }
 }
 
 resource "aws_eip" "analysis_eip" {
-  instance = "${aws_instance.analysis.id}"
+  instance = aws_instance.analysis.id
   vpc      = true
 }
 
 resource "aws_route" "apps-tab" {
-  route_table_id            = "${aws_route_table.ops_public_table.id}"
-  destination_cidr_block    = "${var.route_table_cidr_blocks["apps_cidr"]}"
-  vpc_peering_connection_id = "${var.vpc_peering_connection_ids["ops_and_apps"]}"
+  route_table_id            = aws_route_table.ops_public_table.id
+  destination_cidr_block    = var.route_table_cidr_blocks["apps_cidr"]
+  vpc_peering_connection_id = var.vpc_peering_connection_ids["ops_and_apps"]
 }
 
 resource "aws_kms_key" "httpd_config_bucket_key" {
@@ -119,14 +120,14 @@ resource "aws_kms_key" "httpd_config_bucket_key" {
 }
 
 resource "aws_s3_bucket" "httpd_config_bucket" {
-  bucket = "${var.s3_bucket_name}"
-  acl    = "${var.s3_bucket_acl}"
-  region = "${var.region}"
+  bucket = var.s3_bucket_name
+  acl    = var.s3_bucket_acl
+  region = var.region
 
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = "${aws_kms_key.httpd_config_bucket_key.arn}"
+        kms_master_key_id = aws_kms_key.httpd_config_bucket_key.arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -137,7 +138,7 @@ resource "aws_s3_bucket" "httpd_config_bucket" {
   }
 
   logging {
-    target_bucket = "${var.log_archive_s3_bucket}"
+    target_bucket = var.log_archive_s3_bucket
     target_prefix = "${var.service}-log/"
   }
 
@@ -147,12 +148,12 @@ resource "aws_s3_bucket" "httpd_config_bucket" {
 }
 
 resource "aws_s3_bucket_metric" "httpd_config_bucket_logging" {
-  bucket = "${var.s3_bucket_name}"
+  bucket = var.s3_bucket_name
   name   = "httpd_config_bucket_metric"
 }
 
 resource "aws_s3_bucket_policy" "httpd_config_bucket" {
-  bucket = "${var.s3_bucket_name}"
+  bucket = var.s3_bucket_name
 
   policy = <<POLICY
 {
@@ -173,10 +174,11 @@ resource "aws_s3_bucket_policy" "httpd_config_bucket" {
   ]
 }
 POLICY
+
 }
 
 resource "aws_iam_role_policy" "httpd_linux_iam" {
-  role = "${aws_iam_role.httpd_ec2_server_role.id}"
+  role = aws_iam_role.httpd_ec2_server_role.id
 
   policy = <<EOF
 {
@@ -214,6 +216,7 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
     ]
 }
 EOF
+
 }
 
 resource "aws_iam_role" "httpd_ec2_server_role" {
@@ -234,11 +237,12 @@ resource "aws_iam_role" "httpd_ec2_server_role" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_instance_profile" "httpd_server_instance_profile" {
   name = "httpd_server_instance_profile"
-  role = "${aws_iam_role.httpd_ec2_server_role.name}"
+  role = aws_iam_role.httpd_ec2_server_role.name
 }
 
 variable "s3_bucket_acl" {
@@ -254,10 +258,11 @@ variable "service" {
   description = "As per naming standards in AWS-DQ-Network-Routing 0.5 document"
 }
 
-variable "analysis_instance_ip" {}
+variable "analysis_instance_ip" {
+}
 
 variable "analysis_cidr_ingress" {
-  type = "list"
+  type = list(string)
 
   default = [
     "62.25.109.196/32",
@@ -290,10 +295,13 @@ variable "analysis_cidr_ingress" {
   ]
 }
 
-variable "management_access" {}
+variable "management_access" {
+}
 
-variable "s3_bucket_name" {}
+variable "s3_bucket_name" {
+}
 
 output "analysis_eip" {
-  value = "${aws_eip.analysis_eip.public_ip}"
+  value = aws_eip.analysis_eip.public_ip
 }
+

@@ -18,7 +18,7 @@ class TestE2E(unittest.TestCase):
               source = "./mymodule"
 
               providers = {
-                aws = "aws"
+                aws = aws
               }
 
               cidr_block                      = "10.2.0.0/16"
@@ -28,11 +28,11 @@ class TestE2E(unittest.TestCase):
               az                              = "eu-west-2a"
               naming_suffix                   = "preprod-dq"
               namespace                       = "notprod"
-              bastion_linux_ip                = "1.2.3.4"
-              bastion_windows_ip              = "1.2.3.4"
-              bastion2_windows_ip             = "1.2.3.4"
-              bastion3_windows_ip             = "1.2.3.4"
-              bastion4_windows_ip             = "1.2.3.4"
+              bastion_linux_ip                = "10.8.0.11"
+              bastion_windows_ip              = "10.8.0.12"
+              bastion2_windows_ip             = "10.8.0.13"
+              bastion3_windows_ip             = "10.8.0.14"
+              bastion4_windows_ip             = "10.8.0.15"
               ad_aws_ssm_document_name        = "1234"
               ad_writer_instance_profile_name = "1234"
               adminpassword                   = "1234"
@@ -54,12 +54,9 @@ class TestE2E(unittest.TestCase):
               dq_pipeline_ops_readonly_bucket_list         = ["s3-bucket-name"]
 
               route_table_cidr_blocks   = {
-                peering_cidr = "1234"
-                apps_cidr = "1234"
-                acp_vpn = "1234"
-                acp_prod = "1234"
-                acp_ops = "1234"
-                acp_cicd = "1234"
+                peering_cidr = "10.2.0.0/16"
+                apps_cidr = "10.3.0.0/16"
+                acp_vpn = "10.4.0.0/16"
               }
               vpc_peering_connection_ids = {
                 ops_and_apps = "1234"
@@ -73,31 +70,29 @@ class TestE2E(unittest.TestCase):
               ]
             }
         """
-        self.result = Runner(self.snippet).result
-
-    def test_root_destroy(self):
-        self.assertEqual(self.result["destroy"], False)
+        self.runner = Runner(self.snippet)
+        self.result = self.runner.result
 
     def test_vpc_cidr_block(self):
-        self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["cidr_block"], "10.2.0.0/16")
+        self.assertEqual(self.runner.get_value("module.ops.aws_vpc.opsvpc", "cidr_block"), "10.2.0.0/16")
 
     def test_subnet_cidr_block(self):
-        self.assertEqual(self.result['ops']["aws_subnet.OPSSubnet"]["cidr_block"], "10.2.1.0/24")
+        self.assertEqual(self.runner.get_value("module.ops.aws_subnet.OPSSubnet", "cidr_block"), "10.2.1.0/24")
 
     def test_az(self):
-        self.assertEqual(self.result['ops']["aws_subnet.OPSSubnet"]["availability_zone"], "eu-west-2a")
+        self.assertEqual(self.runner.get_value("module.ops.aws_subnet.OPSSubnet", "availability_zone"), "eu-west-2a")
 
     def test_name_bastions_sg(self):
-        self.assertEqual(self.result['ops']["aws_security_group.Bastions"]["tags.Name"], "sg-bastions-ops-preprod-dq")
+        self.assertEqual(self.runner.get_value("module.ops.aws_security_group.Bastions", "tags"), {"Name": "sg-bastions-ops-preprod-dq"})
 
     def test_name_suffix_opsvpc(self):
-        self.assertEqual(self.result['ops']["aws_vpc.opsvpc"]["tags.Name"], "vpc-ops-preprod-dq")
+        self.assertEqual(self.runner.get_value("module.ops.aws_vpc.opsvpc", "tags"), {"Name": "vpc-ops-preprod-dq"})
 
     def test_name_suffix_ad_subnet(self):
-        self.assertEqual(self.result['ops']["aws_subnet.ad_subnet"]["tags.Name"], "ad-subnet-ops-preprod-dq")
+        self.assertEqual(self.runner.get_value("module.ops.aws_subnet.ad_subnet", "tags"), {"Name": "ad-subnet-ops-preprod-dq"})
 
     def test_name_bastion2(self):
-        self.assertEqual(self.result['ops']["aws_instance.bastion_win2"]["tags.Name"], "bastion2-win-ops-preprod-dq")
+        self.assertEqual(self.runner.get_value("module.ops.aws_instance.bastion_win2", "tags"), {"Name": "bastion2-win-ops-preprod-dq"})
 
 
 if __name__ == '__main__':
