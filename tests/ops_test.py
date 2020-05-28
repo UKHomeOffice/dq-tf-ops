@@ -54,12 +54,12 @@ class TestE2E(unittest.TestCase):
               dq_pipeline_ops_readonly_bucket_list         = ["s3-bucket-name"]
 
               route_table_cidr_blocks   = {
-                peering_cidr = "1234"
-                apps_cidr = "1234"
-                acp_vpn = "1234"
-                acp_prod = "1234"
-                acp_ops = "1234"
-                acp_cicd = "1234"
+                peering_cidr = "1.2.0.0/32"
+                apps_cidr = "1.2.0.0/32"
+                acp_vpn = "1.2.0.0/32"
+                acp_prod = "1.2.0.0/32"
+                acp_ops = "1.2.0.0/32"
+                acp_cicd = "1.2.0.0/32"
               }
               vpc_peering_connection_ids = {
                 ops_and_apps = "1234"
