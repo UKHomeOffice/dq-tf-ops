@@ -6,9 +6,11 @@ resource "aws_iam_role" "ops_win" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "ec2.amazonaws.com",
-        "Service": "s3.amazonaws.com",
-        "Service": "ssm.amazonaws.com"
+        "Service": [
+                   "ec2.amazonaws.com",
+                   "s3.amazonaws.com",
+                   "ssm.amazonaws.com"
+        ]
       },
       "Action": "sts:AssumeRole"
     }
@@ -162,4 +164,3 @@ EOF
 resource "aws_iam_instance_profile" "ops_win" {
   role = aws_iam_role.ops_win.name
 }
-
