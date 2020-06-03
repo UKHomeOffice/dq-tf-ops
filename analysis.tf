@@ -229,8 +229,8 @@ resource "aws_iam_role" "httpd_ec2_server_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "ec2.amazonaws.com",
-        "Service": "s3.amazonaws.com"
+        "Service": [ "ec2.amazonaws.com",
+                     "s3.amazonaws.com" ]
       },
       "Action": "sts:AssumeRole"
     }
@@ -304,4 +304,3 @@ variable "s3_bucket_name" {
 output "analysis_eip" {
   value = aws_eip.analysis_eip.public_ip
 }
-
