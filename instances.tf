@@ -250,7 +250,7 @@ resource "aws_security_group" "Bastions" {
 }
 
 module "ops_tableau" {
-  source = "git::https://github.com/ukhomeoffice/dq-tf-ops-tableau.git?ref=TF12-upgrade"
+  source = "github.com/UKHomeOffice/dq-tf-ops-tableau"
 
   key_name                                     = var.key_name
   tableau_dev_ip                               = var.tableau_dev_ip
