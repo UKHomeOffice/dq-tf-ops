@@ -6,20 +6,23 @@ resource "aws_iam_role" "ops_win" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "ec2.amazonaws.com",
-        "Service": "s3.amazonaws.com",
-        "Service": "ssm.amazonaws.com"
+        "Service": [
+                   "ec2.amazonaws.com",
+                   "s3.amazonaws.com",
+                   "ssm.amazonaws.com"
+        ]
       },
       "Action": "sts:AssumeRole"
     }
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_role_policy" "ops_win_athena" {
   name = "ops-win-athena-${local.naming_suffix}"
-  role = "${aws_iam_role.ops_win.name}"
+  role = aws_iam_role.ops_win.name
 
   policy = <<EOF
 {
@@ -38,8 +41,22 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
-        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readwrite_bucket_list, var.namespace))}",
+        "${join(
+  "\",\"",
+  formatlist(
+    "arn:aws:s3:::%s-%s",
+    var.dq_pipeline_ops_readwrite_bucket_list,
+    var.namespace,
+  ),
+  )}",
+        "${join(
+  "\",\"",
+  formatlist(
+    "arn:aws:s3:::%s-%s/*",
+    var.dq_pipeline_ops_readwrite_bucket_list,
+    var.namespace,
+  ),
+  )}",
         "arn:aws:s3:::${var.ops_config_bucket}",
         "arn:aws:s3:::${var.ops_config_bucket}/*"
       ]
@@ -62,8 +79,22 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s", var.dq_pipeline_ops_readonly_bucket_list, var.namespace))}",
-        "${join("\",\"", formatlist("arn:aws:s3:::%s-%s/*", var.dq_pipeline_ops_readonly_bucket_list, var.namespace))}"
+        "${join(
+  "\",\"",
+  formatlist(
+    "arn:aws:s3:::%s-%s",
+    var.dq_pipeline_ops_readonly_bucket_list,
+    var.namespace,
+  ),
+  )}",
+        "${join(
+  "\",\"",
+  formatlist(
+    "arn:aws:s3:::%s-%s/*",
+    var.dq_pipeline_ops_readonly_bucket_list,
+    var.namespace,
+  ),
+)}"
       ]
     },
     {
@@ -127,8 +158,9 @@ resource "aws_iam_role_policy" "ops_win_athena" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_instance_profile" "ops_win" {
-  role = "${aws_iam_role.ops_win.name}"
+  role = aws_iam_role.ops_win.name
 }
