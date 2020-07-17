@@ -41,7 +41,7 @@ class TestE2E(unittest.TestCase):
               ops_config_bucket               = "s3-dq-ops-config"
               athena_maintenance_bucket       = "ops_athena_maintenance_bucket"
               management_access               = "10.1.1.1/32"
-              analysis_instance_ip            = "10.1.1.1/32"
+              analysis_instance_ip            = "10.1.1.1"
               athena_log_bucket               = "athena_log_bucket"
               aws_bucket_key                  = "111122223333"
               tableau_dev_ip                  = "1.2.3.4"
