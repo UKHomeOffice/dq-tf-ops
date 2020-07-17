@@ -175,19 +175,19 @@ resource "aws_iam_access_key" "deploy_user" {
   user = aws_iam_user.deploy_user.name
 }
 
-resource "aws_ssm_parameter" "deploy_user" {
+resource "aws_ssm_parameter" "deploy_user_id" {
   name  = "dq-tf-deploy-user-id-${local.naming_suffix}"
   type  = "SecureString"
   value = aws_iam_access_key.deploy_user.id
 }
 
-resource "aws_ssm_parameter" "deploy_user" {
+resource "aws_ssm_parameter" "deploy_user_key" {
   name  = "dq-tf-deploy-user-key-${local.naming_suffix}"
   type  = "SecureString"
   value = aws_iam_access_key.deploy_user.secret
 }
 
-resource "aws_iam_user_group_membership" "deploy_user" {
+resource "aws_iam_user_group_membership" "deploy_user_group" {
   user = aws_iam_user.deploy_user.name
 
   groups = [
