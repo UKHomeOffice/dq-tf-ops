@@ -191,6 +191,7 @@ resource "aws_iam_user_group_membership" "deploy_user_group" {
   user = aws_iam_user.deploy_user.name
 
   groups = [
-    "dq-tf-infra"
+    "dq-tf-infra",
+    "kms-fullaccess"
   ]
 }
