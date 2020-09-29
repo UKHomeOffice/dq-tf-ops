@@ -103,7 +103,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win3" {
-  count                       = 0
+  #count                       = 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
