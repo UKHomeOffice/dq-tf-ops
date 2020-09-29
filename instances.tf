@@ -51,7 +51,7 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
-      #user_data,
+      user_data,
       ami,
       instance_type,
     ]
@@ -91,7 +91,7 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
-      #user_data,
+      user_data,
       ami,
       instance_type,
     ]
@@ -138,7 +138,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win4" {
-  count                       = 0
+  #count                       = 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
