@@ -38,10 +38,18 @@ resource "aws_instance" "bastion_win" {
     <powershell>
     Rename-Computer -NewName "BASTION-WIN1"
     [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    # Install the Windows RDS services
     Install-WindowsFeature -name windows-internal-database -Verbose
     Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
     Install-WindowsFeature -Name RDS-licensing -Verbose
     Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
+
+    # Join the box to the dq domain
+    $domain = "dq.homeoffice.gov.uk"
+    $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
+    $username = "$domain\domain_joiner"
+    $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+    Add-Computer -DomainName $domain -Credential $credential
     Restart-Computer -Force
     </powershell>
 EOF
@@ -78,10 +86,18 @@ resource "aws_instance" "bastion_win2" {
 	<powershell>
 	Rename-Computer -NewName "BASTION-WIN2"
   [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
-  Install-WindowsFeature -Name windows-internal-database -Verbose
+  # Install the Windows RDS services
+  Install-WindowsFeature -name windows-internal-database -Verbose
   Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
   Install-WindowsFeature -Name RDS-licensing -Verbose
   Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
+
+  # Join the box to the dq domain
+  $domain = "dq.homeoffice.gov.uk"
+  $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
+  $username = "$domain\domain_joiner"
+  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+  Add-Computer -DomainName $domain -Credential $credential
   Restart-Computer -Force
   </powershell>
 EOF
@@ -103,7 +119,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win3" {
-  #count                       = 0  #keep this bastion running until testing is complete
+  count                       = 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
@@ -138,7 +154,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win4" {
-  #count                       = 0
+  count                       = 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
