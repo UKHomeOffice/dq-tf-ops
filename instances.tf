@@ -26,7 +26,7 @@ resource "aws_instance" "bastion_linux" {
 resource "aws_instance" "bastion_win" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
-  instance_type               = "t2.large"
+  instance_type               = "t3.large"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   iam_instance_profile        = aws_iam_instance_profile.ops_win.id
   subnet_id                   = aws_subnet.OPSSubnet.id
@@ -36,8 +36,13 @@ resource "aws_instance" "bastion_win" {
 
   user_data = <<EOF
     <powershell>
-    Rename-Computer -NewName "BASTION-WIN1" -Restart
+    Rename-Computer -NewName "BASTION-WIN1"
     [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+    Install-WindowsFeature -name windows-internal-database -Verbose
+    Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
+    Install-WindowsFeature -Name RDS-licensing -Verbose
+    Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
+    Restart-Computer -Force
     </powershell>
 EOF
 
@@ -46,7 +51,7 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
-      user_data,
+      #ßuser_data,
       ami,
       instance_type,
     ]
@@ -58,9 +63,10 @@ EOF
 }
 
 resource "aws_instance" "bastion_win2" {
+  count                       = var.environment == "prod" ? 1 : 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
-  instance_type               = "t2.large"
+  instance_type               = "t3.large"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   iam_instance_profile        = aws_iam_instance_profile.ops_win.id
   subnet_id                   = aws_subnet.OPSSubnet.id
@@ -70,9 +76,14 @@ resource "aws_instance" "bastion_win2" {
 
   user_data = <<EOF
 	<powershell>
-	Rename-Computer -NewName "BASTION-WIN2" -Restart
+	Rename-Computer -NewName "BASTION-WIN2"
   [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
-	</powershell>
+  Install-WindowsFeature -Name windows-internal-database -Verbose
+  Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
+  Install-WindowsFeature -Name RDS-licensing -Verbose
+  Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
+  Restart-Computer -Force
+  </powershell>
 EOF
 
 
@@ -80,7 +91,7 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
-      user_data,
+      #user_data,
       ami,
       instance_type,
     ]
@@ -92,6 +103,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win3" {
+  count                       = 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
@@ -126,6 +138,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win4" {
+  count                       = 0
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
