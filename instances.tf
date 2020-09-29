@@ -103,7 +103,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win3" {
-  #count                       = 0
+  #count                       = 0 # keep bastion 3 running until until TS bast is up
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t2.large"
