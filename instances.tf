@@ -51,7 +51,7 @@ EOF
     prevent_destroy = true
 
     ignore_changes = [
-      #ßuser_data,
+      #user_data,
       ami,
       instance_type,
     ]
