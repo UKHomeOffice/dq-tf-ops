@@ -102,7 +102,6 @@ resource "aws_instance" "bastion_win2" {
   </powershell>
 EOF
 
-
   lifecycle {
     prevent_destroy = true
 
