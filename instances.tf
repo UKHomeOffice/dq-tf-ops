@@ -48,8 +48,7 @@ resource "aws_instance" "bastion_win" {
     $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
     $username = "$domain\domain_joiner"
     $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-    Add-Computer -DomainName $domain -NewName "BASTION-WIN1" -Credential $credential
-    Restart-Computer -Force
+    Add-Computer -DomainName $domain -ComputerName $env:computername -NewName "BASTION-WIN1" -options JoinWithNewName -Credential $credential -restart -force
     </powershell>
 EOF
 
@@ -95,8 +94,7 @@ resource "aws_instance" "bastion_win2" {
   $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
   $username = "$domain\domain_joiner"
   $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-  Add-Computer -DomainName $domain -NewName "BASTION-WIN2" -Credential $credential
-  Restart-Computer -Force
+  Add-Computer -DomainName $domain -ComputerName $env:computername -NewName "BASTION-WIN2" -options JoinWithNewName -Credential $credential -restart -force
   </powershell>
 EOF
 
