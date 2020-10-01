@@ -36,7 +36,6 @@ resource "aws_instance" "bastion_win" {
 
   user_data = <<EOF
     <powershell>
-    Rename-Computer -NewName "BASTION-WIN1"
     [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
     # Install the Windows RDS services
     Install-WindowsFeature -name windows-internal-database -Verbose
@@ -49,7 +48,7 @@ resource "aws_instance" "bastion_win" {
     $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
     $username = "$domain\domain_joiner"
     $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-    Add-Computer -DomainName $domain -Credential $credential
+    Add-Computer -DomainName $domain -NewName "BASTION-WIN1" -Credential $credential
     Restart-Computer -Force
     </powershell>
 EOF
@@ -84,7 +83,6 @@ resource "aws_instance" "bastion_win2" {
 
   user_data = <<EOF
 	<powershell>
-	Rename-Computer -NewName "BASTION-WIN2"
   [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
   # Install the Windows RDS services
   Install-WindowsFeature -name windows-internal-database -Verbose
@@ -97,7 +95,7 @@ resource "aws_instance" "bastion_win2" {
   $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
   $username = "$domain\domain_joiner"
   $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-  Add-Computer -DomainName $domain -Credential $credential
+  Add-Computer -DomainName $domain -NewName "BASTION-WIN2" -Credential $credential
   Restart-Computer -Force
   </powershell>
 EOF
