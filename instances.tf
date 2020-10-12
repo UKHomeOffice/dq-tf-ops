@@ -26,7 +26,7 @@ resource "aws_instance" "bastion_linux" {
 resource "aws_instance" "bastion_win" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
-  instance_type               = "t3.large"
+  instance_type               = "t3a.large"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   iam_instance_profile        = aws_iam_instance_profile.ops_win.id
   subnet_id                   = aws_subnet.OPSSubnet.id
@@ -56,11 +56,11 @@ EOF
   lifecycle {
     prevent_destroy = true
 
-    # ignore_changes = [
-    #   user_data,
-    #   ami,
-    #   instance_type,
-    # ]
+    ignore_changes = [
+      user_data,
+      ami,
+      instance_type
+    ]
   }
 
   tags = {
@@ -71,7 +71,7 @@ EOF
 resource "aws_instance" "bastion_win2" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
-  instance_type               = "t3.large"
+  instance_type               = "t3a.large"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   iam_instance_profile        = aws_iam_instance_profile.ops_win.id
   subnet_id                   = aws_subnet.OPSSubnet.id
