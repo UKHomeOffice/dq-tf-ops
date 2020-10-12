@@ -56,11 +56,11 @@ EOF
   lifecycle {
     prevent_destroy = true
 
-    ignore_changes = [
-      user_data,
-      ami,
-      instance_type,
-    ]
+    # ignore_changes = [
+    #   user_data,
+    #   ami,
+    #   instance_type,
+    # ]
   }
 
   tags = {
