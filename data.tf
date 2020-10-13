@@ -56,7 +56,7 @@ data "aws_ami" "mock-sftp-server-linux" {
     name = "name"
 
     values = [
-      "mock-ftp-server-centos*",
+      "mock-ftp-server-centos",
     ]
   }
 
