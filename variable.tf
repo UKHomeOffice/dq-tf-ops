@@ -80,6 +80,10 @@ variable "bastion4_windows_ip" {
   description = "4th Win bastion IP address"
 }
 
+variable "mock_sftp_server_linux_ip" {
+  description = "linux sftp server IP address"
+}
+
 variable "ad_sg_cidr_ingress" {
   description = "List of CIDR block ingress to AD machines SG"
   type        = list(string)

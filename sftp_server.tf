@@ -4,7 +4,7 @@ resource "aws_instance" "mock-sftp-server-linux" {
   instance_type               = "t2.medium"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   subnet_id                   = aws_subnet.OPSSubnet.id
-  private_ip                  = var.mock-sftp-server-linux_ip
+  private_ip                  = var.mock_sftp_server_linux_ip
   associate_public_ip_address = false
   monitoring                  = true
 
