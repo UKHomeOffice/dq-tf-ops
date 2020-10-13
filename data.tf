@@ -49,6 +49,22 @@ data "aws_ami" "bastion_linux" {
   ]
 }
 
+data "aws_ami" "mock-sftp-linux" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = [
+      "mock-ftp-server-centos*",
+    ]
+  }
+
+  owners = [
+    "self",
+  ]
+}
+
 data "aws_caller_identity" "current" {
 }
 
