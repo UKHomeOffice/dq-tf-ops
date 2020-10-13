@@ -49,7 +49,7 @@ data "aws_ami" "bastion_linux" {
   ]
 }
 
-data "aws_ami" "mock-sftp-linux" {
+data "aws_ami" "mock-sftp-server-linux" {
   most_recent = true
 
   filter {
