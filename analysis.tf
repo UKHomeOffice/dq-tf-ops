@@ -17,7 +17,7 @@ data "aws_ami" "analysis_ami" {
 resource "aws_instance" "analysis" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.analysis_ami.id
-  instance_type               = "m4.xlarge"
+  instance_type               = "m5a.xlarge"
   iam_instance_profile        = aws_iam_instance_profile.httpd_server_instance_profile.id
   vpc_security_group_ids      = [aws_security_group.analysis.id]
   associate_public_ip_address = true
