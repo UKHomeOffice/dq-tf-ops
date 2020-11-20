@@ -58,7 +58,7 @@ pip uninstall urllib3 -y
 yum install python-requests -y
 yum install python-six -y
 yum install python-urllib3 -y
-pip install pyOpenSSL==0.14 -U
+pip install pyOpenSSL==0.14 -U -y
 
 systemctl restart httpd
 EOF
