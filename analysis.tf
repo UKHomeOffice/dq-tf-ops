@@ -52,6 +52,13 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
 aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
 
+pip uninstall requests -y
+pip uninstall six -y
+pip uninstall urllib3 -y
+yum install python-requests -y
+yum install python-six -y
+yum install python-urllib3 -y
+
 systemctl restart httpd
 EOF
 
