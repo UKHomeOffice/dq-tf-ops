@@ -49,6 +49,17 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
 
+echo "#Pull values from Parameter Store and save to profile"
+touch /etc/letsencrypt/ssl_expire_script/env_vars.sh
+echo "
+export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --query 'Parameter.Value' --output text`
+export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --query 'Parameter.Value' --output text`
+export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --query 'Parameter.Value' --output text`
+" > /etc/letsencrypt/ssl_expire_script/env_vars.sh
+
+echo "#Load the env vars needed for this user_data script"
+source /etc/letsencrypt/ssl_expire_script/env_vars.sh
+
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
 aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
 
