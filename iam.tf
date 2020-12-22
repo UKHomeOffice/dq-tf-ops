@@ -154,17 +154,6 @@ resource "aws_iam_role_policy" "ops_win_athena" {
       ],
       "Effect": "Allow",
       "Resource": "*"
-    },
-    {
-      "Action": [
-        "ssm:GetParameter"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
-        "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
-        "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_get_expiry_command"
-      ]
     }
   ]
 }
