@@ -56,7 +56,7 @@ echo "#Pull values from Parameter Store and save to profile"
 touch /etc/letsencrypt/ssl_expire_script/env_vars.sh
 echo "
 export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
-export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
+export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
 " > /etc/letsencrypt/ssl_expire_script/env_vars.sh
 
