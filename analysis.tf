@@ -30,6 +30,9 @@ resource "aws_instance" "analysis" {
 
 set -e
 
+#log output from this user_data script
+exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
+
 echo "export s3_bucket_name=${var.s3_bucket_name}" >> /root/.bashrc && source /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
@@ -235,7 +238,10 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_hostname",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_key",
-            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_fullchain"
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_fullchain",
+            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
+            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_get_expiry_command"
           ]
         }
     ]
