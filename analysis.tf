@@ -63,14 +63,19 @@ export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analy
 echo "#Load the env vars needed for this user_data script"
 source /etc/letsencrypt/ssl_expire_script/env_vars.sh
 
+echo "#Load the env vars when root logs in"
+echo "
+source /etc/letsencrypt/ssl_expire_script/env_vars.sh
+" >> /root/.bashrc
+
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
 aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
 
 systemctl restart httpd
 
-pip uninstall requests -y
-pip uninstall six -y
-pip uninstall urllib3 -y
+#pip uninstall requests -y
+#pip uninstall six -y
+#pip uninstall urllib3 -y
 yum reinstall python-requests -y
 yum reinstall python-six -y
 yum reinstall python-urllib3 -y
