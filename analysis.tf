@@ -71,7 +71,7 @@ systemctl restart httpd
 yum reinstall python-requests -y
 yum reinstall python-six -y
 yum reinstall python-urllib3 -y
-#pip install pyOpenSSL==0.14 -U -y
+pip install pyOpenSSL==0.14 -U -y
 
 systemctl restart httpd
 EOF
