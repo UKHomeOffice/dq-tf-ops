@@ -53,20 +53,12 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
 
 echo "#Pull values from Parameter Store and save to profile"
-touch /etc/letsencrypt/ssl_expire_script/env_vars.sh
+touch /home/centos/ssl_expire_script/env_vars
 echo "
 export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
-" > /etc/letsencrypt/ssl_expire_script/env_vars.sh
-
-echo "#Load the env vars needed for this user_data script"
-source /etc/letsencrypt/ssl_expire_script/env_vars.sh
-
-echo "#Load the env vars when root logs in"
-echo "
-source /etc/letsencrypt/ssl_expire_script/env_vars.sh
-" >> /root/.bashrc
+" > /home/centos/ssl_expire_script/env_vars
 
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
 aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
@@ -79,7 +71,7 @@ systemctl restart httpd
 yum reinstall python-requests -y
 yum reinstall python-six -y
 yum reinstall python-urllib3 -y
-pip install pyOpenSSL==0.14 -U -y
+#pip install pyOpenSSL==0.14 -U -y
 
 systemctl restart httpd
 EOF
