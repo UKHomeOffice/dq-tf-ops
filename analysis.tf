@@ -57,7 +57,7 @@ touch /home/centos/ssl_expire_script/env_vars
 echo "
 export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
-export AWS_DEFAULT_REGION=eu-west-2'
+export AWS_DEFAULT_REGION=eu-west-2
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
 export PEM_DIR_ONE=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_one --with-decryption --query 'Parameter.Value' --output text`
 export PEM_DIR_TWO=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_two --with-decryption --query 'Parameter.Value' --output text`
