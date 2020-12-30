@@ -234,7 +234,8 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
         {
           "Effect": "Allow",
           "Action": [
-              "ssm:GetParameter"
+              "ssm:GetParameter",
+              "ssm:PutParameter"
           ],
           "Resource": [
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_hostname",
