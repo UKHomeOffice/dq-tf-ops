@@ -62,7 +62,7 @@ export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analy
 export PEM_DIR_ONE=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_one --with-decryption --query 'Parameter.Value' --output text`
 export PEM_DIR_TWO=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_two --with-decryption --query 'Parameter.Value' --output text`
 export PEM_DIR_THREE=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_three --with-decryption --query 'Parameter.Value' --output text`
-export GET_REMOTE_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name get_remote_expiry --with-decryption --query 'Parameter.Value' --output text`
+export GET_REMOTE_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_get_remote_expiry --with-decryption --query 'Parameter.Value' --output text`
 " > /home/centos/ssl_expire_script/env_vars
 
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
@@ -243,7 +243,11 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_fullchain",
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
-            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_get_expiry_command"
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_get_expiry_command",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_pem_dir_one",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_pem_dir_two",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_pem_dir_three",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis_get_remote_expiry"
           ]
         }
     ]
