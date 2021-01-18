@@ -279,7 +279,7 @@ EOF
 }
 
 resource "aws_iam_role_policy_attachment" "httpd_ec2_server_CWagent" {
-  role       = aws_iam_role.httpd_ec2_server_role[0].id
+  role       = aws_iam_role.httpd_ec2_server_role.id
   policy_arn = "arn:aws:iam::aws:policy/service-role/CloudWatchAgentServerPolicy"
 }
 
