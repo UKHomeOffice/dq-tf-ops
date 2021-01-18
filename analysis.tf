@@ -17,7 +17,7 @@ data "aws_ami" "analysis_ami" {
 resource "aws_instance" "analysis" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.analysis_ami.id
-  instance_type               = var.namespace == "prod" ? "m4.xlarge" : "m5a.xlarge"
+  instance_type               = var.namespace == "prod" ? "m5a.xlarge" : "m5a.xlarge"
   iam_instance_profile        = aws_iam_instance_profile.httpd_server_instance_profile.id
   vpc_security_group_ids      = [aws_security_group.analysis.id]
   associate_public_ip_address = true
@@ -276,6 +276,11 @@ resource "aws_iam_role" "httpd_ec2_server_role" {
 }
 EOF
 
+}
+
+resource "aws_iam_role_policy_attachment" "httpd_ec2_server_CWagent" {
+  role       = aws_iam_role.httpd_ec2_server_role[0].id
+  policy_arn = "arn:aws:iam::aws:policy/service-role/CloudWatchAgentServerPolicy"
 }
 
 resource "aws_iam_instance_profile" "httpd_server_instance_profile" {
