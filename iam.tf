@@ -195,3 +195,33 @@ resource "aws_iam_user_group_membership" "deploy_user_group" {
     "kms-fullaccess"
   ]
 }
+
+# add dq-tf-compliance user to be used by drone pipleines for compliance jobs
+
+resource "aws_iam_user" "compliance_user" {
+  name = "dq-tf-compliance-${local.naming_suffix}"
+}
+
+resource "aws_iam_access_key" "compliance_user" {
+  user = aws_iam_user.compliance_user.name
+}
+
+resource "aws_ssm_parameter" "compliance_user_id" {
+  name  = "dq-tf-compliance-user-id-${local.naming_suffix}"
+  type  = "SecureString"
+  value = aws_iam_access_key.compliance_user.id
+}
+
+resource "aws_ssm_parameter" "compliance_user_key" {
+  name  = "dq-tf-compliance-user-key-${local.naming_suffix}"
+  type  = "SecureString"
+  value = aws_iam_access_key.compliance_user.secret
+}
+
+resource "aws_iam_user_group_membership" "compliance_user_group" {
+  user = aws_iam_user.compliance_user.name
+
+  groups = [
+    "dq-compliance"
+  ]
+}
