@@ -81,8 +81,7 @@ pip install pyOpenSSL==0.14 -U -y
 systemctl restart httpd
 
 # start the cloud watch agent
-/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -m ec2 -a start
-
+/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -s -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 EOF
 
 
