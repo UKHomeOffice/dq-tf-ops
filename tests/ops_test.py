@@ -49,10 +49,11 @@ class TestE2E(unittest.TestCase):
               tableau_deployment_ip           = "1.2.3.5"
               tableau_subnet_cidr_block       = "10.1.1.1/32"
               apps_aws_bucket_key             = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
-              dq_pipeline_ops_readwrite_database_name_list = ["api_input"]
-              dq_pipeline_ops_readonly_database_name_list  = ["api_input"]
-              dq_pipeline_ops_readwrite_bucket_list        = ["s3-bucket-name"]
-              dq_pipeline_ops_readonly_bucket_list         = ["s3-bucket-name"]
+              dq_pipeline_ops_readwrite_database_name_list       = ["api_input"]
+              dq_pipeline_ops_readwrite_database_name_list_fedat = ["fedat_reporting"]
+              dq_pipeline_ops_readonly_database_name_list        = ["api_input"]
+              dq_pipeline_ops_readwrite_bucket_list              = ["s3-bucket-name"]
+              dq_pipeline_ops_readonly_bucket_list               = ["s3-bucket-name"]
 
               route_table_cidr_blocks   = {
                 peering_cidr = "10.2.0.0/16"
