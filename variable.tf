@@ -117,6 +117,11 @@ variable "dq_pipeline_ops_readwrite_database_name_list" {
   type        = list(string)
 }
 
+variable "dq_pipeline_ops_readwrite_database_name_list_fedat" {
+  description = "RW Database list from dq-tf-apps"
+  type        = list(string)
+}
+
 variable "dq_pipeline_ops_readonly_database_name_list" {
   description = "RO Database list from dq-tf-apps"
   type        = list(string)
