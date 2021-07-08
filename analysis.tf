@@ -226,7 +226,7 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
           "Action": ["s3:ListBucket"],
           "Resource": [
             "${aws_s3_bucket.httpd_config_bucket.arn}",
-            "arn:aws:s3:::${var.data_archive_bucket}"
+            "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}"
             ]
         },
         {
@@ -236,7 +236,7 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
           ],
           "Resource": [
             "${aws_s3_bucket.httpd_config_bucket.arn}/*",
-            "arn:aws:s3:::${var.data_archive_bucket}/*"
+            "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}/*"
           ]
         },
         {
@@ -245,7 +245,7 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
           ],
           "Effect": "Allow",
           "Resource": [
-            "arn:aws:s3:::${var.data_archive_bucket}"
+            "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}"
           ]
         },
         {
