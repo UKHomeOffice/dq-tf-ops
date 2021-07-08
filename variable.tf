@@ -143,3 +143,7 @@ variable "ops_config_acl" {
 variable "athena_maintenance_acl" {
   default = "private"
 }
+
+variable "data_archive_bucket" {
+  default = "s3-dq-data-archive-bucket-${var.namespace}"
+}
