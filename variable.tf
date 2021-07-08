@@ -145,5 +145,5 @@ variable "athena_maintenance_acl" {
 }
 
 variable "data_archive_bucket" {
-  default = "s3-dq-data-archive-bucket-${var.namespace}"
+  default = "s3-dq-data-archive-bucket"
 }
