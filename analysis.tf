@@ -37,7 +37,7 @@ exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -s -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
 echo "export s3_bucket_name=${var.s3_bucket_name}" >> /root/.bashrc && source /root/.bashrc
-echo "export data_archive_bucket=${var.data_archive_bucket}" >> /root/.bashrc && source /root/.bashrc
+echo "export data_archive_bucket=${var.data_archive_bucket}-${var.namespace}" >> /root/.bashrc && source /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
