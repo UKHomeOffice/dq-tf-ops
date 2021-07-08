@@ -37,14 +37,15 @@ exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -s -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
 echo "export s3_bucket_name=${var.s3_bucket_name}" >> /root/.bashrc && source /root/.bashrc
+echo "export s3_bucket_name=${var.log_archive_s3_bucket}" >> /root/.bashrc && source /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname/"
-aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate --query 'Parameter.Value' --output text --with-decryption > "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem"
-aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_key --query 'Parameter.Value' --output text --with-decryption > "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
-aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_fullchain --query 'Parameter.Value' --output text --with-decryption > "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
+aws s3 cp s3://$log_archive_s3_bucket/analysis/letsencrypt/cert.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" --region eu-west-2
+aws s3 cp s3://$log_archive_s3_bucket/analysis/letsencrypt/privkey1.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" --region eu-west-2
+aws s3 cp s3://$log_archive_s3_bucket/analysis/letsencrypt/fullchain1.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" --region eu-west-2
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/cert.pem
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/privkey.pem
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/fullchain.pem
@@ -62,10 +63,10 @@ export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-
 export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export AWS_DEFAULT_REGION=eu-west-2
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
-export PEM_DIR_ONE=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_one --with-decryption --query 'Parameter.Value' --output text`
-export PEM_DIR_TWO=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_two --with-decryption --query 'Parameter.Value' --output text`
-export PEM_DIR_THREE=`aws --region eu-west-2 ssm get-parameter --name analysis_pem_dir_three --with-decryption --query 'Parameter.Value' --output text`
 export GET_REMOTE_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_get_remote_expiry --with-decryption --query 'Parameter.Value' --output text`
+export LIVE_CERTS=/etc/letsencrypt/live/`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --with-decryption --query 'Parameter.Value' --output text`
+export S3_FILE_LANDING=/home/centos/ssl_expire_script/remote_cert.pem
+export BUCKET=${var.log_archive_s3_bucket}-${var.namespace}
 " > /home/centos/ssl_expire_script/env_vars
 
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
@@ -73,13 +74,16 @@ aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-w
 
 systemctl restart httpd
 
-#pip uninstall requests -y
-#pip uninstall six -y
-#pip uninstall urllib3 -y
-yum reinstall python-requests -y
-yum reinstall python-six -y
-yum reinstall python-urllib3 -y
-pip install pyOpenSSL==0.14 -U -y
+
+pip3 uninstall requests -y
+pip3 uninstall six -y
+pip3 uninstall urllib3 -y
+yum install python-requests -y
+yum install python-six -y
+yum install python-urllib3 -y
+python -m pip install --upgrade urllib3 --user
+pip3 install pyOpenSSL==0.14 -U
+
 
 systemctl restart httpd
 EOF
@@ -248,9 +252,6 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_get_expiry_command",
-            "arn:aws:ssm:eu-west-2:*:parameter/analysis_pem_dir_one",
-            "arn:aws:ssm:eu-west-2:*:parameter/analysis_pem_dir_two",
-            "arn:aws:ssm:eu-west-2:*:parameter/analysis_pem_dir_three",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_get_remote_expiry"
           ]
         }
