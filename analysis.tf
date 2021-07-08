@@ -37,7 +37,7 @@ exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -s -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
 echo "export s3_bucket_name=${var.s3_bucket_name}" >> /root/.bashrc && source /root/.bashrc
-echo "export s3_bucket_name=${var.log_archive_s3_bucket}" >> /root/.bashrc && source /root/.bashrc
+echo "export log_archive_s3_bucket=${var.log_archive_s3_bucket}" >> /root/.bashrc && source /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
@@ -224,14 +224,29 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
         {
           "Effect": "Allow",
           "Action": ["s3:ListBucket"],
-          "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}"
+          "Resource": [
+            "${aws_s3_bucket.httpd_config_bucket.arn}",
+            "${var.log_archive_s3_bucket}"
+            ]
         },
         {
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
           ],
-          "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}/*"
+          "Resource": [
+            "${aws_s3_bucket.httpd_config_bucket.arn}/*",
+            "${var.log_archive_s3_bucket}/*"
+          ]
+        },
+        {
+          "Action": [
+            "s3:PutObject"
+          ],
+          "Effect": "Allow",
+          "Resource": [
+            "${var.log_archive_s3_bucket}"
+          ]
         },
         {
           "Effect": "Allow",
