@@ -81,14 +81,14 @@ aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-w
 systemctl restart httpd
 
 
-pip3 uninstall requests -y
-pip3 uninstall six -y
-pip3 uninstall urllib3 -y
-yum install python-requests -y
-yum install python-six -y
-yum install python-urllib3 -y
-python -m pip install --upgrade urllib3 --user
-pip3 install pyOpenSSL==0.14 -U
+# pip3 uninstall requests -y
+# pip3 uninstall six -y
+# pip3 uninstall urllib3 -y
+# yum install python-requests -y
+# yum install python-six -y
+# yum install python-urllib3 -y
+# python -m pip install --upgrade urllib3 --user
+# pip3 install pyOpenSSL==0.14 -U
 
 
 systemctl restart httpd
