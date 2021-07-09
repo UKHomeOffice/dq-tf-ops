@@ -48,8 +48,8 @@ mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname/"
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/cert.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" --region eu-west-2
-aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/privkey1.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" --region eu-west-2
-aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/fullchain1.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" --region eu-west-2
+aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/privkey.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" --region eu-west-2
+aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/fullchain.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" --region eu-west-2
 echo "#remove access to data_archive_bucket bucket from /root/.bashrc"
 echo export s3_bucket_name=${var.s3_bucket_name} > /root/.bashrc && source /root/.bashrc
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/cert.pem
