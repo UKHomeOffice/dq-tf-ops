@@ -91,7 +91,7 @@ systemctl restart httpd
 # pip3 install pyOpenSSL==0.14 -U
 
 
-systemctl restart httpd
+# systemctl restart httpd
 EOF
 
 
