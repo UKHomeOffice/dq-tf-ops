@@ -36,8 +36,12 @@ exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
 # start the cloud watch agent
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -s -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
 
-echo "export s3_bucket_name=${var.s3_bucket_name}" >> /root/.bashrc && source /root/.bashrc
-echo "export data_archive_bucket=${var.data_archive_bucket}-${var.namespace}" >> /root/.bashrc && source /root/.bashrc
+echo "
+export s3_bucket_name=${var.s3_bucket_name}
+export data_archive_bucket=${var.data_archive_bucket}-${var.namespace}
+export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
+export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
+" > /root/.bashrc && source /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
@@ -46,6 +50,8 @@ mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname/"
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/cert.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" --region eu-west-2
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/privkey1.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" --region eu-west-2
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/fullchain1.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" --region eu-west-2
+echo "#remove access to data_archive_bucket bucket from /root/.bashrc"
+echo export s3_bucket_name=${var.s3_bucket_name} > /root/.bashrc && source /root/.bashrc
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/cert.pem
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/privkey.pem
 ln -s "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" /etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/fullchain.pem
@@ -224,29 +230,16 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
         {
           "Effect": "Allow",
           "Action": ["s3:ListBucket"],
-          "Resource": [
-            "${aws_s3_bucket.httpd_config_bucket.arn}",
-            "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}"
-            ]
+          "Resource":
+            "${aws_s3_bucket.httpd_config_bucket.arn}"
         },
         {
           "Effect": "Allow",
           "Action": [
             "s3:GetObject"
           ],
-          "Resource": [
-            "${aws_s3_bucket.httpd_config_bucket.arn}/*",
-            "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}/*"
-          ]
-        },
-        {
-          "Action": [
-            "s3:PutObject"
-          ],
-          "Effect": "Allow",
-          "Resource": [
-            "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}"
-          ]
+          "Resource":
+            "${aws_s3_bucket.httpd_config_bucket.arn}/*"
         },
         {
           "Effect": "Allow",
