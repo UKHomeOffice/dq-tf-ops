@@ -257,8 +257,8 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_key",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_fullchain",
-            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
-            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis-proxy-user-id-apps-${var.namespace}-dq",
+            "arn:aws:ssm:eu-west-2:*:parameter/analysis-proxy-user-id-apps-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_proxy_certificate_get_expiry_command",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_get_remote_expiry"
           ]
