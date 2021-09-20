@@ -43,6 +43,9 @@ resource "aws_instance" "bastion_win" {
     Install-WindowsFeature -Name RDS-licensing -Verbose
     Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
 
+    # Add Tableau Dev Machine RDPs to Desktop
+    Copy-Item -Filter *-${var.namespace}.RDP -Path ‘C:\misc\* Folder' -Recurse -Destination 'C:\Users\Public\Desktop'
+
     # Join the box to the dq domain
     $domain = "dq.homeoffice.gov.uk"
     $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
@@ -87,6 +90,9 @@ resource "aws_instance" "bastion_win2" {
   Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
   Install-WindowsFeature -Name RDS-licensing -Verbose
   Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
+
+  # Add Tableau Dev Machine RDPs to Desktop
+  Copy-Item -Filter *-${var.namespace}.RDP -Path ‘C:\misc\* Folder' -Recurse -Destination 'C:\Users\Public\Desktop'
 
   # Join the box to the dq domain
   $domain = "dq.homeoffice.gov.uk"
