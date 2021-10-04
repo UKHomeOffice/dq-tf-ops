@@ -49,6 +49,22 @@ data "aws_ami" "bastion_linux" {
   ]
 }
 
+data "aws_ami" "win_2016" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = [
+      "dq-ops-win-bastion-2016*",
+    ]
+  }
+
+  owners = [
+    "self",
+  ]
+}
+
 data "aws_caller_identity" "current" {
 }
 
