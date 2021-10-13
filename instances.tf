@@ -189,7 +189,7 @@ EOF
 }
 
 resource "aws_instance" "bastion_win_2016" {
-  count                       = var.environment == "prod" ? "0" : "1"
+  count                       = var.namespace == "prod" ? "0" : "1"
   key_name                    = var.key_name
   ami                         = data.aws_ami.win_2016.id
   instance_type               = "t3a.large"
