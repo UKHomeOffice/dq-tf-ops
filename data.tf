@@ -56,7 +56,7 @@ data "aws_ami" "win_2016" {
     name = "name"
 
     values = [
-      "dq-ops-win-bastion-2021-09-21T10-37-51Z",
+      "dq-ops-win-bastion-*",
     ]
   }
 
