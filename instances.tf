@@ -188,53 +188,53 @@ EOF
   }
 }
 
-resource "aws_instance" "bastion_win_2016" {
-  key_name                    = var.key_name
-  ami                         = data.aws_ami.win_2016.id
-  instance_type               = "t3a.large"
-  vpc_security_group_ids      = [aws_security_group.Bastions.id]
-  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
-  subnet_id                   = aws_subnet.OPSSubnet.id
-  private_ip                  = var.bastion_windows_2016_ip
-  associate_public_ip_address = false
-  monitoring                  = true
-
-  user_data = <<EOF
-    <powershell>
-    [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
-    # Install the Windows RDS services
-    Install-WindowsFeature -name windows-internal-database -Verbose
-    Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
-    Install-WindowsFeature -Name RDS-licensing -Verbose
-    Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
-
-    # Add Tableau Dev Machine RDPs to Desktop
-    Copy-Item -Filter *-${var.namespace}.RDP -Path ‘C:\misc\* Folder' -Recurse -Destination 'C:\Users\Public\Desktop'
-
-    # Join the box to the dq domain
-    $domain = "dq.homeoffice.gov.uk"
-    $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
-    $username = "$domain\domain_joiner"
-    $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-    Add-Computer -DomainName $domain -ComputerName $env:computername -NewName "BAST-WIN2016" -options JoinWithNewName -Credential $credential -restart -force
-    </powershell>
-EOF
-
-
-  lifecycle {
-    prevent_destroy = true
-
-    ignore_changes = [
-      user_data,
-      ami,
-      instance_type
-    ]
-  }
-
-  tags = {
-    Name = "bastion-win-2016-${local.naming_suffix}"
-  }
-}
+# resource "aws_instance" "bastion_win_2016" {
+#   key_name                    = var.key_name
+#   ami                         = data.aws_ami.win_2016.id
+#   instance_type               = "t3a.large"
+#   vpc_security_group_ids      = [aws_security_group.Bastions.id]
+#   iam_instance_profile        = aws_iam_instance_profile.ops_win.id
+#   subnet_id                   = aws_subnet.OPSSubnet.id
+#   private_ip                  = var.bastion_windows_2016_ip
+#   associate_public_ip_address = false
+#   monitoring                  = true
+#
+#   user_data = <<EOF
+#     <powershell>
+#     [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
+#     # Install the Windows RDS services
+#     Install-WindowsFeature -name windows-internal-database -Verbose
+#     Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
+#     Install-WindowsFeature -Name RDS-licensing -Verbose
+#     Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
+#
+#     # Add Tableau Dev Machine RDPs to Desktop
+#     Copy-Item -Filter *-${var.namespace}.RDP -Path ‘C:\misc\* Folder' -Recurse -Destination 'C:\Users\Public\Desktop'
+#
+#     # Join the box to the dq domain
+#     $domain = "dq.homeoffice.gov.uk"
+#     $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
+#     $username = "$domain\domain_joiner"
+#     $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+#     Add-Computer -DomainName $domain -ComputerName $env:computername -NewName "BAST-WIN2016" -options JoinWithNewName -Credential $credential -restart -force
+#     </powershell>
+# EOF
+#
+#
+#   lifecycle {
+#     prevent_destroy = true
+#
+#     ignore_changes = [
+#       user_data,
+#       ami,
+#       instance_type
+#     ]
+#   }
+#
+#   tags = {
+#     Name = "bastion-win-2016-${local.naming_suffix}"
+#   }
+# }
 
 
 resource "aws_ssm_association" "bastion_win" {
