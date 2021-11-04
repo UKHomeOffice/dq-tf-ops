@@ -134,7 +134,7 @@ resource "aws_instance" "bastion_win3" {
   associate_public_ip_address = false
   monitoring                  = true
 
-  userdata = data.template_file.userdata.rendered
+  user_data = data.template_file.userdata.rendered
 
   lifecycle {
     prevent_destroy = true
