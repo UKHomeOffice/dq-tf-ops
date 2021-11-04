@@ -132,6 +132,10 @@ resource "aws_instance" "bastion_win3" {
 
   user_data = <<EOF
   <powershell>
+  $ErrorActionPreference="SilentlyContinue"
+  Stop-Transcript | out-null
+  $ErrorActionPreference = "Continue"
+  Start-Transcript -path C:\output.txt -append
   [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
   # Install the Windows RDS services
   Install-WindowsFeature -name windows-internal-database -Verbose
@@ -148,6 +152,7 @@ resource "aws_instance" "bastion_win3" {
   $username = "$domain\domain_joiner"
   $credential = New-Object System.Management.Automation.PSCredential($username,$password)
   Add-Computer -DomainName $domain -ComputerName $env:computername -NewName "BASTION-WIN3" -options JoinWithNewName -Credential $credential -restart -force
+  Stop-Transcript
   </powershell>
 EOF
 
