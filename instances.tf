@@ -135,7 +135,7 @@ resource "aws_instance" "bastion_win3" {
   $ErrorActionPreference="SilentlyContinue"
   Stop-Transcript | out-null
   $ErrorActionPreference = "Continue"
-  Start-Transcript -path C:\output.txt -append
+  Start-Transcript -path C:\scripts\userdata.log -append
   [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
   # Install the Windows RDS services
   Install-WindowsFeature -name windows-internal-database -Verbose
