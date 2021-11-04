@@ -118,6 +118,10 @@ EOF
   }
 }
 
+data "template_file" "userdata" {
+  template = file("./userdata.ps1")
+}
+
 resource "aws_instance" "bastion_win3" {
   count                       = var.namespace == "prod" ? "0" : "1"
   key_name                    = var.key_name
@@ -130,32 +134,7 @@ resource "aws_instance" "bastion_win3" {
   associate_public_ip_address = false
   monitoring                  = true
 
-  user_data = <<EOF
-  <powershell>
-  $ErrorActionPreference="SilentlyContinue"
-  Stop-Transcript | out-null
-  $ErrorActionPreference = "Continue"
-  Start-Transcript -path C:\scripts\userdata.log -append
-  [Environment]::SetEnvironmentVariable("S3_OPS_CONFIG_BUCKET", "${var.ops_config_bucket}/sqlworkbench", "Machine")
-  # Install the Windows RDS services
-  Install-WindowsFeature -name windows-internal-database -Verbose
-  Install-WindowsFeature -Name RDS-RD-Server -Verbose -IncludeAllSubFeature
-  Install-WindowsFeature -Name RDS-licensing -Verbose
-  Install-WindowsFeature -Name RDS-connection-broker -IncludeAllSubFeature -verbose
-
-  # Add Tableau Dev Machine RDPs to Desktop
-  Copy-Item -Filter *-${var.namespace}.RDP -Path ‘C:\misc\* Folder' -Recurse -Destination 'C:\Users\Public\Desktop'
-
-  # Join the box to the dq domain
-  $domain = "dq.homeoffice.gov.uk"
-  $password = "${var.domain_joiner_pwd}" | ConvertTo-SecureString -asPlainText -Force
-  $username = "$domain\domain_joiner"
-  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
-  Add-Computer -DomainName $domain -ComputerName $env:computername -NewName "BASTION-WIN3" -options JoinWithNewName -Credential $credential -restart -force
-  Stop-Transcript
-  </powershell>
-EOF
-
+  userdata = data.template_file.userdata.rendered
 
   lifecycle {
     prevent_destroy = true
