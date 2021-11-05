@@ -118,10 +118,6 @@ EOF
   }
 }
 
-data "template_file" "userdata" {
-  template = file("./userdata.ps1")
-}
-
 resource "aws_instance" "bastion_win3" {
   count                       = var.namespace == "prod" ? "0" : "1"
   key_name                    = var.key_name
@@ -133,8 +129,6 @@ resource "aws_instance" "bastion_win3" {
   private_ip                  = var.bastion3_windows_ip
   associate_public_ip_address = false
   monitoring                  = true
-
-  user_data = data.template_file.userdata.rendered
 
   lifecycle {
     prevent_destroy = true
