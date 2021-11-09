@@ -129,6 +129,13 @@ resource "aws_iam_role_policy" "ops_win_athena" {
     },
     {
       "Action": [
+        "ssm:GetParameter"
+      ],
+      "Effect": "Allow",
+      "Resource": "arn:aws:ssm:eu-west-2:*:parameter/AD_AdminPasswordd"
+    },
+    {
+      "Action": [
         "kms:Encrypt",
         "kms:Decrypt",
         "kms:ReEncrypt*",
