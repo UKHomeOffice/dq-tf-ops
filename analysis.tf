@@ -220,8 +220,8 @@ POLICY
 
 }
 
-resource "aws_iam_role_policy" "httpd_linux_iam" {
-  role = aws_iam_role.httpd_ec2_server_role.id
+resource "aws_iam_policy" "httpd_linux_iam" {
+  name = "httpd-linux-iam-${local.naming_suffix}"
 
   policy = <<EOF
 {
@@ -269,6 +269,11 @@ resource "aws_iam_role_policy" "httpd_linux_iam" {
 }
 EOF
 
+}
+
+resource "aws_iam_role_policy_attachment" "httpd_linux_iam" {
+  role       = aws_iam_role.httpd_ec2_server_role.id
+  policy_arn = aws_iam_policy.httpd_linux_iam.arn
 }
 
 resource "aws_iam_role" "httpd_ec2_server_role" {

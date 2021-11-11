@@ -20,9 +20,8 @@ EOF
 
 }
 
-resource "aws_iam_role_policy" "ops_win_athena" {
+resource "aws_iam_policy" "ops_win_athena" {
   name = "ops-win-athena-${local.naming_suffix}"
-  role = aws_iam_role.ops_win.name
 
   policy = <<EOF
 {
@@ -166,6 +165,11 @@ resource "aws_iam_role_policy" "ops_win_athena" {
 }
 EOF
 
+}
+
+resource "aws_iam_role_policy_attachment" "ops_win_athena" {
+  role       = aws_iam_role.ops_win.name
+  policy_arn = aws_iam_policy.ops_win_athena.arn
 }
 
 resource "aws_iam_instance_profile" "ops_win" {
