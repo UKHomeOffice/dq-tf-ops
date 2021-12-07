@@ -1,4 +1,5 @@
 resource "aws_iam_role" "ops_win" {
+  name               = "ops-win"
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -165,6 +166,11 @@ resource "aws_iam_policy" "ops_win_athena" {
 }
 EOF
 
+}
+
+resource "aws_iam_role_policy_attachment" "dq_tf_infra_write_to_cw" {
+  role       = aws_iam_role.ops_win.id
+  policy_arn = "arn:aws:iam::${var.account_id[var.namespace]}:policy/dq-tf-infra-write-to-cw"
 }
 
 resource "aws_iam_role_policy_attachment" "ops_win_athena" {
