@@ -297,7 +297,7 @@ EOF
 
 }
 
-resource "aws_iam_role_policy_attachment" "dq_tf_infra_write_to_cw" {
+resource "aws_iam_role_policy_attachment" "dq_tf_infra_write_to_cw_analysis" {
   role       = aws_iam_role.httpd_ec2_server_role.id
   policy_arn = "arn:aws:iam::${var.account_id[var.namespace]}:policy/dq-tf-infra-write-to-cw"
 }
