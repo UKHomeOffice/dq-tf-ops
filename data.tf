@@ -14,8 +14,23 @@ data "aws_ami" "win" {
   ]
 }
 
-data "aws_availability_zones" "available" {
+data "aws_ami" "win_nineteen" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = [
+      "dq-ops-win-nineteen-bastion-*",
+    ]
+  }
+
+  owners = [
+    "self",
+  ]
 }
+
+data "aws_availability_zones" "available" {}
 
 data "aws_ami" "rhel" {
   most_recent = true
@@ -65,8 +80,7 @@ data "aws_ami" "win_2016" {
   ]
 }
 
-data "aws_caller_identity" "current" {
-}
+data "aws_caller_identity" "current" {}
 
 data "aws_kms_key" "glue" {
   key_id = "alias/aws/glue"
