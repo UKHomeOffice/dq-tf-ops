@@ -276,6 +276,78 @@ resource "aws_iam_role_policy_attachment" "httpd_linux_iam" {
   policy_arn = aws_iam_policy.httpd_linux_iam.arn
 }
 
+#This User allows the certificate expiry script to access slack_notification_webhook on ssm
+
+resource "aws_iam_policy" "ssl_expire_script" {
+  name = "ssl_expire_script_policy"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads",
+        "s3:ListMultipartUploadParts"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${var.data_archive_bucket}-${var.namespace}"
+      ]
+    },
+    {
+      "Action": [
+        "s3:GetObject"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${var.data_archive_bucket}-${var.namespace}/analysis/*"
+      ]
+    },
+    {
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Effect": "Allow",
+      "Resource": [
+        "${var.data_archive_bucket}-${var.namespace}",
+        "${var.data_archive_bucket}-${var.namespace}/analysis/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"
+        ],
+        "Resource": [
+          "${aws_kms_key.httpd_config_bucket_key.arn}"
+        ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+                 "ssm:GetParameter"
+      ],
+      "Resource": [
+      "arn:aws:ssm:eu-west-2:*:parameter/slack_notification_webhook"
+      ]
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "ssl_expire_script" {
+  role       = aws_iam_role.httpd_ec2_server_role.id
+  policy_arn = aws_iam_policy.ssl_expire_script.arn
+}
+
 resource "aws_iam_role" "httpd_ec2_server_role" {
   name = "httpd_ec2_server_role"
 
