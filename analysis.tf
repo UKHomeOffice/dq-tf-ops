@@ -63,7 +63,7 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
 
 echo "#Pull values from Parameter Store and save to profile"
-touch /home/centos/ssl_expire_script/env_vars
+touch /home/ec2-user/ssl_expire_script/env_vars
 echo "
 export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name analysis-proxy-user-id-apps-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name analysis-proxy-user-key-apps-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
@@ -71,9 +71,9 @@ export AWS_DEFAULT_REGION=eu-west-2
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
 export GET_REMOTE_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_get_remote_expiry --with-decryption --query 'Parameter.Value' --output text`
 export LIVE_CERTS=/etc/letsencrypt/live/`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --with-decryption --query 'Parameter.Value' --output text`
-export S3_FILE_LANDING=/home/centos/ssl_expire_script/remote_cert.pem
+export S3_FILE_LANDING=/home/ec2-user/ssl_expire_script/remote_cert.pem
 export BUCKET=${var.data_archive_bucket}-${var.namespace}
-" > /home/centos/ssl_expire_script/env_vars
+" > /home/ec2-user/ssl_expire_script/env_vars
 
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
 aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
