@@ -318,7 +318,7 @@ resource "aws_iam_policy" "ssl_expire_script" {
         "kms:DescribeKey"
         ],
         "Resource": [
-          "${aws_kms_key.httpd_config_bucket_key.arn}"
+          "arn:aws:kms:eu-west-2::key/6f73ff2e-6344-4520-afc8-9220ba2a716d"
         ]
     },
     {
