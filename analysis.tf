@@ -286,7 +286,7 @@ resource "aws_iam_policy" "ssl_expire_script" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${var.data_archive_bucket}-${var.namespace}"
+        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}"
       ]
     },
     {
@@ -295,7 +295,7 @@ resource "aws_iam_policy" "ssl_expire_script" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${var.data_archive_bucket}-${var.namespace}/analysis/*"
+        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}/analysis/*"
       ]
     },
     {
@@ -304,8 +304,8 @@ resource "aws_iam_policy" "ssl_expire_script" {
       ],
       "Effect": "Allow",
       "Resource": [
-        "${var.data_archive_bucket}-${var.namespace}",
-        "${var.data_archive_bucket}-${var.namespace}/analysis/*"
+        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}",
+        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}/analysis/*"
       ]
     },
     {
