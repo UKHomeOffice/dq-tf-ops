@@ -39,6 +39,8 @@ exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
 echo "
 export s3_bucket_name=${var.s3_bucket_name}
 export data_archive_bucket=${var.data_archive_bucket}-${var.namespace}
+export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
+export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 " > /root/.bashrc && source /root/.bashrc
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
 
@@ -63,6 +65,8 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain
 echo "#Pull values from Parameter Store and save to profile"
 touch /home/ec2-user/ssl_expire_script/env_vars
 echo "
+export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name analysis-proxy-user-id-apps-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
+export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name analysis-proxy-user-key-apps-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export AWS_DEFAULT_REGION=eu-west-2
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
 export GET_REMOTE_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_get_remote_expiry --with-decryption --query 'Parameter.Value' --output text`
@@ -266,78 +270,6 @@ EOF
 resource "aws_iam_role_policy_attachment" "httpd_linux_iam" {
   role       = aws_iam_role.httpd_ec2_server_role.id
   policy_arn = aws_iam_policy.httpd_linux_iam.arn
-}
-
-#This User allows the certificate expiry script to access slack_notification_webhook on ssm
-
-resource "aws_iam_policy" "ssl_expire_script" {
-  name = "ssl_expire_script_policy"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": [
-        "s3:GetBucketLocation",
-        "s3:ListBucket",
-        "s3:ListBucketMultipartUploads",
-        "s3:ListMultipartUploadParts"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}"
-      ]
-    },
-    {
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}/analysis/*"
-      ]
-    },
-    {
-      "Action": [
-        "s3:PutObject"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}",
-        "arn:aws:s3:::${var.data_archive_bucket}-${var.namespace}/analysis/*"
-      ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-        "kms:Encrypt",
-        "kms:Decrypt",
-        "kms:ReEncrypt*",
-        "kms:GenerateDataKey*",
-        "kms:DescribeKey"
-        ],
-        "Resource": [
-          "arn:aws:kms:eu-west-2::key/6f73ff2e-6344-4520-afc8-9220ba2a716d"
-        ]
-    },
-    {
-      "Effect": "Allow",
-      "Action": [
-                 "ssm:GetParameter"
-      ],
-      "Resource": [
-      "arn:aws:ssm:eu-west-2:*:parameter/slack_notification_webhook"
-      ]
-    }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy_attachment" "ssl_expire_script" {
-  role       = aws_iam_role.httpd_ec2_server_role.id
-  policy_arn = aws_iam_policy.ssl_expire_script.arn
 }
 
 resource "aws_iam_role" "httpd_ec2_server_role" {
