@@ -33,8 +33,14 @@ set -e
 #log output from this user_data script
 exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
 
+#log1
+echo "!!! starting cloudwatch configurations"
+
 # start the cloud watch agent
 /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -s -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/config.json
+
+#log2
+echo "!!! writing gets3content env vars file"
 
 echo "
 export s3_bucket_name=${var.s3_bucket_name}
@@ -42,6 +48,9 @@ export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-
 export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 " > /home/ec2-user/gets3content/env_vars
 export analysis_proxy_hostname=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --query 'Parameter.Value' --output text --with-decryption`
+
+#log3
+echo "!!! configuring directories and pem files"
 
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/"
@@ -61,6 +70,9 @@ chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem"
 chmod 0644 "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem"
 
+#log4
+echo "!!! writing ssl_expire_script env vars file"
+
 echo "#Pull values from Parameter Store and save to profile"
 touch /home/ec2-user/ssl_expire_script/env_vars
 echo "
@@ -74,10 +86,19 @@ export S3_FILE_LANDING=/home/ec2-user/ssl_expire_script/remote_cert.pem
 export BUCKET=${var.data_archive_bucket}-${var.namespace}
 " > /home/ec2-user/ssl_expire_script/env_vars
 
+#log5
+echo "!!! downloading httpd.conf and ssl.conf"
+
 aws s3 cp s3://$s3_bucket_name/httpd.conf /etc/httpd/conf/httpd.conf --region eu-west-2
 aws s3 cp s3://$s3_bucket_name/ssl.conf /etc/httpd/conf.d/ssl.conf --region eu-west-2
 
+#log6
+echo "!!! starting httpd service"
+
 systemctl restart httpd
+
+#log7
+echo "!!! userdata completed"
 
 
 # pip3 uninstall requests -y
