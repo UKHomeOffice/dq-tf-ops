@@ -44,6 +44,7 @@ echo "!!! writing gets3content env vars file"
 
 echo "
 export s3_bucket_name=${var.s3_bucket_name}
+export data_archive_bucket=${var.data_archive_bucket}-${var.namespace}
 export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-id-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name dq-tf-deploy-user-key-ops-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
 " > /home/ec2-user/gets3content/env_vars
@@ -55,6 +56,7 @@ echo "!!! configuring directories and pem files"
 mkdir -p "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname""-0001/"
 mkdir -p "/etc/letsencrypt/live/""$analysis_proxy_hostname/"
+source /home/ec2-user/gets3content/env_vars
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/cert.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/cert1.pem" --region eu-west-2
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/privkey.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/privkey1.pem" --region eu-west-2
 aws s3 cp s3://$data_archive_bucket/analysis/letsencrypt/fullchain.pem "/etc/letsencrypt/archive/""$analysis_proxy_hostname""-0001/fullchain1.pem" --region eu-west-2
