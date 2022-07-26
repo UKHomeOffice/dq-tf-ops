@@ -264,9 +264,32 @@ resource "aws_iam_policy" "httpd_linux_iam" {
             "${aws_s3_bucket.httpd_config_bucket.arn}/*"
         },
         {
+            "Action": [
+                "s3:PutObject"
+            ],
+            "Effect": "Allow",
+            "Resource": [
+                "arn:aws:s3:::s3-dq-data-archive-bucket-${var.namespace}",
+                "arn:aws:s3:::s3-dq-data-archive-bucket-${var.namespace}/analysis/*"
+            ]
+        },
+        {
           "Effect": "Allow",
           "Action": "kms:Decrypt",
           "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey"
+            ],
+            "Resource": [
+                "arn:aws:kms:eu-west-2:${var.account_id[var.namespace]}:key/24b0cd4f-3117-4e9b-ada8-fa46e7fd6d70"
+            ]
         },
         {
           "Effect": "Allow",
