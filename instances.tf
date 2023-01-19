@@ -280,7 +280,6 @@ module "ops_tableau" {
   source = "github.com/UKHomeOffice/dq-tf-ops-tableau"
 
   key_name                                     = var.key_name
-  tableau_dev_ip                               = var.tableau_dev_ip
   tableau_deployment_ip                        = var.tableau_deployment_ip
   opsvpc_id                                    = aws_vpc.opsvpc.id
   tableau_subnet_cidr_block                    = var.tableau_subnet_cidr_block
