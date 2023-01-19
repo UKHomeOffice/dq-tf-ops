@@ -110,14 +110,9 @@ variable "aws_bucket_key" {
   description = "S3 bucket KMS key"
 }
 
-variable "tableau_dev_ip" {
-  description = "Tableau Development IP address"
-  default     = "10.0.0.1"
-}
-
 variable "tableau_deployment_ip" {
   description = "Tableau Deployment IP address"
-  default     = "10.0.0.2"
+  default     = "10.0.0.1"
 }
 
 variable "tableau_subnet_cidr_block" {
