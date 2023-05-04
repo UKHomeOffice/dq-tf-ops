@@ -103,6 +103,7 @@ resource "aws_instance" "bastion_win3" {
 }
 
 resource "aws_instance" "bastion_win4" {
+  count                       = var.namespace == "prod" ? "1" : "1"
   key_name                    = var.key_name
   ami                         = data.aws_ami.win_nineteen.id
   instance_type               = "t3a.xlarge"
