@@ -132,8 +132,10 @@ resource "aws_iam_policy" "ops_win_athena" {
         "ssm:GetParameter"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:ssm:eu-west-2:*:parameter/AD_Domain_Joiner_Username",
-      "Resource": "arn:aws:ssm:eu-west-2:*:parameter/AD_Domain_Joiner_Password"
+      "Resource": [
+          "arn:aws:ssm:eu-west-2:*:parameter/AD_Domain_Joiner_Username",
+          "arn:aws:ssm:eu-west-2:*:parameter/AD_Domain_Joiner_Password"
+      ]
     },
     {
       "Action": [
