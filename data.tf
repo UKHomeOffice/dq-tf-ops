@@ -21,7 +21,7 @@ data "aws_ami" "win_nineteen" {
     name = "name"
 
     values = [
-      "dq-ops-win-nineteen-bastion-307*",
+      "dq-ops-win-nineteen-bastion-306*",
     ]
   }
 
