@@ -24,7 +24,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_instance" "win_bastions" {
-  count                       = "2"
+  count                       = "1" # 1 for now, later 2 - to replace bastion_win & bastion_win2
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
