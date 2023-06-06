@@ -72,8 +72,12 @@ variable "bastion_linux_ip" {
   description = "Mock EC2 instance IP"
 }
 
-variable "bastion_windows_ip" {
-  description = "Mock EC2 instance IP"
+variable "bastions_windows_ip" {
+  description = "All Win bastion IP addresses"
+}
+
+variable "bastion1_windows_ip" {
+  description = "1st Win bastion IP address"
 }
 
 variable "bastion2_windows_ip" {
@@ -86,10 +90,6 @@ variable "bastion3_windows_ip" {
 
 variable "bastion4_windows_ip" {
   description = "4th Win bastion IP address"
-}
-
-variable "bastion_windows_2016_ip" {
-  description = "2016 Win bastion IP address"
 }
 
 variable "ad_sg_cidr_ingress" {
