@@ -31,11 +31,9 @@ class TestE2E(unittest.TestCase):
               domain_joiner_pwd               = "pwd"
               bastion_linux_ip                = "10.8.0.11"
               bastions_windows_ip             = ["1.2.3.4", "5.6.7.8"]
-              bastion1_windows_ip             = "10.8.0.12"
               bastion2_windows_ip             = "10.8.0.13"
               bastion3_windows_ip             = "10.8.0.14"
               bastion4_windows_ip             = "10.8.0.15"
-              ad_aws_ssm_document_name        = "1234"
               ad_writer_instance_profile_name = "1234"
               adminpassword                   = "1234"
               log_archive_s3_bucket           = "abcd"
@@ -94,7 +92,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.runner.get_value("module.ops.aws_subnet.ad_subnet", "tags"), {"Name": "ad-subnet-ops-preprod-dq"})
 
     def test_name_bastion(self):
-        self.assertEqual(self.runner.get_value("module.ops.aws_instance.bastion_win", "tags"), {"Name": "bastion-win-ops-preprod-dq"})
+        self.assertEqual(self.runner.get_value("module.ops.aws_instance.win_bastions[0]", "tags"), {"Name": "win-bastion-1-ops-preprod-dq"})
 
 
 if __name__ == '__main__':

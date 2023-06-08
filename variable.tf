@@ -24,9 +24,6 @@ variable "az" {
 variable "naming_suffix" {
 }
 
-variable "ad_aws_ssm_document_name" {
-}
-
 variable "ad_writer_instance_profile_name" {
 }
 
@@ -74,10 +71,6 @@ variable "bastion_linux_ip" {
 
 variable "bastions_windows_ip" {
   description = "All Win bastion IP addresses"
-}
-
-variable "bastion1_windows_ip" {
-  description = "1st Win bastion IP address"
 }
 
 variable "bastion2_windows_ip" {
