@@ -31,6 +31,7 @@ class TestE2E(unittest.TestCase):
               domain_joiner_pwd               = "pwd"
               bastion_linux_ip                = "10.8.0.11"
               bastions_windows_ip             = ["1.2.3.4", "5.6.7.8"]
+              bastion1_windows_ip             = "10.8.0.12"
               bastion2_windows_ip             = "10.8.0.13"
               bastion3_windows_ip             = "10.8.0.14"
               bastion4_windows_ip             = "10.8.0.15"

@@ -24,7 +24,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_instance" "win_bastions" {
-  count                       = "1" # 1 for now, later 2 - to replace bastion_win & bastion_win2
+  count                       = var.namespace == "prod" ? "0" : "1" # 1 for now, later 2 - to replace bastion_win & bastion_win2
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -47,6 +47,33 @@ resource "aws_instance" "win_bastions" {
 
   tags = {
     Name = "win-bastion-${count.index + 1}-${local.naming_suffix}"
+  }
+}
+
+resource "aws_instance" "bastion_win" {
+  count                       = var.namespace == "prod" ? "1" : "0" # temporary until win_bastions is live in Prod as well as NotProd
+  key_name                    = var.key_name
+  ami                         = data.aws_ami.win.id
+  instance_type               = "t3a.xlarge"
+  vpc_security_group_ids      = [aws_security_group.Bastions.id]
+  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
+  subnet_id                   = aws_subnet.OPSSubnet.id
+  private_ip                  = var.bastion1_windows_ip
+  associate_public_ip_address = false
+  monitoring                  = true
+
+  lifecycle {
+    prevent_destroy = true
+
+    ignore_changes = [
+      user_data,
+      ami,
+      instance_type
+    ]
+  }
+
+  tags = {
+    Name = "bastion-win-${local.naming_suffix}"
   }
 }
 
