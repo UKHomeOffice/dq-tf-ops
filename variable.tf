@@ -76,10 +76,6 @@ variable "bastions_windows_ip" {
   description = "All Win bastion IP addresses"
 }
 
-variable "bastion1_windows_ip" {
-  description = "1st Win bastion IP address"
-}
-
 variable "bastion2_windows_ip" {
   description = "2nd Win bastion IP address"
 }
