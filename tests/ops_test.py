@@ -92,7 +92,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.runner.get_value("module.ops.aws_subnet.ad_subnet", "tags"), {"Name": "ad-subnet-ops-preprod-dq"})
 
     def test_name_bastion(self):
-        self.assertEqual(self.runner.get_value("module.ops.aws_instance.bastion_win", "tags"), {"Name": "bastion-win-ops-preprod-dq"})
+        self.assertEqual(self.runner.get_value("module.ops.aws_instance.bastion_win", "tags"), {"Name": "win-bastion-1-ops-preprod-dq"})
 
 
 if __name__ == '__main__':
