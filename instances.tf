@@ -135,8 +135,7 @@ resource "aws_ssm_association" "bastion_win" {
 
   targets {
     key    = "InstanceIds"
-    values = [var.bastions_windows_ip,
-              var.bastion4_windows_ip]
+    values = [var.bastion4_windows_ip]
   }
 }
 
