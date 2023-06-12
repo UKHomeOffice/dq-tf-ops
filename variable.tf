@@ -24,6 +24,9 @@ variable "az" {
 variable "naming_suffix" {
 }
 
+variable "ad_aws_ssm_document_name" {
+}
+
 variable "ad_writer_instance_profile_name" {
 }
 

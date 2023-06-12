@@ -130,6 +130,29 @@ resource "aws_instance" "bastion_win4" {
   }
 }
 
+# The preferred format (Target: Key, Values) does not work
+# - maybe I've got the format/syntax wrong but I've tried many variations
+#resource "aws_ssm_association" "win_bastions" {
+#  name        = var.ad_aws_ssm_document_name
+#  targets {
+#    key    = "InstanceIds"
+#    values = [aws_instance.bastion_win2.id,
+#              aws_instance.bastion_win4.id
+#              ]
+#  }
+#}
+
+# Although `instance_id` is deprecated, it does still work
+resource "aws_ssm_association" "win_bastion2" {
+  name        = var.ad_aws_ssm_document_name
+  instance_id = aws_instance.bastion_win2.id
+}
+
+resource "aws_ssm_association" "win_bastion4" {
+  name        = var.ad_aws_ssm_document_name
+  instance_id = aws_instance.bastion_win4[0].id
+}
+
 
 resource "aws_security_group" "Bastions" {
   vpc_id = aws_vpc.opsvpc.id
