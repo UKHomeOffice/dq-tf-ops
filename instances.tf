@@ -130,7 +130,7 @@ resource "aws_instance" "bastion_win4" {
   }
 }
 
-resource "aws_ssm_association" "bastion_win" {
+resource "aws_ssm_association" "win_bastions" {
   name        = var.ad_aws_ssm_document_name
 
   targets {
