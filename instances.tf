@@ -106,7 +106,7 @@ resource "aws_instance" "bastion_win2" {
 resource "aws_instance" "bastion_win4" {
   count                       = var.namespace == "prod" ? "1" : "1"
   key_name                    = var.key_name
-  ami                         = data.aws_ami.win_nineteen.id
+  ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   iam_instance_profile        = aws_iam_instance_profile.ops_win.id
