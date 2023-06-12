@@ -130,6 +130,16 @@ resource "aws_instance" "bastion_win4" {
   }
 }
 
+resource "aws_ssm_association" "bastion_win" {
+  name        = var.ad_aws_ssm_document_name
+
+  targets {
+    key    = "InstanceIds"
+    values = [var.bastions_windows_ip,
+              var.bastion4_windows_ip]
+  }
+}
+
 
 resource "aws_security_group" "Bastions" {
   vpc_id = aws_vpc.opsvpc.id
