@@ -132,7 +132,7 @@ resource "aws_instance" "bastion_win4" {
 
 resource "aws_ssm_association" "win_bastions" {
   name        = var.ad_aws_ssm_document_name
-  instance_id = aws_instance.bastion_win.id
+  instance_id = aws_instance.bastion_win4.id
 #  targets {
 #    key    = "InstanceIds"
 #    values = [var.bastion4_windows_ip]
