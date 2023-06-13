@@ -62,15 +62,15 @@ resource "aws_instance" "bastion_win" {
   associate_public_ip_address = false
   monitoring                  = true
 
-#  lifecycle {
-#    prevent_destroy = true
-#
-#    ignore_changes = [
-#      user_data,
-#      ami,
-#      instance_type
-#    ]
-#  }
+  #lifecycle {
+  #  prevent_destroy = true
+  #
+  #  ignore_changes = [
+  #    user_data,
+  #    ami,
+  #    instance_type
+  #  ]
+  #}
 
   tags = {
     Name = "bastion-win-${local.naming_suffix}"
