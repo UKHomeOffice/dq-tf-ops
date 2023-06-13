@@ -24,7 +24,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_instance" "win_bastions" {
-  count                       = var.namespace == "prod" ? "1" : "1" # 1 for now, later 2 - to replace bastion_win & bastion_win2
+  count                       = var.namespace == "prod" ? "1" : "2" # normally 2 - for Win Bastion 1 & Win Bastion 2
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -50,34 +50,8 @@ resource "aws_instance" "win_bastions" {
   }
 }
 
-resource "aws_instance" "bastion_win" {
-  count                       = var.namespace == "prod" ? "0" : "0" # temporary until win_bastions is live in Prod as well as NotProd
-  key_name                    = var.key_name
-  ami                         = data.aws_ami.win.id
-  instance_type               = "t3a.xlarge"
-  vpc_security_group_ids      = [aws_security_group.Bastions.id]
-  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
-  subnet_id                   = aws_subnet.OPSSubnet.id
-  private_ip                  = var.bastion1_windows_ip
-  associate_public_ip_address = false
-  monitoring                  = true
-
-  #lifecycle {
-  #  prevent_destroy = true
-  #
-  #  ignore_changes = [
-  #    user_data,
-  #    ami,
-  #    instance_type
-  #  ]
-  #}
-
-  tags = {
-    Name = "bastion-win-${local.naming_suffix}"
-  }
-}
-
 resource "aws_instance" "bastion_win2" {
+  count                       = var.namespace == "prod" ? "1" : "0" # temporary until 2x win_bastions are live in Prod as well as NotProd
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -103,54 +77,25 @@ resource "aws_instance" "bastion_win2" {
   }
 }
 
-resource "aws_instance" "bastion_win4" {
-  count                       = var.namespace == "prod" ? "1" : "1"
-  key_name                    = var.key_name
-  ami                         = data.aws_ami.win.id
-  instance_type               = "t3a.xlarge"
-  vpc_security_group_ids      = [aws_security_group.Bastions.id]
-  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
-  subnet_id                   = aws_subnet.OPSSubnet.id
-  private_ip                  = var.bastion4_windows_ip
-  associate_public_ip_address = false
-  monitoring                  = true
-
-  #lifecycle {
-  #  prevent_destroy = true
-  #
-  #  ignore_changes = [
-  #    user_data,
-  #    ami,
-  #    instance_type,
-  #  ]
-  #}
-
-  tags = {
-    Name = "bastion4-win-${local.naming_suffix}"
-  }
-}
-
 # The preferred format (Target: Key, Values) does not work
 # - maybe I've got the format/syntax wrong but I've tried many variations
 #resource "aws_ssm_association" "win_bastions" {
 #  name        = var.ad_aws_ssm_document_name
 #  targets {
 #    key    = "InstanceIds"
-#    values = [aws_instance.bastion_win2.id,
-#              aws_instance.bastion_win4.id
-#              ]
+#    values = [aws_instance.win_bastions[0].id, aws_instance.win_bastions[1].id] # "${element(aws_instance.win_bastions.id, count.index)}"
 #  }
 #}
 
 # Although `instance_id` is deprecated, it does still work
+resource "aws_ssm_association" "win_bastion1" {
+  name        = var.ad_aws_ssm_document_name
+  instance_id = aws_instance.win_bastions[0].id
+}
+
 resource "aws_ssm_association" "win_bastion2" {
   name        = var.ad_aws_ssm_document_name
   instance_id = aws_instance.bastion_win2.id
-}
-
-resource "aws_ssm_association" "win_bastion4" {
-  name        = var.ad_aws_ssm_document_name
-  instance_id = aws_instance.bastion_win4[0].id
 }
 
 

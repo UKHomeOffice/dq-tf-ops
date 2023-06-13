@@ -14,39 +14,7 @@ data "aws_ami" "win" {
   ]
 }
 
-data "aws_ami" "win_nineteen" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "dq-ops-win-nineteen-bastion-314*",
-    ]
-  }
-
-  owners = [
-    "self",
-  ]
-}
-
 data "aws_availability_zones" "available" {}
-
-# data "aws_ami" "rhel" {
-#   most_recent = true
-#
-#   filter {
-#     name = "name"
-#
-#     values = [
-#       "RHEL-7.4*",
-#     ]
-#   }
-#
-#   owners = [
-#     "309956199498",
-#   ]
-# }
 
 data "aws_ami" "bastion_linux" {
   most_recent = true
@@ -56,22 +24,6 @@ data "aws_ami" "bastion_linux" {
 
     values = [
       "dq-linux-bastion*",
-    ]
-  }
-
-  owners = [
-    "self",
-  ]
-}
-
-data "aws_ami" "win_2016" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "dq-ops-win-bastion-*",
     ]
   }
 

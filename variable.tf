@@ -58,16 +58,6 @@ variable "route_table_cidr_blocks" {
   type        = map(string)
 }
 
-variable "bastion_win_id" {
-  default     = "01-"
-  description = "Identification number for Bastion Host Windows Instance"
-}
-
-variable "bastion_linux_id" {
-  default     = "01-"
-  description = "Identification number for Bastion Host Linux Instance"
-}
-
 variable "bastion_linux_ip" {
   description = "Mock EC2 instance IP"
 }
@@ -76,20 +66,8 @@ variable "bastions_windows_ip" {
   description = "All Win bastion IP addresses"
 }
 
-variable "bastion1_windows_ip" {
-  description = "1st Win bastion IP address"
-}
-
 variable "bastion2_windows_ip" {
   description = "2nd Win bastion IP address"
-}
-
-variable "bastion3_windows_ip" {
-  description = "3rd Win bastion IP address"
-}
-
-variable "bastion4_windows_ip" {
-  description = "4th Win bastion IP address"
 }
 
 variable "ad_sg_cidr_ingress" {

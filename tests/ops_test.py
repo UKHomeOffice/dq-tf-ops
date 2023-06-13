@@ -30,11 +30,8 @@ class TestE2E(unittest.TestCase):
               namespace                       = "notprod"
               domain_joiner_pwd               = "pwd"
               bastion_linux_ip                = "10.8.0.11"
-              bastions_windows_ip             = ["1.2.3.4", "5.6.7.8"]
-              bastion1_windows_ip             = "10.8.0.12"
+              bastions_windows_ip             = ["10.8.0.12", "10.8.0.13", "10.8.0.14", "10.8.0.15"]
               bastion2_windows_ip             = "10.8.0.13"
-              bastion3_windows_ip             = "10.8.0.14"
-              bastion4_windows_ip             = "10.8.0.15"
               ad_aws_ssm_document_name        = "1234"
               ad_writer_instance_profile_name = "1234"
               adminpassword                   = "1234"
