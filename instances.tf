@@ -51,7 +51,7 @@ resource "aws_instance" "win_bastions" {
 }
 
 resource "aws_instance" "bastion_win2" {
-  count                       = var.namespace == "prod" ? "1" : "0" # temporary until 2x win_bastions are live in Prod as well as NotProd
+  count                       = var.namespace == "prod" ? "1" : "1" # temporary until 2x win_bastions are live in Prod as well as NotProd
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
