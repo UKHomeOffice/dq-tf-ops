@@ -51,7 +51,7 @@ resource "aws_instance" "win_bastions" {
 }
 
 resource "aws_instance" "bastion_win2" {
-  count                       = var.namespace == "prod" ? "1" : "1" # temporary until 2x win_bastions are live in Prod as well as NotProd
+  count                       = var.namespace == "prod" ? "1" : "0" # temporary until 2x win_bastions are live in Prod as well as NotProd
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -93,10 +93,11 @@ resource "aws_ssm_association" "win_bastion1" {
   instance_id = aws_instance.win_bastions[0].id
 }
 
-resource "aws_ssm_association" "win_bastion2" {
-  name        = var.ad_aws_ssm_document_name
-  instance_id = aws_instance.bastion_win2[0].id
-}
+# Uncomment when there are 2x Win Bastions in NotProd and Prod
+#resource "aws_ssm_association" "win_bastion2" {
+#  name        = var.ad_aws_ssm_document_name
+#  instance_id = aws_instance.win_bastions[1].id
+#}
 
 
 resource "aws_security_group" "Bastions" {
