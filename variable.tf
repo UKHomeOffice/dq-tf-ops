@@ -66,10 +66,6 @@ variable "bastions_windows_ip" {
   description = "All Win bastion IP addresses"
 }
 
-variable "bastion2_windows_ip" {
-  description = "2nd Win bastion IP address"
-}
-
 variable "ad_sg_cidr_ingress" {
   description = "List of CIDR block ingress to AD machines SG"
   type        = list(string)

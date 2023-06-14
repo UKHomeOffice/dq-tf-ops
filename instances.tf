@@ -24,7 +24,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_instance" "win_bastions" {
-  count                       = var.namespace == "prod" ? "1" : "2" # normally 2 - for Win Bastion 1 & Win Bastion 2
+  count                       = var.namespace == "prod" ? "2" : "2" # normally 2 - for Win Bastion 1 & Win Bastion 2
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -50,33 +50,6 @@ resource "aws_instance" "win_bastions" {
   }
 }
 
-resource "aws_instance" "bastion_win2" {
-  count                       = var.namespace == "prod" ? "1" : "0" # temporary until 2x win_bastions are live in Prod as well as NotProd
-  key_name                    = var.key_name
-  ami                         = data.aws_ami.win.id
-  instance_type               = "t3a.xlarge"
-  vpc_security_group_ids      = [aws_security_group.Bastions.id]
-  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
-  subnet_id                   = aws_subnet.OPSSubnet.id
-  private_ip                  = var.bastion2_windows_ip
-  associate_public_ip_address = false
-  monitoring                  = true
-
-  lifecycle {
-    prevent_destroy = true
-
-    ignore_changes = [
-      user_data,
-      ami,
-      instance_type,
-    ]
-  }
-
-  tags = {
-    Name = "bastion2-win-${local.naming_suffix}"
-  }
-}
-
 # The preferred format (Target: Key, Values) does not work
 # - maybe I've got the format/syntax wrong but I've tried many variations
 #resource "aws_ssm_association" "win_bastions" {
@@ -93,11 +66,10 @@ resource "aws_ssm_association" "win_bastion1" {
   instance_id = aws_instance.win_bastions[0].id
 }
 
-# Uncomment when there are 2x Win Bastions in NotProd and Prod
-#resource "aws_ssm_association" "win_bastion2" {
-#  name        = var.ad_aws_ssm_document_name
-#  instance_id = aws_instance.win_bastions[1].id
-#}
+resource "aws_ssm_association" "win_bastion2" {
+  name        = var.ad_aws_ssm_document_name
+  instance_id = aws_instance.win_bastions[1].id
+}
 
 
 resource "aws_security_group" "Bastions" {
