@@ -162,7 +162,6 @@ module "ops_tableau" {
 
   key_name                                     = var.key_name
   tableau_deployment_ip                        = var.tableau_deployment_ip
-  tableau_nineteen_deployment_ip               = var.tableau_nineteen_deployment_ip
   opsvpc_id                                    = aws_vpc.opsvpc.id
   tableau_subnet_cidr_block                    = var.tableau_subnet_cidr_block
   vpc_subnet_cidr_block                        = var.vpc_subnet_cidr_block
