@@ -95,7 +95,7 @@ resource "aws_ssm_association" "win_bastion1" {
 
 resource "aws_ssm_association" "win_bastion2" {
   name        = var.ad_aws_ssm_document_name
-  instance_id = aws_instance.bastion_win2.id
+  instance_id = aws_instance.bastion_win2[0].id
 }
 
 
