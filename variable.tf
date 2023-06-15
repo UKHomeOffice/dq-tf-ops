@@ -89,9 +89,6 @@ variable "tableau_deployment_ip" {
   default     = "10.0.0.1"
 }
 
-variable "tableau_nineteen_deployment_ip" {
-  description = "Tableau Deployment Nineteen IP address"
-}
 
 variable "tableau_subnet_cidr_block" {
   description = "Tableau Dev CIDR block"
