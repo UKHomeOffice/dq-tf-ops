@@ -288,7 +288,7 @@ resource "aws_iam_policy" "httpd_linux_iam" {
                 "kms:DescribeKey"
             ],
             "Resource": [
-                "arn:aws:kms:eu-west-2:${var.account_id[var.namespace]}:key/24b0cd4f-3117-4e9b-ada8-fa46e7fd6d70"
+                "${var.kms_key_s3[var.namespace]}"
             ]
         },
         {
