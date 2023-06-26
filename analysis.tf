@@ -307,7 +307,8 @@ resource "aws_iam_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/analysis-proxy-user-key-apps-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_get_remote_expiry",
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
-            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq"
+            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
+            "arn:aws:ssm:eu-west-2:*:parameter/slack_notification_webhook"
           ]
         }
     ]
