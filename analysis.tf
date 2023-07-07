@@ -5,7 +5,7 @@ data "aws_ami" "analysis_ami" {
     name = "name"
 
     values = [
-      "dq-ops-httpd*",
+      "dq-ops-httpd 331*",
     ]
   }
 
