@@ -78,9 +78,6 @@ echo "!!! writing ssl_expire_script env vars file"
 echo "#Pull values from Parameter Store and save to profile"
 touch /home/ec2-user/ssl_expire_script/env_vars
 echo "
-export AWS_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name analysis-proxy-user-id-apps-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
-export AWS_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name analysis-proxy-user-key-apps-${var.namespace}-dq --with-decryption --query 'Parameter.Value' --output text`
-export AWS_DEFAULT_REGION=eu-west-2
 export GET_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_certificate_get_expiry_command --with-decryption --query 'Parameter.Value' --output text`
 export GET_REMOTE_EXPIRY_COMMAND=`aws --region eu-west-2 ssm get-parameter --name analysis_get_remote_expiry --with-decryption --query 'Parameter.Value' --output text`
 export LIVE_CERTS=/etc/letsencrypt/live/`aws --region eu-west-2 ssm get-parameter --name analysis_proxy_hostname --with-decryption --query 'Parameter.Value' --output text`
@@ -288,7 +285,7 @@ resource "aws_iam_policy" "httpd_linux_iam" {
                 "kms:DescribeKey"
             ],
             "Resource": [
-                "arn:aws:kms:eu-west-2:${var.account_id[var.namespace]}:key/24b0cd4f-3117-4e9b-ada8-fa46e7fd6d70"
+                "${var.kms_key_s3[var.namespace]}"
             ]
         },
         {
@@ -307,7 +304,8 @@ resource "aws_iam_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/analysis-proxy-user-key-apps-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/analysis_get_remote_expiry",
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-id-ops-${var.namespace}-dq",
-            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq"
+            "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
+            "arn:aws:ssm:eu-west-2:*:parameter/slack_notification_webhook"
           ]
         }
     ]
