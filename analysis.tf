@@ -249,9 +249,10 @@ resource "aws_iam_policy" "httpd_linux_iam" {
         {
           "Effect": "Allow",
           "Action": ["s3:ListBucket"],
-          "Resource":
+          "Resource": [
             "${aws_s3_bucket.httpd_config_bucket.arn}",
             "${aws_s3_bucket.httpd_config_bucket.arn}/*"
+          ]
         },
         {
           "Effect": "Allow",
