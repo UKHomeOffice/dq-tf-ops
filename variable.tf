@@ -126,8 +126,16 @@ variable "athena_maintenance_acl" {
   default = "private"
 }
 
-variable "data_archive_bucket" {
+variable "foo_name" {
+  default = "DELETE ME"
+}
+
+variable "data_archive_bucket_name" {
   default = "s3-dq-data-archive-bucket"
+}
+
+variable "httpd_config_bucket_name" {
+  default = "s3-dq-httpd-config-bucket"
 }
 
 variable "kms_key_s3" {
@@ -142,7 +150,3 @@ variable "kms_key_s3" {
 
 variable "management_access" {
 }
-
-variable "httpd_config_bucket" {
-}
-
