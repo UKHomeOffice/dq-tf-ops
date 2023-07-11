@@ -226,7 +226,7 @@ resource "aws_s3_bucket_policy" "httpd_config_bucket" {
       "Effect": "Deny",
       "Principal": "*",
       "Action": "*",
-      "Resource": "arn:aws:s3:::${var.httpd_config_bucket_name}/*",
+      "Resource": "${aws_s3_bucket.httpd_config_bucket.arn}/*",
       "Condition": {
         "Bool": {
           "aws:SecureTransport": "false"
@@ -260,7 +260,7 @@ resource "aws_iam_policy" "httpd_linux_iam" {
           ],
           "Resource": [
             "${aws_s3_bucket.httpd_config_bucket.arn}/*",
-            "arn:aws:s3:::${var.httpd_config_bucket_name}/analysis/*"
+            "arn:aws:s3:::${var.data_archive_bucket_name}/analysis/*"
           ]
         },
         {
@@ -269,8 +269,8 @@ resource "aws_iam_policy" "httpd_linux_iam" {
             ],
             "Effect": "Allow",
             "Resource": [
-                "arn:aws:s3:::${var.httpd_config_bucket_name}/*",
-                "arn:aws:s3:::${var.httpd_config_bucket_name}/analysis/*"
+                "arn:aws:s3:::${var.data_archive_bucket_name}",
+                "arn:aws:s3:::${var.data_archive_bucket_name}/analysis/*"
             ]
         },
         {
