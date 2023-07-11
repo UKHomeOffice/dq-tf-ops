@@ -126,10 +126,6 @@ variable "athena_maintenance_acl" {
   default = "private"
 }
 
-variable "foo_name" {
-  default = "DELETE ME"
-}
-
 variable "data_archive_bucket_name" {
   default = "s3-dq-data-archive-bucket"
 }
