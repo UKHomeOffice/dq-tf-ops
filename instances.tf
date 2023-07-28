@@ -142,6 +142,20 @@ resource "aws_security_group" "Bastions" {
     cidr_blocks = ["${var.namespace == "prod" ? "10.2" : "10.8"}.0.0/24"]
   }
 
+  ingress {
+    from_port   = 3389
+    to_port     = 3389
+    protocol    = "tcp"
+    cidr_blocks = ["${var.namespace == "prod" ? "10.44.168" : "10.44.152"}.0/21"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.namespace == "prod" ? "10.44.168" : "10.44.152"}.0/21"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
