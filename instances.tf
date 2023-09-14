@@ -24,7 +24,7 @@ resource "aws_instance" "bastion_linux" {
 }
 
 resource "aws_instance" "win_bastions" {
-  count                       = var.namespace == "prod" ? "2" : "2" # normally 2 - for Win Bastion 1 & Win Bastion 2
+  count                       = var.namespace == "prod" ? "2" : "3" # normally 2 - for Win Bastion 1 & Win Bastion 2
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -34,6 +34,14 @@ resource "aws_instance" "win_bastions" {
   private_ip                  = element(var.bastions_windows_ip, count.index)
   associate_public_ip_address = false
   monitoring                  = true
+
+  # Windows-specific settings
+  user_data          = <<EOF
+                        <powershell>
+                          # Disable local Administrator
+                          Get-LocalUser | Where-Object {$_.Name -eq "Administrator"} | Disable-LocalUser
+                        </powershell>
+                      EOF
 
   lifecycle {
     prevent_destroy = true
