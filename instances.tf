@@ -36,7 +36,7 @@ resource "aws_instance" "win_bastions" {
   monitoring                  = true
 
   # Windows-specific settings
-  user_data          = <<EOF
+  user_data = <<EOF
                         <powershell>
                           # Disable local Administrator
                           Get-LocalUser | Where-Object {$_.Name -eq "Administrator"} | Disable-LocalUser
