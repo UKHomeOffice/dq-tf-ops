@@ -41,7 +41,7 @@ EOF
 }
 
 resource "aws_instance" "win_bastions" {
-  count                       = var.namespace == "prod" ? "2" : "3" # normally 2 - for Win Bastion 1 & Win Bastion 2
+  count                       = var.namespace == "prod" ? "2" : "2" # normally 2 - for Win Bastion 1 & Win Bastion 2
   key_name                    = var.key_name
   ami                         = data.aws_ami.win.id
   instance_type               = "t3a.xlarge"
@@ -60,15 +60,7 @@ resource "aws_instance" "win_bastions" {
                         </powershell>
                       EOF
 
-  lifecycle {
-    prevent_destroy = true
-
-    ignore_changes = [
-      user_data,
-      ami,
-      instance_type
-    ]
-  }
+  
 
   tags = {
     Name = "win-bastion-${count.index + 1}-${local.naming_suffix}"
