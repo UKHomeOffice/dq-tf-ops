@@ -1,6 +1,7 @@
 resource "aws_instance" "bastion_linux" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.bastion_linux.id
+  count                       = 2
   instance_type               = "t3a.medium"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   subnet_id                   = aws_subnet.OPSSubnet.id
