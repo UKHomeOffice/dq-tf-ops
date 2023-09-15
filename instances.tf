@@ -5,6 +5,7 @@ resource "aws_instance" "bastion_linux" {
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   subnet_id                   = aws_subnet.OPSSubnet.id
   private_ip                  = var.bastion_linux_ip
+  iam_instance_profile        = aws_iam_instance_profile.ops_linux.id
   associate_public_ip_address = false
   monitoring                  = true
 
