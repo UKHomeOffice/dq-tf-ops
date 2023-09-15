@@ -21,52 +21,6 @@ EOF
 
 }
 
-resource "aws_iam_role" "ops_linux" {
-  name               = "ops-linux"
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": [
-                   "ec2.amazonaws.com"
-        ]
-      },
-      "Action": "sts:AssumeRole"
-    }
-  ]
-}
-EOF
-
-}
-
-resource "aws_iam_policy" "ops_linux" {
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [   
-    {
-      "Effect": "Allow",
-      "Action": [
-          "Action": "ec2:ModifyInstanceMetadataOptions"
-      ],
-      "Resource": "arn:aws:ec2:*:*:instance/*"
-    }
-  ]
-}
-EOF
-
-}
-
-resource "aws_iam_role_policy_attachment" "ops_linux_policy_attach" {
-  role       = aws_iam_role.ops_linux.id
-  policy_arn = aws_iam_policy.ops_linux.arn
-}
-
-
 resource "aws_iam_policy" "ops_win_athena" {
   name = "ops-win-athena-${local.naming_suffix}"
 
@@ -260,6 +214,55 @@ resource "aws_iam_user_group_membership" "deploy_user_group" {
     "dq-tf-infra",
     "kms-fullaccess"
   ]
+}
+
+resource "aws_iam_role" "ops_linux" {
+  name               = "ops-linux"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+                   "ec2.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+
+}
+
+resource "aws_iam_policy" "ops_linux" {
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [   
+    {
+      "Effect": "Allow",
+      "Action": [
+          "Action": "ec2:ModifyInstanceMetadataOptions"
+      ],
+      "Resource": "arn:aws:ec2:*:*:instance/*"
+    }
+  ]
+}
+EOF
+
+}
+
+resource "aws_iam_role_policy_attachment" "ops_linux_policy_attach" {
+  role       = aws_iam_role.ops_linux.id
+  policy_arn = aws_iam_policy.ops_linux.arn
+}
+
+resource "aws_iam_instance_profile" "ops_linux" {
+  role = aws_iam_role.ops_linux.name
 }
 
 // # add dq-tf-compliance user to be used by drone pipleines for compliance jobs
