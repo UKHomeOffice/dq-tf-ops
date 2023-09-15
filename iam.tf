@@ -246,7 +246,7 @@ resource "aws_iam_policy" "ops_linux" {
     {
       "Effect": "Allow",
       "Action": [
-          "Action": "ec2:ModifyInstanceMetadataOptions"
+         "ec2:ModifyInstanceMetadataOptions"
       ],
       "Resource": "arn:aws:ec2:*:*:instance/*"
     }
