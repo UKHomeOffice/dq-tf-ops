@@ -21,7 +21,7 @@ echo "Enforcing imdsv2 on ec2 instance"
 curl http://169.254.169.254/latest/meta-data/instance-id | xargs -I {} aws ec2 modify-instance-metadata-options --instance-id {} --http-endpoint enabled --http-tokens required
 
 echo "copying the ec2-user sudoers file to /etc/sudoers.d"
-[ -f "/opt/90-cloud-init-users" ] && mv /opt/90-cloud-init-users" /etc/sudoers.d/
+[ -f "/opt/90-cloud-init-users" ] && mv /opt/90-cloud-init-users /etc/sudoers.d/
 
 EOF
 
