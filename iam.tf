@@ -216,6 +216,55 @@ resource "aws_iam_user_group_membership" "deploy_user_group" {
   ]
 }
 
+resource "aws_iam_role" "ops_linux" {
+  name               = "ops-linux"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+                   "ec2.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+
+}
+
+resource "aws_iam_policy" "ops_linux" {
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [   
+    {
+      "Effect": "Allow",
+      "Action": [
+         "ec2:ModifyInstanceMetadataOptions"
+      ],
+      "Resource": "arn:aws:ec2:*:*:instance/*"
+    }
+  ]
+}
+EOF
+
+}
+
+resource "aws_iam_role_policy_attachment" "ops_linux_policy_attach" {
+  role       = aws_iam_role.ops_linux.id
+  policy_arn = aws_iam_policy.ops_linux.arn
+}
+
+resource "aws_iam_instance_profile" "ops_linux" {
+  role = aws_iam_role.ops_linux.name
+}
+
 // # add dq-tf-compliance user to be used by drone pipleines for compliance jobs
 
 // resource "aws_iam_user" "compliance_user" {
