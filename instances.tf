@@ -197,7 +197,7 @@ resource "aws_security_group" "Bastions" {
 }
 
 module "ops_tableau" {
-  source = "github.com/UKHomeOffice/dq-tf-ops-tableau?ref=yel-8020b"
+  source = "github.com/UKHomeOffice/dq-tf-ops-tableau"
 
   key_name                                     = var.key_name
   tableau_deployment_ip                        = var.tableau_deployment_ip
