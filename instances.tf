@@ -79,7 +79,7 @@ resource "aws_instance" "win_bastions" {
 resource "aws_instance" "win_bastions_test" {
   count                       = var.namespace == "prod" ? "0" : "1" # increase count for testing purposes
   key_name                    = var.key_name
-  ami                         = data.aws_ami.win_test[count.index]
+  ami                         = data.aws_ami.win_test.id
   instance_type               = "t3a.xlarge"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
   iam_instance_profile        = aws_iam_instance_profile.ops_win.id

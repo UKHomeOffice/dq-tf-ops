@@ -15,15 +15,13 @@ data "aws_ami" "win" {
 }
 
 data "aws_ami" "win_test" {
-  count = var.namespace == "prod" ? "0" : "1"
-
   most_recent = true
 
   filter {
     name = "name"
 
     values = [
-      "dq-ops-win-bastion-411*",
+      var.namespace == "prod" ? "dq-ops-win-bastion-297*" : "dq-ops-win-bastion-411*"
     ]
   }
 
