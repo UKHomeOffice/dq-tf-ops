@@ -93,6 +93,10 @@ resource "aws_instance" "win_bastions_test" {
                         <powershell>
                           # Disable local Administrator
                           Get-LocalUser | Where-Object {$_.Name -eq "Administrator"} | Disable-LocalUser
+                          # Enable Firewall
+                          Set-NetFirewallProfile -All -Enabled True
+                          # Enable Firewall logging
+                          Set-NetFireWallProfile -All -LogBlocked True -LogMaxSize 20000 -LogFileName ‘%systemroot%\system32\LogFiles\Firewall\pfirewall.log’
                         </powershell>
                       EOF
 
