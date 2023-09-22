@@ -15,6 +15,8 @@ data "aws_ami" "win" {
 }
 
 data "aws_ami" "win_test" {
+  count = var.namespace == "prod" ? "0" : "1"
+
   most_recent = true
 
   filter {
