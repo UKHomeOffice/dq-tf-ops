@@ -82,7 +82,7 @@ resource "aws_instance" "win_bastions_test" {
   ami                         = data.aws_ami.win_test.id
   instance_type               = "t3a.xlarge"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
-  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
+  iam_instance_profile        = aws_iam_instance_profile.ops_win.id[count.index]
   subnet_id                   = aws_subnet.OPSSubnet.id
   private_ip                  = element(var.test_bastions_windows_ip, count.index)
   associate_public_ip_address = false
