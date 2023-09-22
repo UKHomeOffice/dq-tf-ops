@@ -79,10 +79,10 @@ resource "aws_instance" "win_bastions" {
 resource "aws_instance" "win_bastions_test" {
   count                       = var.namespace == "prod" ? "0" : "1" # increase count for testing purposes
   key_name                    = var.key_name
-  ami                         = data.aws_ami.win_test.id
+  ami                         = data.aws_ami.win_test.id[count.index]
   instance_type               = "t3a.xlarge"
   vpc_security_group_ids      = [aws_security_group.Bastions.id]
-  iam_instance_profile        = aws_iam_instance_profile.ops_win.id[count.index]
+  iam_instance_profile        = aws_iam_instance_profile.ops_win.id
   subnet_id                   = aws_subnet.OPSSubnet.id
   private_ip                  = element(var.test_bastions_windows_ip, count.index)
   associate_public_ip_address = false
@@ -110,6 +110,7 @@ resource "aws_instance" "win_bastions_test" {
     Name = "win-bastion-test-${count.index + 1}-${local.naming_suffix}"
   }
 }
+
 
 # The preferred format (Target: Key, Values) does not work
 # - maybe I've got the format/syntax wrong but I've tried many variations
