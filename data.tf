@@ -14,6 +14,23 @@ data "aws_ami" "win" {
   ]
 }
 
+data "aws_ami" "win_test" {
+  most_recent = true
+
+  filter {
+    name = "name"
+
+    values = [
+      "dq-ops-win-bastion-411*",
+    ]
+  }
+
+  owners = [
+    "self",
+  ]
+}
+
+
 data "aws_availability_zones" "available" {}
 
 data "aws_ami" "bastion_linux" {
