@@ -93,6 +93,9 @@ class TestE2E(unittest.TestCase):
     def test_name_bastion(self):
         self.assertEqual(self.runner.get_value("module.ops.aws_instance.win_bastions[0]", "tags"), {"Name": "win-bastion-1-ops-preprod-dq"})
 
+    def test_name_bastion_test(self):
+        self.assertEqual(self.runner.get_value("module.ops.aws_ami.win_test[0]", "tags"), {"Name": "win-bastion-test-1-ops-preprod-dq"})
+
 
 if __name__ == '__main__':
     unittest.main()
