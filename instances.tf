@@ -91,6 +91,10 @@ resource "aws_instance" "win_bastions_test" {
   # Windows-specific settings
   user_data = <<EOF
                         <powershell>
+                          #Enable SMBv2 client and server
+                          Set-SmbServerConfiguration -EnableSMB2Protocol $true
+                          sc.exe config lanmanworkstation depend= bowser/mrxsmb10/mrxsmb20/nsi
+                          sc.exe config mrxsmb20 start= auto
                           # Enable Firewall
                           Set-NetFirewallProfile -All -Enabled True
                           # Enable Firewall logging
