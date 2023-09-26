@@ -260,7 +260,7 @@ resource "aws_iam_policy" "httpd_linux_iam" {
         {
           "Effect": "Allow",
           "Action": [
-            "s3:GetObject"ƒ
+            "s3:GetObject"
           ],
           "Resource": [
             "${aws_s3_bucket.httpd_config_bucket.arn}/*",
