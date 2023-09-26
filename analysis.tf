@@ -260,7 +260,7 @@ resource "aws_iam_policy" "httpd_linux_iam" {
         {
           "Effect": "Allow",
           "Action": [
-            "s3:GetObject"
+            "s3:GetObject"ƒ
           ],
           "Resource": [
             "${aws_s3_bucket.httpd_config_bucket.arn}/*",
@@ -356,7 +356,7 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "dq_tf_infra_write_to_cw_analysis" {
   role       = aws_iam_role.httpd_ec2_server_role.id
-  policy_arn = "arn:aws:iam::${var.account_id[var.namespace]}:policy/dq-tf-infra-write-to-cw"   
+  policy_arn = "arn:aws:iam::${var.account_id[var.namespace]}:policy/dq-tf-infra-write-to-cw"
 }
 
 resource "aws_iam_role_policy_attachment" "httpd_ec2_server_CWagent" {
