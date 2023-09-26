@@ -364,12 +364,6 @@ resource "aws_iam_role_policy_attachment" "httpd_ec2_server_CWagent" {
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
 }
 
-resource "aws_iam_role_policy_attachment" "httpd_ec2_server_httpd_policy" {
-  role       = aws_iam_role.httpd_ec2_server_role.id
-  policy_arn = "arn:aws:iam::aws:policy/httpd-linux-iam-${local.naming_suffix}"
-}
-
-
 resource "aws_iam_instance_profile" "httpd_server_instance_profile" {
   name = "httpd_server_instance_profile"
   role = aws_iam_role.httpd_ec2_server_role.name
