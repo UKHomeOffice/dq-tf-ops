@@ -314,6 +314,13 @@ resource "aws_iam_policy" "httpd_linux_iam" {
             "arn:aws:ssm:eu-west-2:*:parameter/dq-tf-deploy-user-key-ops-${var.namespace}-dq",
             "arn:aws:ssm:eu-west-2:*:parameter/slack_notification_webhook"
           ]
+        },
+        {
+           "Effect": "Allow",
+           "Action": [
+              "ec2:ModifyInstanceMetadataOptions"
+           ],
+           "Resource": "arn:aws:ec2:*:*:instance/*"
         }
     ]
 }
