@@ -66,15 +66,15 @@ resource "aws_instance" "win_bastions" {
                         </powershell>
                       EOF
 
-  # lifecycle {
-  #   prevent_destroy = true
+  lifecycle {
+    prevent_destroy = true
 
-  #   ignore_changes = [
-  #     user_data,
-  #     ami,
-  #     instance_type,
-  #   ]
-  # }
+    ignore_changes = [
+      user_data,
+      ami,
+      instance_type,
+    ]
+  }
 
   tags = {
     Name = "win-bastion-${count.index + 1}-${local.naming_suffix}"
@@ -97,27 +97,20 @@ resource "aws_instance" "win_bastions_test" {
   # Windows-specific settings
   user_data = <<EOF
                         <powershell>
-                          #Enable SMBv2 client and server
-                          Set-SmbServerConfiguration -EnableSMB2Protocol $true
-                          Set-SmbClientConfiguration -RequireSecuritySignature $true
-                          # Enable Firewall
-                          Set-NetFirewallProfile -All -Enabled True
-                          # Enable Firewall logging
-                          Set-NetFireWallProfile -Domain -LogBlocked True -LogMaxSize 20000 -LogFileName ‘%systemroot%\system32\LogFiles\Firewall\pfirewall.log’
                           # Disable local Administrator
                           Get-LocalUser | Where-Object {$_.Name -eq "Administrator"} | Disable-LocalUser
                         </powershell>
                       EOF
 
-  lifecycle {
-    prevent_destroy = true
+  # lifecycle {
+  #   prevent_destroy = true
 
-    ignore_changes = [
-      user_data,
-      ami,
-      instance_type,
-    ]
-  }
+  #   ignore_changes = [
+  #     user_data,
+  #     ami,
+  #     instance_type,
+  #   ]
+  # }
 
   tags = {
     Name = "win-bastion-test-${count.index + 1}-${local.naming_suffix}"
