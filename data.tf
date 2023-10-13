@@ -40,7 +40,7 @@ data "aws_ami" "bastion_linux" {
     name = "name"
 
     values = [
-      "dq-linux-bastion 267*",
+      "dq-linux-bastion 271*",
     ]
   }
 
