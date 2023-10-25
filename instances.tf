@@ -57,6 +57,9 @@ resource "aws_instance" "win_bastions" {
                         <powershell>
                           # Disable local Administrator
                           Get-LocalUser | Where-Object {$_.Name -eq "Administrator"} | Disable-LocalUser
+                          # Add Instance metadata V2
+                          [string]$instance-id = Invoke-RestMethod -Method GET -Uri http://169.254.169.254/latest/meta-data/instance-id
+                          (Edit-EC2InstanceMetadataOption `-InstanceId $instance-id `-HttpTokens required `-HttpEndpoint enabled).InstanceMetadataOptions
                         </powershell>
                       EOF
 
