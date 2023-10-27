@@ -5,7 +5,7 @@ data "aws_ami" "win" {
     name = "name"
 
     values = [
-      "dq-ops-win-bastion-423*",
+      "dq-ops-win-bastion-429*",
     ]
   }
 
