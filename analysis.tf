@@ -281,20 +281,7 @@ resource "aws_iam_policy" "httpd_linux_iam" {
           "Effect": "Allow",
           "Action": "kms:Decrypt",
           "Resource": "${aws_kms_key.httpd_config_bucket_key.arn}"
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "kms:Encrypt",
-                "kms:Decrypt",
-                "kms:ReEncrypt*",
-                "kms:GenerateDataKey*",
-                "kms:DescribeKey"
-            ],
-            "Resource": [
-                "${var.kms_key_s3[var.namespace]}"
-            ]
-        },
+        },        
         {
           "Effect": "Allow",
           "Action": [
