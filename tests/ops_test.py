@@ -34,7 +34,6 @@ class TestE2E(unittest.TestCase):
               test_bastions_windows_ip        = ["10.8.0.16", "10.8.0.17"]
               ad_aws_ssm_document_name        = "1234"
               ad_writer_instance_profile_name = "1234"
-              adminpassword                   = "1234"
               log_archive_s3_bucket           = "abcd"
               httpd_config_bucket_name        = "dq-test"
               data_archive_bucket_name        = "dq-test"
