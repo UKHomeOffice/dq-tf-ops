@@ -28,7 +28,6 @@ class TestE2E(unittest.TestCase):
               az                              = "eu-west-2a"
               naming_suffix                   = "preprod-dq"
               namespace                       = "notprod"
-              domain_joiner_pwd               = "pwd"
               bastion_linux_ip                = "10.8.0.11"
               bastions_windows_ip             = ["10.8.0.12", "10.8.0.13", "10.8.0.14", "10.8.0.15"]
               test_bastions_windows_ip        = ["10.8.0.16", "10.8.0.17"]
