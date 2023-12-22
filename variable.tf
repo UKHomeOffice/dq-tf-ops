@@ -42,9 +42,6 @@ variable "ops_config_bucket" {
 variable "athena_maintenance_bucket" {
 }
 
-variable "domain_joiner_pwd" {
-}
-
 variable "vpc_peering_connection_ids" {
   description = "Map of VPC peering IDs for the Ops route table."
   type        = map(string)
