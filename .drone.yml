@@ -61,18 +61,18 @@ steps:
     event:
       - push
 
-- name: retrieve_aws_secrets_test
-  pull: if-not-exists
-  image: *vault-image
-  commands: *retrieve-state-aws-key
-  environment:
-    VAULT_ADDR:
-      from_secret: VAULT_ADDR_NOTPROD
-    VAULT_TOKEN:
-      from_secret: VAULT_TOKEN_NOTPROD
-  when:
-    event:
-      - push
+#- name: retrieve_aws_secrets_test
+#  pull: if-not-exists
+#  image: *vault-image
+#  commands: *retrieve-state-aws-key
+#  environment:
+#    VAULT_ADDR:
+#      from_secret: VAULT_ADDR_NOTPROD
+#    VAULT_TOKEN:
+#      from_secret: VAULT_TOKEN_NOTPROD
+#  when:
+#    event:
+#      - push
 
 - name: run-testrunner-tests
   pull: if-not-exists
