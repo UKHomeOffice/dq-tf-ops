@@ -7,7 +7,6 @@ resource "aws_vpc_endpoint" "log_archive" {
 resource "aws_s3_bucket" "ops_config_bucket" {
   bucket = var.ops_config_bucket
   acl    = var.ops_config_acl
-  region = var.region
 
   server_side_encryption_configuration {
     rule {
@@ -59,7 +58,6 @@ POLICY
 resource "aws_s3_bucket" "athena_maintenance_bucket" {
   bucket = var.athena_maintenance_bucket
   acl    = var.athena_maintenance_acl
-  region = var.region
 
   server_side_encryption_configuration {
     rule {
