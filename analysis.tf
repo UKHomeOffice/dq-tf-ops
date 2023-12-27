@@ -169,7 +169,7 @@ resource "aws_security_group" "analysis" {
 
 resource "aws_eip" "analysis_eip" {
   instance = aws_instance.analysis.id
-  vpc      = true
+  domain   = "vpc"
 }
 
 resource "aws_route" "apps-tab" {
