@@ -169,7 +169,7 @@ resource "aws_security_group" "analysis" {
 
 resource "aws_eip" "analysis_eip" {
   instance = aws_instance.analysis.id
-  vpc      = true
+  domain   = "vpc"
 }
 
 resource "aws_route" "apps-tab" {
@@ -187,7 +187,6 @@ resource "aws_kms_key" "httpd_config_bucket_key" {
 resource "aws_s3_bucket" "httpd_config_bucket" {
   bucket = var.httpd_config_bucket_name
   acl    = var.s3_bucket_acl
-  region = var.region
 
   server_side_encryption_configuration {
     rule {

@@ -38,7 +38,7 @@ resource "aws_internet_gateway" "ops_igw" {
 }
 
 resource "aws_eip" "ops_eip" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_nat_gateway" "ops_nat_gw" {
