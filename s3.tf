@@ -25,6 +25,18 @@ resource "aws_s3_bucket" "ops_config_bucket" {
     target_prefix = "ops_config_bucket/"
   }
 
+  lifecycle_rule {
+    enabled = true
+    transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+    noncurrent_version_transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+  }
+
   tags = {
     Name = "ops_config_bucket-${local.naming_suffix}"
   }
@@ -74,6 +86,18 @@ resource "aws_s3_bucket" "athena_maintenance_bucket" {
   logging {
     target_bucket = var.log_archive_s3_bucket
     target_prefix = "athena_maintenance_bucket/"
+  }
+
+  lifecycle_rule {
+    enabled = true
+    transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+    noncurrent_version_transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
   }
 
   tags = {
