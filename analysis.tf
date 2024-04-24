@@ -427,3 +427,4 @@ module "ec2_alarms" {
   pipeline_name   = "analysis-ec2"
   ec2_instance_id = aws_instance.analysis.id
 }
+
