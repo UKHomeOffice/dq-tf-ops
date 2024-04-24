@@ -17,7 +17,7 @@ data "aws_ami" "analysis_ami" {
 resource "aws_instance" "analysis" {
   key_name                    = var.key_name
   ami                         = data.aws_ami.analysis_ami.id
-  instance_type               = var.namespace == "prod" ? "m5.xlarge" : "t3a.medium"
+  instance_type               = var.namespace == "prod" ? "m5.xlarge" : "t3a.small"
   iam_instance_profile        = aws_iam_instance_profile.httpd_server_instance_profile.id
   vpc_security_group_ids      = [aws_security_group.analysis.id]
   associate_public_ip_address = true
@@ -427,3 +427,4 @@ module "ec2_alarms" {
   pipeline_name   = "analysis-ec2"
   ec2_instance_id = aws_instance.analysis.id
 }
+
