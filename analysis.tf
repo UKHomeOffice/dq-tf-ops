@@ -129,7 +129,7 @@ EOF
   #    user_data,
   #  ]
   #}
-#}
+}
 
 resource "aws_security_group" "analysis" {
   vpc_id = aws_vpc.opsvpc.id
