@@ -25,15 +25,15 @@ echo "copying the ec2-user sudoers file to /etc/sudoers.d"
 
 EOF
 
-  lifecycle {
-    prevent_destroy = true
-
-    ignore_changes = [
-      user_data,
-      ami,
-      instance_type,
-    ]
-  }
+  #lifecycle {
+  #  prevent_destroy = true
+#
+  #  ignore_changes = [
+  #    user_data,
+  #    ami,
+  #    instance_type,
+  #  ]
+  #}
 
   tags = {
     Name = "bastion-linux-${local.naming_suffix}"

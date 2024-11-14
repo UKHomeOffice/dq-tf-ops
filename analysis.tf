@@ -121,15 +121,15 @@ EOF
     Name = "ec2-analysis-${local.naming_suffix}"
   }
 
-  lifecycle {
-    prevent_destroy = true
-
-    ignore_changes = [
-      ami,
-      user_data,
-    ]
-  }
-}
+  #lifecycle {
+  #  prevent_destroy = true
+  #
+  #  ignore_changes = [
+  #    ami,
+  #    user_data,
+  #  ]
+  #}
+#}
 
 resource "aws_security_group" "analysis" {
   vpc_id = aws_vpc.opsvpc.id
