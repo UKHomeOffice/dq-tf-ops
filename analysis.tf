@@ -121,14 +121,14 @@ EOF
     Name = "ec2-analysis-${local.naming_suffix}"
   }
 
-  #lifecycle {
-  #  prevent_destroy = true
+  lifecycle {
+    prevent_destroy = true
 
-  #  ignore_changes = [
-  #    ami,
-  #    user_data,
-  #  ]
-  #}
+    ignore_changes = [
+      ami,
+      user_data,
+    ]
+  }
 }
 
 resource "aws_security_group" "analysis" {
