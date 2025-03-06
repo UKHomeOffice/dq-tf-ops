@@ -196,6 +196,7 @@ resource "aws_iam_instance_profile" "ops_win" {
 
 resource "aws_iam_user" "deploy_user" {
   name = "dq-tf-deploy-${local.naming_suffix}"
+  status = "Inactive"
 }
 
 resource "aws_iam_access_key" "deploy_user" {
