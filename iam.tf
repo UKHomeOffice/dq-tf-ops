@@ -200,7 +200,7 @@ resource "aws_iam_user" "deploy_user" {
 
 resource "aws_iam_access_key" "deploy_user" {
   user   = aws_iam_user.deploy_user.name
-  status = "Active"
+  status = "Inactive"
 }
 
 resource "aws_ssm_parameter" "deploy_user_id" {
