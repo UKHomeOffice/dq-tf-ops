@@ -195,7 +195,7 @@ resource "aws_iam_instance_profile" "ops_win" {
 # add dq-tf-deploy user to be used by drone pipleines
 
 resource "aws_iam_user" "deploy_user" {
-  name = "dq-tf-deploy-${local.naming_suffix}"
+  name   = "dq-tf-deploy-${local.naming_suffix}"
   status = "Inactive"
 }
 
