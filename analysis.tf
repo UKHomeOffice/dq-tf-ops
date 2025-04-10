@@ -5,7 +5,7 @@ data "aws_ami" "analysis_ami" {
     name = "name"
 
     values = [
-      "dq-ops-httpd 487*",
+      var.namespace == "prod" ? "dq-ops-httpd 487*" : "dq-ops-httpd 528*",
     ]
   }
 
