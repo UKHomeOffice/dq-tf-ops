@@ -196,6 +196,9 @@ resource "aws_iam_instance_profile" "ops_win" {
 
 resource "aws_iam_user" "deploy_user" {
   name = "dq-tf-deploy-${local.naming_suffix}"
+  lifecycle {
+    ignore_changes = all
+  }
 }
 
 resource "aws_iam_access_key" "deploy_user" {
