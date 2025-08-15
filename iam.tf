@@ -210,6 +210,7 @@ resource "aws_iam_access_key" "deploy_user" {
 }
 
 resource "aws_ssm_parameter" "deploy_user_id" {
+  count = 0
   name  = "dq-tf-deploy-user-id-${local.naming_suffix}"
   type  = "SecureString"
   value = aws_iam_access_key.deploy_user.id
@@ -219,6 +220,7 @@ resource "aws_ssm_parameter" "deploy_user_id" {
 }
 
 resource "aws_ssm_parameter" "deploy_user_key" {
+  count = 0
   name  = "dq-tf-deploy-user-key-${local.naming_suffix}"
   type  = "SecureString"
   value = aws_iam_access_key.deploy_user.secret
