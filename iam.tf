@@ -194,9 +194,9 @@ resource "aws_iam_instance_profile" "ops_win" {
 
 # add dq-tf-deploy user to be used by drone pipleines
 
-#resource "aws_iam_user" "deploy_user" {
-#  name = "dq-tf-deploy-${local.naming_suffix}"
-#}
+resource "aws_iam_user" "deploy_user" {
+  name = "dq-tf-deploy-${local.naming_suffix}"
+}
 
 #resource "aws_iam_access_key" "deploy_user" {
 #  user   = aws_iam_user.deploy_user.name
@@ -215,14 +215,14 @@ resource "aws_iam_instance_profile" "ops_win" {
 # value = aws_iam_access_key.deploy_user.secret
 #}
 
-#resource "aws_iam_user_group_membership" "deploy_user_group" {
-#  user = aws_iam_user.deploy_user.name
-#
-#  groups = [
-#    "dq-tf-infra",
-#    "kms-fullaccess"
-#  ]
-#}
+resource "aws_iam_user_group_membership" "deploy_user_group" {
+  user = aws_iam_user.deploy_user.name
+
+  groups = [
+    "dq-tf-infra",
+    "kms-fullaccess"
+  ]
+}
 
 resource "aws_iam_role" "ops_linux" {
   name               = "ops-linux"
