@@ -198,22 +198,31 @@ resource "aws_iam_user" "deploy_user" {
   name = "dq-tf-deploy-${local.naming_suffix}"
 }
 
-#resource "aws_iam_access_key" "deploy_user" {
-#  user   = aws_iam_user.deploy_user.name
-#  status = "Active"
-#}
+resource "aws_iam_access_key" "deploy_user" {
+  user   = aws_iam_user.deploy_user.name
+  status = "Active"
+  lifecycle {
+    ignore_changes = all
+  }
+}
 
-#resource "aws_ssm_parameter" "deploy_user_id" {
-#  name  = "dq-tf-deploy-user-id-${local.naming_suffix}"
-#  type  = "SecureString"
-#  value = aws_iam_access_key.deploy_user.id
-#}
+resource "aws_ssm_parameter" "deploy_user_id" {
+  name  = "dq-tf-deploy-user-id-${local.naming_suffix}"
+  type  = "SecureString"
+  value = aws_iam_access_key.deploy_user.id
+  lifecycle {
+    ignore_changes = all
+  }
+}
 
-#resource "aws_ssm_parameter" "deploy_user_key" {
-# name  = "dq-tf-deploy-user-key-${local.naming_suffix}"
-# type  = "SecureString"
-# value = aws_iam_access_key.deploy_user.secret
-#}
+resource "aws_ssm_parameter" "deploy_user_key" {
+ name  = "dq-tf-deploy-user-key-${local.naming_suffix}"
+ type  = "SecureString"
+ value = aws_iam_access_key.deploy_user.secret
+ lifecycle {
+    ignore_changes = all
+  }
+}
 
 resource "aws_iam_user_group_membership" "deploy_user_group" {
   user = aws_iam_user.deploy_user.name
