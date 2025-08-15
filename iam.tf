@@ -212,7 +212,7 @@ resource "aws_iam_access_key" "deploy_user" {
 resource "aws_ssm_parameter" "deploy_user_id" {
   name  = "dq-tf-deploy-user-id-${local.naming_suffix}"
   type  = "SecureString"
-  value = ""
+  value = aws_iam_access_key.deploy_user.id
   lifecycle {
     ignore_changes = all
   }
@@ -221,7 +221,7 @@ resource "aws_ssm_parameter" "deploy_user_id" {
 resource "aws_ssm_parameter" "deploy_user_key" {
   name  = "dq-tf-deploy-user-key-${local.naming_suffix}"
   type  = "SecureString"
-  value = ""
+  value = aws_iam_access_key.deploy_user.secret
   lifecycle {
     ignore_changes = all
   }
