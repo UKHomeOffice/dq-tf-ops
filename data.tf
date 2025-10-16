@@ -21,7 +21,7 @@ data "aws_ami" "win_test" {
     name = "name"
 
     values = [
-      var.namespace == "prod" ? "dq-ops-win-bastion-297*" : "dq-ops-win-bastion-552*"
+      var.namespace == "prod" ? "dq-ops-win-bastion-297*" : "dq-ops-win-bastion-561*"
     ]
   }
 
