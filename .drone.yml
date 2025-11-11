@@ -5,7 +5,8 @@ global-variables:
 #  terragrunt-image: &terragrunt-image quay.io/ukhomeofficedigital/dq-docker-terragrunt:v0.23.18
 #  terragrunt-image: &terragrunt-image quay.io/ukhomeofficedigital/dq-docker-terragrunt:v0.26.2 # TF0.13
   terragrunt-image: &terragrunt-image quay.io/ukhomeofficedigital/dq-docker-terragrunt:TGv0.54.4_TFv1.6.6
-  vault-image: &vault-image docker.digital.homeoffice.gov.uk/dq/dq-vault-awscli:1.43
+  vault-image: &vault-image quay.io/ukhomeofficedigital/dq-vault-awscli:1.133
+  #docker.digital.homeoffice.gov.uk/dq/dq-vault-awscli:1.43
 
 kind: pipeline
 name: dq-tf-ops
