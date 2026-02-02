@@ -12,6 +12,7 @@ kind: pipeline
 name: dq-tf-ops
 type: kubernetes
 
+
 platform:
   os: linux
   arch: amd64
