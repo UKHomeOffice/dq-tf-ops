@@ -161,6 +161,14 @@ resource "aws_security_group" "Bastions" {
   #  cidr_blocks = ["0.0.0.0/0"]
   #}
 
+
+  lifecycle {
+    ignore_changes = [
+      ingress,
+      egress
+    ]
+  }
+
   ingress {
     from_port   = 111
     to_port     = 111
