@@ -148,11 +148,11 @@ resource "aws_security_group" "Bastions" {
   }
 
   lifecycle {
-     prevent_destroy = true
-     ignore_changes = [
-       ingress,
-       egress,
-     ]
+    prevent_destroy = true
+    ignore_changes = [
+      ingress,
+      egress,
+    ]
   }
 
   #ingress {
