@@ -147,6 +147,14 @@ resource "aws_security_group" "Bastions" {
     Name = "sg-bastions-${local.naming_suffix}"
   }
 
+  lifecycle {
+     prevent_destroy = true
+     ignore_changes = [
+       ingress,
+       egress,
+     ]
+  }
+
   #ingress {
   #  from_port   = 3389
   #  to_port     = 3389
