@@ -162,12 +162,12 @@ resource "aws_security_group" "Bastions" {
   #}
 
 
-  lifecycle {
-    ignore_changes = [
-      ingress,
-      egress
-    ]
-  }
+  #lifecycle {
+  #  ignore_changes = [
+  #    ingress,
+  #    egress
+  #  ]
+  #}
 
   ingress {
     from_port   = 111
