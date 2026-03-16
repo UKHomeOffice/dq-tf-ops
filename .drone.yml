@@ -60,7 +60,7 @@ steps:
   commands: *check-format
   when:
     event:
-      - pull
+      - push
 
 - name: retrieve_aws_secrets
   pull: if-not-exists
@@ -73,7 +73,7 @@ steps:
       from_secret: VAULT_TOKEN_NOTPROD
   when:
     event:
-      - pull
+      - push
 
 - name: run-testrunner-tests
   pull: if-not-exists
@@ -84,7 +84,7 @@ steps:
       from_secret: SSH_KEY
   when:
     event:
-      - pull
+      - push
 
 - name: renew vault tokens
   pull: if-not-exists
@@ -102,6 +102,5 @@ steps:
     VAULT_TOKEN_NOTPROD:
       from_secret: VAULT_TOKEN_NOTPROD
   when:
-    event: 
-      - push
-    #cron: [ renew-vault-tokens ]
+    event: [ cron ]
+    cron: [ renew-vault-tokens ]
