@@ -105,10 +105,15 @@ resource "aws_route_table_association" "ops_public_subnet" {
 resource "aws_default_security_group" "default" {
   vpc_id = aws_vpc.opsvpc.id
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  #egress {
+  #  from_port   = 0
+  #  to_port     = 0
+  #  protocol    = "-1"
+  #  cidr_blocks = ["0.0.0.0/0"]
+  #}
+  #lifecycle {
+  #  ignore_changes = [
+  #    egress
+  #  ]
+  #}
 }
