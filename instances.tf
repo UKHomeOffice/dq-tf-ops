@@ -51,15 +51,15 @@ resource "aws_instance" "win_bastions" {
   private_ip                  = element(var.bastions_windows_ip, count.index)
   associate_public_ip_address = false
   monitoring                  = true
-
+  metadata_options {
+    http_endpoint = "enabled"
+    http_tokens   = "required"
+  }
   # Windows-specific settings
   user_data = <<EOF
                         <powershell>
                           # Disable local Administrator
                           Get-LocalUser | Where-Object {$_.Name -eq "Administrator"} | Disable-LocalUser
-                          # Add Instance metadata V2
-                          [string]$instance = Invoke-RestMethod -Method GET -Uri http://169.254.169.254/latest/meta-data/instance-id
-                          (Edit-EC2InstanceMetadataOption -InstanceId $instance -HttpTokens required -HttpEndpoint enabled).InstanceMetadataOptions
                         </powershell>
                       EOF
 
