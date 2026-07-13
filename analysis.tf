@@ -127,6 +127,7 @@ EOF
     ignore_changes = [
       ami,
       user_data,
+      associate_public_ip_address,
     ]
   }
 }
