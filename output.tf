@@ -30,7 +30,7 @@ output "httpd_config_bucket" {
   value = aws_s3_bucket.httpd_config_bucket.id
 }
 
-output "analysis_eip" {
-  value = aws_eip.analysis_eip.public_ip
-}
+#output "analysis_eip" {
+#  value = aws_eip.analysis_eip.public_ip
+#}
 

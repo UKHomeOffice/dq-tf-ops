@@ -168,10 +168,10 @@ resource "aws_security_group" "analysis" {
   }
 }
 
-resource "aws_eip" "analysis_eip" {
-  instance = aws_instance.analysis.id
-  domain   = "vpc"
-}
+#resource "aws_eip" "analysis_eip" {
+#  instance = aws_instance.analysis.id
+#  domain   = "vpc"
+#}
 
 resource "aws_route" "apps-tab" {
   route_table_id            = aws_route_table.ops_public_table.id
