@@ -20,7 +20,7 @@ resource "aws_instance" "analysis" {
   instance_type               = var.namespace == "prod" ? "t3a.small" : "t3a.small"
   iam_instance_profile        = aws_iam_instance_profile.httpd_server_instance_profile.id
   vpc_security_group_ids      = [aws_security_group.analysis.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   monitoring                  = true
   private_ip                  = var.analysis_instance_ip
   subnet_id                   = aws_subnet.ops_public_subnet.id
