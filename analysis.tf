@@ -20,7 +20,7 @@ resource "aws_instance" "analysis" {
   instance_type               = var.namespace == "prod" ? "t3a.small" : "t3a.small"
   iam_instance_profile        = aws_iam_instance_profile.httpd_server_instance_profile.id
   vpc_security_group_ids      = [aws_security_group.analysis.id]
-  associate_public_ip_address = false
+  associate_public_ip_address = true
   monitoring                  = true
   private_ip                  = var.analysis_instance_ip
   subnet_id                   = aws_subnet.ops_public_subnet.id
@@ -127,7 +127,7 @@ EOF
     ignore_changes = [
       ami,
       user_data,
-      associate_public_ip_address,
+      #associate_public_ip_address,
     ]
   }
 }
@@ -168,10 +168,10 @@ resource "aws_security_group" "analysis" {
   }
 }
 
-#resource "aws_eip" "analysis_eip" {
-#  instance = aws_instance.analysis.id
-#  domain   = "vpc"
-#}
+resource "aws_eip" "analysis_eip" {
+  instance = aws_instance.analysis.id
+  domain   = "vpc"
+}
 
 resource "aws_route" "apps-tab" {
   route_table_id            = aws_route_table.ops_public_table.id
