@@ -40,7 +40,7 @@ data "aws_ami" "bastion_linux" {
     name = "name"
 
     values = [
-      var.namespace == "prod" ? "dq-linux-bastion 359*" : "dq-linux-bastion 375*"
+      var.namespace == "prod" ? "dq-linux-bastion 359*" : "dq-linux-bastion 418*"
     ]
   }
 
