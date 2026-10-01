@@ -232,6 +232,14 @@ resource "aws_security_group" "Bastions" {
     cidr_blocks = ["${var.namespace == "prod" ? "10.44.168" : "10.44.152"}.0/21"]
   }
 
+  ingress {
+    description = "ITHC SSH access via DQ-NOTPROD-OPS VPN"
+    from_port = 22
+    to_port = 22
+    protocol = "tcp"
+    cidr_blocks = ["10.250.56.0/21"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
