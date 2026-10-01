@@ -234,9 +234,9 @@ resource "aws_security_group" "Bastions" {
 
   ingress {
     description = "ITHC SSH access via DQ-NOTPROD-OPS VPN"
-    from_port = 22
-    to_port = 22
-    protocol = "tcp"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
     cidr_blocks = ["10.250.56.0/21"]
   }
 
